@@ -44,7 +44,7 @@ export default class Game extends Phaser.Scene {
 	}
 
 	land(a, b) {
-		console.log(-1 * (1200 - 600 * (b.body.width / 200)))
+		//BOUNCE
 		if (b.body.width < 200) {
 			this.player.setVelocityY( -1 * (1200 - 600 * (b.body.width / 200)));
 		}
