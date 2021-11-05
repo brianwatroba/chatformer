@@ -146,14 +146,13 @@ export default class Game extends Phaser.Scene {
 			this.player.setVelocityY(-630);
 		}
 
-		this.messageTimer += 1;
-		if (this.messageTimer > 25) {
-			if (this.messages.length > 0) {
-				console.log(this.messages);
-				this.ingestMessage(this, this.messages.shift());
-				this.messageTimer = 0;
-			}
+		//ADD MESSAGE
+		
+		if (this.messages.length > 0) {
+			console.log(this.messages.length);
+			this.ingestMessage(this, this.messages.shift());
 		}
+		
 	}
 
 	ingestMessage(phaser, message) {
