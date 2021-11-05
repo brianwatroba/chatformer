@@ -1,4 +1,5 @@
 import Phaser from '../lib/phaser.js';
+import client from '../chat/twitchConfig.js';
 
 export default class Game extends Phaser.Scene {
 	constructor() {
@@ -22,6 +23,7 @@ export default class Game extends Phaser.Scene {
 	baseXVelocity = 0;
 
 	messageTimer = 0;
+	messages = [];
 
 	preload() {
 		this.load.image('sky', 'assets/sky.png');
@@ -33,6 +35,12 @@ export default class Game extends Phaser.Scene {
 			frameWidth: 32,
 			frameHeight: 48,
 		});
+		client.connect();
+
+		client.on('message', (target, context, msg, self) => {
+			this.messages.push(msg.trim());
+		});
+		client.on('connected', this.onConnectedHandler);
 	}
 
 	land() {
@@ -61,6 +69,7 @@ export default class Game extends Phaser.Scene {
 		//  Here we create the ground.
 		//  Scale it to fit the width of the game (the original sprite is 400x32 in size)
 		this.platforms.create(0, 0, 'ground').setScale(3).refreshBody();
+
 
 		var test = this.enemies.create(200, -1000, 'pewdiepie').setScale(.25).refreshBody();
 		test.setBounce(10)
@@ -138,18 +147,17 @@ export default class Game extends Phaser.Scene {
 		}
 
 		this.messageTimer += 1;
-		if (this.messageTimer > 20) {
-			this.ingestMessage(
-				this,
-				this.randomMessages[
-					Math.floor(Math.random() * this.randomMessages.length)
-				]
-			);
-			this.messageTimer = 0;
+		if (this.messageTimer > 25) {
+			if (this.messages.length > 0) {
+				console.log(this.messages);
+				this.ingestMessage(this, this.messages.shift());
+				this.messageTimer = 0;
+			}
 		}
 	}
 
 	ingestMessage(phaser, message) {
+
 		if (Math.random()  > 0.5) {
 			var xPos = this.player.x + 500;	
 			var move_speed = -50 - 400 * Math.random();
@@ -160,7 +168,6 @@ export default class Game extends Phaser.Scene {
 		}
 		
 		var yPos = this.player.y + 200 - 800* Math.random();
-		
 
 		var test_word = phaser.add
 			.text(xPos, yPos, message, {
@@ -175,5 +182,9 @@ export default class Game extends Phaser.Scene {
 		test_word.body.setFriction(1);
 		test_word.body.setVelocityX(move_speed);
 		test_word.body.checkCollision.down = false;
+	}
+
+	onConnectedHandler(addr, port) {
+		console.log(`* Connected to ${addr}:${port}`);
 	}
 }
