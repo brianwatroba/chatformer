@@ -3,7 +3,7 @@ const opts = {
 		username: 'brianstestbot',
 		password: 'oauth:ix3ismboqu6zsaankw8enhonev8f1m',
 	},
-	channels: ['xqcow'],
+	channels: ['moistcr1tikal'],
 };
 
 const client = new tmi.client(opts);
