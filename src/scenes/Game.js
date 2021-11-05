@@ -1,4 +1,5 @@
 import Phaser from '../lib/phaser.js';
+import client from '../chat/twitchConfig.js';
 
 export default class Game extends Phaser.Scene {
 	constructor() {
@@ -21,6 +22,7 @@ export default class Game extends Phaser.Scene {
 	baseXVelocity = 0;
 
 	messageTimer = 0;
+	messages = [];
 
 	preload() {
 		this.load.image('sky', 'assets/sky.png');
@@ -31,6 +33,12 @@ export default class Game extends Phaser.Scene {
 			frameWidth: 32,
 			frameHeight: 48,
 		});
+		client.connect();
+
+		client.on('message', (target, context, msg, self) => {
+			this.messages.push(msg.trim());
+		});
+		client.on('connected', this.onConnectedHandler);
 	}
 
 	create() {
@@ -55,7 +63,6 @@ export default class Game extends Phaser.Scene {
 			.setOrigin(0.5);
 
 		this.wordPlatforms.add(test_word);
-		console.log(test_word.body);
 		test_word.body.allowGravity = false;
 		test_word.body.setVelocityX(-10);
 
@@ -129,13 +136,11 @@ export default class Game extends Phaser.Scene {
 
 		this.messageTimer += 1;
 		if (this.messageTimer > 25) {
-			this.ingestMessage(
-				this,
-				this.randomMessages[
-					Math.floor(Math.random() * this.randomMessages.length)
-				]
-			);
-			this.messageTimer = 0;
+			if (this.messages.length > 0) {
+				console.log(this.messages);
+				this.ingestMessage(this, this.messages.shift());
+				this.messageTimer = 0;
+			}
 		}
 	}
 
@@ -143,8 +148,6 @@ export default class Game extends Phaser.Scene {
 		var xPos = this.player.x + 700;
 		var yPos = this.player.y - 400 + Math.random() * 800;
 		var move_speed = -25 - 300 * Math.random();
-
-		console.log('ingest message: ' + message + ' xPos: ' + xPos);
 
 		var test_word = phaser.add
 			.text(xPos, yPos, message, {
@@ -156,5 +159,9 @@ export default class Game extends Phaser.Scene {
 		this.wordPlatforms.add(test_word);
 		test_word.body.allowGravity = false;
 		test_word.body.setVelocityX(move_speed);
+	}
+
+	onConnectedHandler(addr, port) {
+		console.log(`* Connected to ${addr}:${port}`);
 	}
 }
