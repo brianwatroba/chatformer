@@ -3,7 +3,7 @@ import client from '../chat/twitchConfig.js';
 
 export default class Game extends Phaser.Scene {
 	constructor() {
-		super('game');
+		super('Game');
 	}
 
 	player;
@@ -27,6 +27,21 @@ export default class Game extends Phaser.Scene {
 
 	messageTimer = 0;
 	messages = [];
+	// client;
+
+	// init(data) {
+	// 	console.log(data.streamer);
+	// 	const opts = {
+	// 		identity: {
+	// 			username: 'brothersgettingbetter',
+	// 			password: 'oauth:rgazhj4lf41hjotkyramciepyss8fk',
+	// 		},
+	// 		channels: [data.streamer],
+	// 	};
+
+	// 	this.client = new tmi.client(opts);
+	// 	this.client.connect();
+	// }
 
 	preload() {
 		this.load.image('sky', 'assets/sky.png');
@@ -70,7 +85,7 @@ export default class Game extends Phaser.Scene {
 
 		if (this.player.y * -1 > this.score) {
 			this.score = this.player.y * -1;
-			this.scoreText.setText("Score: " + Math.round(this.score))
+			this.scoreText.setText('Score: ' + Math.round(this.score));
 		}
 	}
 
@@ -97,7 +112,6 @@ export default class Game extends Phaser.Scene {
 		//  Here we create the ground.
 		//  Scale it to fit the width of the game (the original sprite is 400x32 in size)
 		this.platforms.create(0, 0, 'ground').setScale(3).refreshBody();
-
 
 		var pewdiepie = this.enemies.create(200, -400, 'pewdiepie').setScale(.25).refreshBody();
 		this.tweens.add({
@@ -166,7 +180,11 @@ export default class Game extends Phaser.Scene {
 		//  Collide the player and the stars with the platforms
 		this.physics.add.collider(this.player, this.platforms);
 		this.physics.add.collider(this.player, this.enemies, this.die.bind(this));
-		this.physics.add.collider(this.player, this.wordPlatforms, this.land.bind(this));
+		this.physics.add.collider(
+			this.player,
+			this.wordPlatforms,
+			this.land.bind(this)
+		);
 		this.cameras.main.startFollow(this.player, true, 0, 1, 0, 100);
 		this.cameras.main.setZoom(1);
 	}
@@ -255,13 +273,11 @@ export default class Game extends Phaser.Scene {
 	}
 
 	ingestMessage(phaser, message) {
-
 		if (Math.random() > 0.5) {
 			var xPos = this.player.x + 500;
 			var move_speed = -50 - 400 * Math.random();
-		}
-		else {
-			var xPos = this.player.x - 500
+		} else {
+			var xPos = this.player.x - 500;
 			var move_speed = 50 + 400 * Math.random();
 		}
 
@@ -271,7 +287,6 @@ export default class Game extends Phaser.Scene {
 			.text(xPos, yPos, message, {
 				fontSize: '22px',
 				fill: Math.random() < .05 ? '#FF0000' : '#FFFFFF' ,
-
 			})
 			.setOrigin(0.5);
 
