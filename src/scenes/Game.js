@@ -7,6 +7,7 @@ export default class Game extends Phaser.Scene {
 
 	player;
 	platforms;
+	enemies;
 	cursors;
 	gameOver = false;
 	scoreText;
@@ -27,6 +28,7 @@ export default class Game extends Phaser.Scene {
 		this.load.image('ground', 'assets/platform.png');
 		this.load.image('star', 'assets/star.png');
 		this.load.image('bomb', 'assets/bomb.png');
+		this.load.image('pewdiepie', 'assets/pewdiepie.png');
 		this.load.spritesheet('dude', 'assets/dude.png', {
 			frameWidth: 32,
 			frameHeight: 48,
@@ -40,6 +42,9 @@ export default class Game extends Phaser.Scene {
 		}
 	}
 
+	die() {
+		console.log("die")
+	}
 	create() {
 		//  A simple background for our game
 		for (var i = 0; i < 100; i++) {
@@ -49,12 +54,16 @@ export default class Game extends Phaser.Scene {
 
 		//  The platforms group contains the ground and the 2 ledges we can jump on
 		this.platforms = this.physics.add.staticGroup();
+		this.enemies = this.physics.add.staticGroup();
 
 		this.wordPlatforms = this.physics.add.group();
 
 		//  Here we create the ground.
 		//  Scale it to fit the width of the game (the original sprite is 400x32 in size)
 		this.platforms.create(0, 0, 'ground').setScale(3).refreshBody();
+
+		var test = this.enemies.create(200, -1000, 'pewdiepie').setScale(.25).refreshBody();
+		test.setBounce(10)
 
 		// The player and its settings
 		this.player = this.physics.add.sprite(100, -450, 'dude');
@@ -63,7 +72,7 @@ export default class Game extends Phaser.Scene {
 		this.player.setBounce(0.1);
 		this.player.setCollideWorldBounds(false);
 		
-		this.player.body.checkCollision.up = false;
+		//this.player.body.checkCollision.up = false;
     	//this.player.body.checkCollision.left = false;
     	//this.player.body.checkCollision.right = false;
 
@@ -100,6 +109,7 @@ export default class Game extends Phaser.Scene {
 
 		//  Collide the player and the stars with the platforms
 		this.physics.add.collider(this.player, this.platforms);
+		this.physics.add.collider(this.player, this.enemies, this.die.bind(this));
 		this.physics.add.collider(this.player, this.wordPlatforms, this.land.bind(this));
 		this.cameras.main.startFollow(this.player, true, 0, 1, 0, 100);
 		this.cameras.main.setZoom(1);
@@ -155,7 +165,7 @@ export default class Game extends Phaser.Scene {
 		var test_word = phaser.add
 			.text(xPos, yPos, message, {
 				fontSize: '32px',
-				fill: '#FFFFFF',
+				fill: Math.random() < .05 ? '#FF0000' : '#FFFFFF' ,
 			})
 			.setOrigin(0.5);
 
@@ -164,5 +174,6 @@ export default class Game extends Phaser.Scene {
 		test_word.body.setImmovable(true);
 		test_word.body.setFriction(1);
 		test_word.body.setVelocityX(move_speed);
+		test_word.body.checkCollision.down = false;
 	}
 }
