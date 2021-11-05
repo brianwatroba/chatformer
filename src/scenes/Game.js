@@ -13,6 +13,7 @@ export default class Game extends Phaser.Scene {
 	gameOver = false;
 	scoreText;
 	score = 0;
+	stunCounter = 0;
 	wordPlatforms;
 	randomMessages = [
 		'bacon',
@@ -31,10 +32,25 @@ export default class Game extends Phaser.Scene {
 		this.load.image('star', 'assets/star.png');
 		this.load.image('bomb', 'assets/bomb.png');
 		this.load.image('pewdiepie', 'assets/pewdiepie.png');
-		this.load.spritesheet('dude', 'assets/dude.png', {
+		
+		this.load.spritesheet('dude_idle', 'assets/main_character/Idle (32x32).png', {
 			frameWidth: 32,
-			frameHeight: 48,
+			frameHeight: 32,
 		});
+		this.load.spritesheet('dude_run', 'assets/main_character/Run (32x32).png', {
+			frameWidth: 32,
+			frameHeight: 32,
+		});
+		this.load.spritesheet('dude_jump', 'assets/main_character/Jump (32x32).png', {
+			frameWidth: 32,
+			frameHeight: 32,
+		});
+		this.load.spritesheet('dude_hit', 'assets/main_character/Hit (32x32).png', {
+			frameWidth: 32,
+			frameHeight: 32,
+		});
+	
+
 		client.connect();
 
 		client.on('message', (target, context, msg, self) => {
@@ -56,8 +72,13 @@ export default class Game extends Phaser.Scene {
 	}
 
 	die() {
-		//console.log("die")
+		console.log("stun");
+		if (this.player.stun == false) {
+			this.player.stun = true;
+			this.player.anims.play('hit', true);	
+		}
 	}
+
 	create() {
 		//  A simple background for our game
 		for (var i = 0; i < 100; i++) {
@@ -66,7 +87,7 @@ export default class Game extends Phaser.Scene {
 
 		//  The platforms group contains the ground and the 2 ledges we can jump on
 		this.platforms = this.physics.add.staticGroup();
-		this.enemies = this.physics.add.staticGroup();
+		this.enemies = this.physics.add.group();
 
 		this.wordPlatforms = this.physics.add.group();
 
@@ -75,11 +96,23 @@ export default class Game extends Phaser.Scene {
 		this.platforms.create(0, 0, 'ground').setScale(3).refreshBody();
 
 
-		var test = this.enemies.create(200, -1000, 'pewdiepie').setScale(.25).refreshBody();
-		test.setBounce(10)
+		var pewdiepie = this.enemies.create(200, -400, 'pewdiepie').setScale(.25).refreshBody();
+		this.tweens.add({
+	        targets: [pewdiepie, pewdiepie.body],
+	        x: 50,
+	        duration: 1000,
+	        ease: 'Sine.easeInOut',
+	        repeat: -1,
+	        yoyo: true
+    	});
+    	pewdiepie.setImmovable();
+    	pewdiepie.body.setAllowGravity(false);
+    	pewdiepie.setFriction(1, 1)
 
 		// The player and its settings
-		this.player = this.physics.add.sprite(100, -450, 'dude');
+		this.player = this.physics.add.sprite(100, -450, 'dude_idle');
+		this.player.setScale(1);
+		this.player.stun = false;
 
 		//  Player physics properties. Give the little guy a slight bounce.
 		this.player.setBounce(0.1);
@@ -90,23 +123,30 @@ export default class Game extends Phaser.Scene {
     	//this.player.body.checkCollision.right = false;
 
 		//  Our player animations, turning, walking left and walking right.
+
 		this.anims.create({
-			key: 'left',
-			frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
-			frameRate: 10,
-			repeat: -1,
+			key: 'idle',
+			frames: this.anims.generateFrameNumbers('dude_idle', { start: 0, end: 11 }),
+			frameRate: 20,
 		});
 
 		this.anims.create({
-			key: 'turn',
-			frames: [{ key: 'dude', frame: 4 }],
+			key: 'jump',
+			frames: this.anims.generateFrameNumbers('dude_jump', { start: 0, end: 1 }),
 			frameRate: 20,
 		});
 
 		this.anims.create({
 			key: 'right',
-			frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
-			frameRate: 10,
+			frames: this.anims.generateFrameNumbers('dude_run', { start: 0, end: 11 }),
+			frameRate: 20,
+			repeat: -1,
+		});
+
+		this.anims.create({
+			key: 'hit',
+			frames: this.anims.generateFrameNumbers('dude_hit', { start: 0, end: 6 }),
+			frameRate: 20,
 			repeat: -1,
 		});
 
@@ -133,22 +173,50 @@ export default class Game extends Phaser.Scene {
 			return;
 		}
 
-		if (this.cursors.left.isDown) {
-			this.player.setVelocityX(-160);
+		if (this.player.stun == false) {
+			// TURN LEFT
+			if (this.cursors.left.isDown) {
+				this.player.setVelocityX(-160);
+				this.player.setFlipX(true);	
 
-			this.player.anims.play('left', true);
-		} else if (this.cursors.right.isDown) {
-			this.player.setVelocityX(160);
+				if (this.player.body.touching.down) {
+					
+					this.player.anims.play('right', true);
+				}
 
-			this.player.anims.play('right', true);
-		} else {
-			this.player.setVelocityX(this.baseXVelocity);
-			this.player.anims.play('turn');
+			// TURN RIGHT
+			} else if (this.cursors.right.isDown) {
+				this.player.setVelocityX(160);
+				this.player.setFlipX(false);	
+
+				if (this.player.body.touching.down) {
+					this.player.anims.play('right', true);
+				}
+				
+			} else { /// IDLE
+				this.player.setVelocityX(0);
+
+				if (this.player.body.touching.down) {
+					this.player.anims.play('idle', true);	
+				}
+				
+			}
+
+			if (this.cursors.up.isDown && this.player.body.touching.down) {
+				this.player.setVelocityY(-630);
+				this.player.anims.play('jump', true);
+			}
+			
 		}
+		else {
 
-		if (this.cursors.up.isDown && this.player.body.touching.down) {
-			this.player.setVelocityY(-630);
+			this.stunCounter++;
+			if (this.stunCounter > 100) {
+				this.stunCounter = 0;
+				this.player.stun = false;
+			}
 		}
+		
 
 		//ADD MESSAGE
 		
@@ -174,7 +242,7 @@ export default class Game extends Phaser.Scene {
 
 		var test_word = phaser.add
 			.text(xPos, yPos, message, {
-				fontSize: '32px',
+				fontSize: '22px',
 				fill: Math.random() < .05 ? '#FF0000' : '#FFFFFF' ,
 			})
 			.setOrigin(0.5);
