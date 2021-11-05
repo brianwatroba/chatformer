@@ -43,7 +43,12 @@ export default class Game extends Phaser.Scene {
 		client.on('connected', this.onConnectedHandler);
 	}
 
-	land() {
+	land(a, b) {
+		console.log(-1 * (1200 - 600 * (b.body.width / 200)))
+		if (b.body.width < 200) {
+			this.player.setVelocityY( -1 * (1200 - 600 * (b.body.width / 200)));
+		}
+
 		if (this.player.y * -1 > this.score) {
 			this.score = this.player.y * -1;
 			this.scoreText.setText("Score: " + Math.round(this.score))
@@ -51,14 +56,13 @@ export default class Game extends Phaser.Scene {
 	}
 
 	die() {
-		console.log("die")
+		//console.log("die")
 	}
 	create() {
 		//  A simple background for our game
 		for (var i = 0; i < 100; i++) {
 			this.add.image(100, 600 - 300*i, 'sky');
 		}
-		
 
 		//  The platforms group contains the ground and the 2 ledges we can jump on
 		this.platforms = this.physics.add.staticGroup();
@@ -176,6 +180,9 @@ export default class Game extends Phaser.Scene {
 			.setOrigin(0.5);
 
 		this.wordPlatforms.add(test_word);
+		if (test_word.body.width < 200) {
+			test_word.setColor("#0000FF")
+		}
 		test_word.body.setAllowGravity(false);
 		test_word.body.setImmovable(true);
 		test_word.body.setFriction(1);
