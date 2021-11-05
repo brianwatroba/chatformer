@@ -3,7 +3,7 @@ import client from '../chat/twitchConfig.js';
 
 export default class Game extends Phaser.Scene {
 	constructor() {
-		super('game');
+		super('Game');
 	}
 
 	player;
@@ -24,6 +24,21 @@ export default class Game extends Phaser.Scene {
 
 	messageTimer = 0;
 	messages = [];
+	// client;
+
+	// init(data) {
+	// 	console.log(data.streamer);
+	// 	const opts = {
+	// 		identity: {
+	// 			username: 'brothersgettingbetter',
+	// 			password: 'oauth:rgazhj4lf41hjotkyramciepyss8fk',
+	// 		},
+	// 		channels: [data.streamer],
+	// 	};
+
+	// 	this.client = new tmi.client(opts);
+	// 	this.client.connect();
+	// }
 
 	preload() {
 		this.load.image('sky', 'assets/sky.png');
@@ -46,19 +61,18 @@ export default class Game extends Phaser.Scene {
 	land() {
 		if (this.player.y * -1 > this.score) {
 			this.score = this.player.y * -1;
-			this.scoreText.setText("Score: " + Math.round(this.score))
+			this.scoreText.setText('Score: ' + Math.round(this.score));
 		}
 	}
 
 	die() {
-		console.log("die")
+		console.log('die');
 	}
 	create() {
 		//  A simple background for our game
 		for (var i = 0; i < 100; i++) {
-			this.add.image(100, 600 - 300*i, 'sky');
+			this.add.image(100, 600 - 300 * i, 'sky');
 		}
-		
 
 		//  The platforms group contains the ground and the 2 ledges we can jump on
 		this.platforms = this.physics.add.staticGroup();
@@ -70,9 +84,11 @@ export default class Game extends Phaser.Scene {
 		//  Scale it to fit the width of the game (the original sprite is 400x32 in size)
 		this.platforms.create(0, 0, 'ground').setScale(3).refreshBody();
 
-
-		var test = this.enemies.create(200, -1000, 'pewdiepie').setScale(.25).refreshBody();
-		test.setBounce(10)
+		var test = this.enemies
+			.create(200, -1000, 'pewdiepie')
+			.setScale(0.25)
+			.refreshBody();
+		test.setBounce(10);
 
 		// The player and its settings
 		this.player = this.physics.add.sprite(100, -450, 'dude');
@@ -80,10 +96,10 @@ export default class Game extends Phaser.Scene {
 		//  Player physics properties. Give the little guy a slight bounce.
 		this.player.setBounce(0.1);
 		this.player.setCollideWorldBounds(false);
-		
+
 		//this.player.body.checkCollision.up = false;
-    	//this.player.body.checkCollision.left = false;
-    	//this.player.body.checkCollision.right = false;
+		//this.player.body.checkCollision.left = false;
+		//this.player.body.checkCollision.right = false;
 
 		//  Our player animations, turning, walking left and walking right.
 		this.anims.create({
@@ -119,7 +135,11 @@ export default class Game extends Phaser.Scene {
 		//  Collide the player and the stars with the platforms
 		this.physics.add.collider(this.player, this.platforms);
 		this.physics.add.collider(this.player, this.enemies, this.die.bind(this));
-		this.physics.add.collider(this.player, this.wordPlatforms, this.land.bind(this));
+		this.physics.add.collider(
+			this.player,
+			this.wordPlatforms,
+			this.land.bind(this)
+		);
 		this.cameras.main.startFollow(this.player, true, 0, 1, 0, 100);
 		this.cameras.main.setZoom(1);
 	}
@@ -147,31 +167,28 @@ export default class Game extends Phaser.Scene {
 		}
 
 		//ADD MESSAGE
-		
+
 		if (this.messages.length > 0) {
 			console.log(this.messages.length);
 			this.ingestMessage(this, this.messages.shift());
 		}
-		
 	}
 
 	ingestMessage(phaser, message) {
-
-		if (Math.random()  > 0.5) {
-			var xPos = this.player.x + 500;	
+		if (Math.random() > 0.5) {
+			var xPos = this.player.x + 500;
 			var move_speed = -50 - 400 * Math.random();
-		}
-		else {
-			var xPos = this.player.x - 500
+		} else {
+			var xPos = this.player.x - 500;
 			var move_speed = 50 + 400 * Math.random();
 		}
-		
-		var yPos = this.player.y + 200 - 800* Math.random();
+
+		var yPos = this.player.y + 200 - 800 * Math.random();
 
 		var test_word = phaser.add
 			.text(xPos, yPos, message, {
 				fontSize: '32px',
-				fill: Math.random() < .05 ? '#FF0000' : '#FFFFFF' ,
+				fill: Math.random() < 0.05 ? '#FF0000' : '#FFFFFF',
 			})
 			.setOrigin(0.5);
 
