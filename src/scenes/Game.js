@@ -12,6 +12,8 @@ export default class Game extends Phaser.Scene {
 	cursors;
 	gameOver = false;
 	scoreText;
+	minPlatformIntervalSecs = 2; // at minimum one platform every x seconds.
+	lastPlatformPlacedSec = 0;
 	score = 0;
 	stunCounter = 0;
 	wordPlatforms;
@@ -46,6 +48,7 @@ export default class Game extends Phaser.Scene {
 			frameHeight: 32,
 		});
 		this.load.spritesheet('dude_hit', 'assets/main_character/Hit (32x32).png', {
+
 			frameWidth: 32,
 			frameHeight: 32,
 		});
@@ -82,7 +85,7 @@ export default class Game extends Phaser.Scene {
 	create() {
 		//  A simple background for our game
 		for (var i = 0; i < 100; i++) {
-			this.add.image(100, 600 - 300*i, 'sky');
+			this.add.image(100, 600 - 300 * i, 'sky');
 		}
 
 		//  The platforms group contains the ground and the 2 ledges we can jump on
@@ -117,10 +120,10 @@ export default class Game extends Phaser.Scene {
 		//  Player physics properties. Give the little guy a slight bounce.
 		this.player.setBounce(0.1);
 		this.player.setCollideWorldBounds(false);
-		
+
 		//this.player.body.checkCollision.up = false;
-    	//this.player.body.checkCollision.left = false;
-    	//this.player.body.checkCollision.right = false;
+		//this.player.body.checkCollision.left = false;
+		//this.player.body.checkCollision.right = false;
 
 		//  Our player animations, turning, walking left and walking right.
 
@@ -168,7 +171,27 @@ export default class Game extends Phaser.Scene {
 		this.cameras.main.setZoom(1);
 	}
 
-	update() {
+	placeBasicPlatform() {
+		if (Math.random() > 0.5) {
+			var xPos = this.player.x + 500;
+			var move_speed = -50 - 400 * Math.random();
+		}
+		else {
+			var xPos = this.player.x - 500
+			var move_speed = 50 + 400 * Math.random();
+		}
+		var yPos = this.player.y + 200 - 800 * Math.random();
+
+		var platform = this.physics.add.sprite(xPos, yPos, 'platform');
+		this.wordPlatforms.add(platform);
+		platform.body.setAllowGravity(false);
+		platform.body.setImmovable(true);
+		platform.body.setFriction(1);
+		platform.body.setVelocityX(move_speed);
+		platform.body.checkCollision.down = false;
+	}
+
+	update(time, delta) {
 		if (this.gameOver) {
 			return;
 		}
@@ -219,31 +242,36 @@ export default class Game extends Phaser.Scene {
 		
 
 		//ADD MESSAGE
-		
+
 		if (this.messages.length > 0) {
 			console.log(this.messages.length);
 			this.ingestMessage(this, this.messages.shift());
+			this.lastPlatformPlacedSec = time;
+		} else if (time - this.lastPlatformPlacedSec >= (this.minPlatformIntervalSecs * 1000.0)) {
+			console.log("place platform minimum. Last one placed: " + (time - this.lastPlatformPlacedSec));
+			this.lastPlatformPlacedSec = time;
+			this.placeBasicPlatform.bind(this)();
 		}
-		
 	}
 
 	ingestMessage(phaser, message) {
 
-		if (Math.random()  > 0.5) {
-			var xPos = this.player.x + 500;	
+		if (Math.random() > 0.5) {
+			var xPos = this.player.x + 500;
 			var move_speed = -50 - 400 * Math.random();
 		}
 		else {
 			var xPos = this.player.x - 500
 			var move_speed = 50 + 400 * Math.random();
 		}
-		
-		var yPos = this.player.y + 200 - 800* Math.random();
+
+		var yPos = this.player.y + 200 - 800 * Math.random();
 
 		var test_word = phaser.add
 			.text(xPos, yPos, message, {
 				fontSize: '22px',
 				fill: Math.random() < .05 ? '#FF0000' : '#FFFFFF' ,
+
 			})
 			.setOrigin(0.5);
 
