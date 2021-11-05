@@ -1,5 +1,5 @@
-# Chat Invaders
-#### Chat-based space invaders game for Twitch streamers to play with their communities
+# Chatformer
+#### Chat-based jumper platform game for Twitch streamers to play with their chat
 
 ### How to run locally:
 1. Clone project
