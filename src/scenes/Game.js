@@ -42,7 +42,7 @@ export default class Game extends Phaser.Scene {
 		this.load.image('platform', 'assets/platform.png');
 		this.load.image('star', 'assets/star.png');
 		this.load.image('bomb', 'assets/bomb.png');
-		this.load.image('wall', 'assets/1x100.png');
+		this.load.image('wall', 'assets/100x100.png');
 		this.load.image('ground', 'assets/ground.png');
 		this.load.image('dirt', 'assets/dirt.png');
 		this.load.image('cloud1', 'assets/cloud1.png');
@@ -416,11 +416,11 @@ export default class Game extends Phaser.Scene {
 		this.leftWall.clear(true, true);
 		this.rightWall.clear(true, true);
 		this.leftWall
-			.create(-300, this.player.y, 'wall')
+			.create(-800, this.player.y, 'wall')
 			.setScale(10)
 			.refreshBody();
 		this.rightWall
-			.create(500, this.player.y, 'wall')
+			.create(1000, this.player.y, 'wall')
 			.setScale(10)
 			.refreshBody();
 
