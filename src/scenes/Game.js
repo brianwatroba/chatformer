@@ -92,6 +92,10 @@ export default class Game extends Phaser.Scene {
 			frameWidth: 32,
 			frameHeight: 32,
 		});
+		this.load.spritesheet('collected', 'assets/main_character/Collected.png', {
+			frameWidth: 32,
+			frameHeight: 32,
+		});
 
 		client.connect();
 
@@ -152,7 +156,7 @@ export default class Game extends Phaser.Scene {
 	create() {
 		//  A simple background for our game
 
-		this.add.image(100, 0, 'sky').setScale(20)
+		this.add.image(100, 0, 'sky').setScale(30)
 
 		var clouds = [];
 		for (var i = 0; i < 100; i++) {
@@ -260,6 +264,13 @@ export default class Game extends Phaser.Scene {
 		this.anims.create({
 			key: 'coin_sparkle',
 			frames: this.anims.generateFrameNumbers('coin', { start: 0, end: 5 }),
+			frameRate: 20,
+			repeat: -1,
+		});
+
+		this.anims.create({
+			key: 'collect',
+			frames: this.anims.generateFrameNumbers('collected', { start: 0, end: 5 }),
 			frameRate: 20,
 			repeat: -1,
 		});
