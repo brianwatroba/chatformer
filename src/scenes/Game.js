@@ -151,7 +151,8 @@ export default class Game extends Phaser.Scene {
 		this.rightWall = this.physics.add.staticGroup();
 		this.rightWall.allowGravity = false;
 		this.enemies = this.physics.add.group();
-		this.loots = this.physics.add.group();
+		this.boxes = this.physics.add.group();
+		this.items = this.physics.add.group();
 		this.wordPlatforms = this.physics.add.group();
 		this.passThroughObjects = this.physics.add.group();
 
@@ -251,9 +252,19 @@ export default class Game extends Phaser.Scene {
 		);
 		this.physics.add.overlap(
 			this.player,
-			this.loots,
-			this.getLoot
+			this.boxes,
+			this.getBox
 		)
+		this.physics.add.collider(this.items, this.wordPlatforms);
+		this.physics.add.collider(this.items, this.rightWall);
+		this.physics.add.collider(this.items, this.leftWall);
+		this.physics.add.collider(this.items, this.platforms);
+		this.physics.add.overlap(
+			this.player,
+			this.items,
+			this.getItem
+		)
+
 		this.cameras.main.startFollow(this.player, true, 0, 1, 0, 100);
 		this.cameras.main.setZoom(1);
 
@@ -392,26 +403,46 @@ export default class Game extends Phaser.Scene {
 
 	/** Random chance to initialize loot on top of the `word`. */
 	maybeSpawnChest(word) {
-		if (Math.random() >= .1) {
+		if (Math.random() >= 1) {
 			return;
 		}
 		var topOfWordY = word.y - word.displayHeight / 2
-		console.log(topOfWordY)
-		console.log(word.body.velocityX)
-		var chest = this.physics.add.sprite(word.x, topOfWordY, 'chest', /*frame=*/0);
+		var chest = this.boxes.create(word.x, topOfWordY, 'chest', /*frame=*/0)
 		chest.setScale(1.8)
 		chest.setOrigin(0, 1); // bottom, left
 		chest.on('animationcomplete', () => {
-			chest.body.checkCollision.none = true;
+			this.createCoins(chest)
 		});
-		this.loots.add(chest);
 		chest.body.setVelocityX(word.body.velocity.x);
 		chest.body.setAllowGravity(false);
 		chest.body.setImmovable(true);
 	}
 
-	getLoot(player, chest) {
+	getBox(player, chest) {
+		chest.body.checkCollision.none = true;
 		chest.play('chest_open', true);
+	}
+
+	createCoins(chest) {
+		// number between 5 to 10
+		var numCoins = Math.floor(Math.random() * 5) + 5;
+		var xSpread = 100.0
+		var yBase = 800.0
+		var yBuffer = 100.0
+		for (var i = 0; i < numCoins; i++) {
+			var velocityX = (Math.random() * 100) + 50
+			var velocityX = Phaser.Math.FloatBetween(-xSpread, xSpread)
+			var velocityY = -1 * Phaser.Math.FloatBetween(yBase - yBuffer, yBase + yBuffer)
+			var star = this.items.create(chest.x, chest.y, 'star')
+			star.setBounce(0.5)
+			star.setVelocityX(velocityX)
+			star.setVelocityY(velocityY)
+		}
+	}
+
+	getItem(player, item) {
+		console.log('got item')
+		item.disableBody(true, true)
 	}
 
 	onConnectedHandler(addr, port) {
