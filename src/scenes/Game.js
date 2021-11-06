@@ -16,6 +16,8 @@ export default class Game extends Phaser.Scene {
 	lastPlatformPlacedSec = 0;
 	score = 0;
 	wordPlatforms;
+	leftWall;
+	rightWall;
 	randomMessages = [
 		'bacon',
 		'omegalul',
@@ -32,6 +34,7 @@ export default class Game extends Phaser.Scene {
 		this.load.image('ground', 'assets/platform.png');
 		this.load.image('star', 'assets/star.png');
 		this.load.image('bomb', 'assets/bomb.png');
+		this.load.image('wall', 'assets/1x100.png');
 		this.load.image('pewdiepie', 'assets/pewdiepie.png');
 		this.load.image('platform', 'assets/platform.png');
 		this.load.spritesheet('dude', 'assets/dude.png', {
@@ -65,6 +68,10 @@ export default class Game extends Phaser.Scene {
 
 		//  The platforms group contains the ground and the 2 ledges we can jump on
 		this.platforms = this.physics.add.staticGroup();
+		this.leftWall = this.physics.add.staticGroup();
+		this.leftWall.allowGravity = false;
+		this.rightWall = this.physics.add.staticGroup();
+		this.rightWall.allowGravity = false;
 		this.enemies = this.physics.add.staticGroup();
 
 		this.wordPlatforms = this.physics.add.group();
@@ -121,6 +128,12 @@ export default class Game extends Phaser.Scene {
 
 		//  Collide the player and the stars with the platforms
 		this.physics.add.collider(this.player, this.platforms);
+		this.physics.add.collider(this.player, this.leftWall, () => {
+			this.player.x = -275;
+		});
+		this.physics.add.collider(this.player, this.rightWall, () => {
+			this.player.x = 475;
+		});
 		this.physics.add.collider(this.player, this.enemies, this.die.bind(this));
 		this.physics.add.collider(this.player, this.wordPlatforms, this.land.bind(this));
 		this.cameras.main.startFollow(this.player, true, 0, 1, 0, 100);
@@ -168,6 +181,12 @@ export default class Game extends Phaser.Scene {
 		if (this.cursors.up.isDown && this.player.body.touching.down) {
 			this.player.setVelocityY(-630);
 		}
+
+		this.leftWall.clear(true, true);
+		this.rightWall.clear(true, true);
+		this.leftWall.create(-300, this.player.y, "wall").setScale(10).refreshBody();
+		this.rightWall.create(500, this.player.y, "wall").setScale(10).refreshBody();
+
 
 		//ADD MESSAGE
 
