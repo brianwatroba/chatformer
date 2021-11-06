@@ -86,7 +86,7 @@ export default class Game extends Phaser.Scene {
 	}
 
 	land(a, b) {
-		this.player.jumpCount = 0;
+		this.jumpCount = 0;
 		//BOUNCE
 		if (b.body.width < 200) {
 			this.player.setVelocityY(-1 * (1200 - 600 * (b.body.width / 200)));
@@ -94,7 +94,7 @@ export default class Game extends Phaser.Scene {
 
 		if (this.player.y * -1 > this.score) {
 			this.score = this.player.y * -1;
-			
+
 		}
 	}
 
@@ -110,7 +110,7 @@ export default class Game extends Phaser.Scene {
 		if (this.player.stun) {
 			return;
 		}
-		
+
 		if (this.player.body.touching.down) {
 			this.player.setVelocityY(-630);
 			this.player.anims.play('jump', true);
@@ -146,7 +146,7 @@ export default class Game extends Phaser.Scene {
 		this.rightWall = this.physics.add.staticGroup();
 		this.rightWall.allowGravity = false;
 		this.enemies = this.physics.add.group();
-    
+
 		this.wordPlatforms = this.physics.add.group();
 		this.passThroughObjects = this.physics.add.group();
 
@@ -249,17 +249,17 @@ export default class Game extends Phaser.Scene {
 
 	placeBasicPlatform() {
 		if (Math.random() > 0.5) {
-			var xPos = this.player.x + 500;
 			var move_speed = -50 - 400 * Math.random();
 		}
 		else {
-			var xPos = this.player.x - 500
 			var move_speed = 50 + 400 * Math.random();
 		}
 		var yPos = this.player.y + 200 - 800 * Math.random();
 
-		var platform = this.physics.add.sprite(xPos, yPos, 'platform');
+		var platform = this.physics.add.sprite(0, yPos, 'platform');
 		this.wordPlatforms.add(platform);
+    platform.setOrigin(0);
+    platform.setX(move_speed > 0 ? -300 - platform.body.width : 500)
 		platform.body.setAllowGravity(false);
 		platform.body.setImmovable(true);
 		platform.body.setFriction(1);
@@ -333,48 +333,47 @@ export default class Game extends Phaser.Scene {
 
 	ingestMessage(phaser, message) {
 		if (Math.random() > 0.5) {
-			var xPos = this.player.x + 500;
+			//var xPos = this.player.x + 500;
 			var move_speed = -50 - 200 * Math.random();
 		} else {
-			var xPos = this.player.x - 500;
+			//var xPos = this.player.x - 500;
 			var move_speed = 50 + 200 * Math.random();
 		}
 
 		var yPos = this.player.y + 200 - 800 * Math.random();
 
 		var test_word = phaser.add
-			.text(xPos, yPos, message.message, {
+			.text(0, yPos, message.message, {
 				fontSize: '26px',
 				fill: Math.random() < .05 ? '#FF0000' : '#FFFFFF',
 			})
-			.setOrigin(0.5);
-
-		var displayX = test_word.x - test_word.displayWidth / 2;
-		var displayY = (test_word.y + test_word.displayHeight / 2) + 5;
-		var displayName = phaser.add
-			.text(displayX, displayY, message.displayName, {
-				fontSize: '14px',
-				fill: '#000000'
-			})
+			.setOrigin(0);
 
 		this.wordPlatforms.add(test_word);
 		if (test_word.body.width < 200) {
 			test_word.setColor("#0000FF")
 		}
+
+    test_word.setX(move_speed > 0 ? (-300 - test_word.body.width ) : 500)
+
 		test_word.body.setAllowGravity(false);
 		test_word.body.setImmovable(true);
 		test_word.body.setVelocityX(move_speed);
 		test_word.body.setFriction(1);
 		test_word.body.checkCollision.down = false;
 
-		
+    var displayName = phaser.add
+      .text(test_word.x, test_word.y + 5 + test_word.height, message.displayName, {
+        fontSize: '14px',
+        fill: '#000000'
+      }).setOrigin(0)
 
 		// this.wordPlatforms.add(displayName);
 		this.passThroughObjects.add(displayName);
 		displayName.body.setAllowGravity(false);
 		displayName.body.setImmovable(true);
 		displayName.body.setVelocityX(move_speed);
-		
+
 	}
 
 	onConnectedHandler(addr, port) {
