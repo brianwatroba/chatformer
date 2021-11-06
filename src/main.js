@@ -8,6 +8,13 @@ export default new Phaser.Game({
 	width: 800,
 	height: 600,
 	parent: 'Game',
+	scale: {
+		parent: 'Game',
+		autoCenter: Phaser.Scale.CENTER_BOTH,
+		mode: Phaser.Scale.FIT,
+		width: 800,
+		height: 600,
+	},
 	dom: {
 		createContainer: true,
 	},
