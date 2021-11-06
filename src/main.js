@@ -1,7 +1,7 @@
 import Phaser from './lib/phaser.js';
 
 import Game from './scenes/Game.js';
-import StartScreen from './scenes/StartScreen.js';
+import Start from './scenes/Start.js';
 
 export default new Phaser.Game({
 	type: Phaser.AUTO,
@@ -11,7 +11,7 @@ export default new Phaser.Game({
 	dom: {
 		createContainer: true,
 	},
-	scene: [Game],
+	scene: [Start, Game],
 	physics: {
 		default: 'arcade',
 		arcade: {
