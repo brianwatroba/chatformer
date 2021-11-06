@@ -148,21 +148,21 @@ export default class Game extends Phaser.Scene {
 
 	create() {
 		//  A simple background for our game
-		
-			this.add.image(100, 0, 'sky').setScale(20)
-		
+
+		this.add.image(100, 0, 'sky').setScale(20)
+
 		var clouds = [];
 		for (var i = 0; i < 100; i++) {
-			clouds.push(this.add.image(-600 + Math.random()*400, -700 * i, 'cloud' + Math.floor(1 + Math.random()*3)).setScale(.5));
+			clouds.push(this.add.image(-600 + Math.random() * 400, -700 * i, 'cloud' + Math.floor(1 + Math.random() * 3)).setScale(.5));
 
 		}
 		var tween = this.tweens.add({
-        targets: clouds,
-        x: 700,
-        duration: 50000,
-        ease: 'Linear',
-        loop: -1
-    });
+			targets: clouds,
+			x: 700,
+			duration: 50000,
+			ease: 'Linear',
+			loop: -1
+		});
 
 		//  The platforms group contains the ground and the 2 ledges we can jump on
 		this.platforms = this.physics.add.staticGroup();
@@ -180,12 +180,12 @@ export default class Game extends Phaser.Scene {
 		//this.platforms.create(0, 0, 'ground').setScale(3).refreshBody();
 
 		for (var i = 0; i < 15; i++) {
-			this.platforms.create(-300 + i*44*1.5, 0, 'ground').setScale(1.5).refreshBody();
-			this.platforms.create(-300 + i*44*1.5, 32, 'dirt').setScale(1.5).refreshBody();
+			this.platforms.create(-300 + i * 44 * 1.5, 0, 'ground').setScale(1.5).refreshBody();
+			this.platforms.create(-300 + i * 44 * 1.5, 32, 'dirt').setScale(1.5).refreshBody();
 		}
 		for (var i = 0; i < 15; i++) {
 			for (var j = 0; j < 5; j++) {
-				this.platforms.create(-300 + i*44*1.5, 32 + j*19*1.5, 'dirt').setScale(1.5).refreshBody();
+				this.platforms.create(-300 + i * 44 * 1.5, 32 + j * 19 * 1.5, 'dirt').setScale(1.5).refreshBody();
 			}
 		}
 
@@ -249,7 +249,7 @@ export default class Game extends Phaser.Scene {
 		bird.setImmovable();
 		bird.body.setAllowGravity(false);
 		bird.setVelocityX(-30);
-		bird.play('bird_fly',true);
+		bird.play('bird_fly', true);
 
 		//  Input Events
 		this.cursors = this.input.keyboard.createCursorKeys();
@@ -286,21 +286,21 @@ export default class Game extends Phaser.Scene {
 
 	placeBasicPlatform() {
 		if (Math.random() > 0.5) {
+			var xPos = this.player.x + 500
 			var move_speed = -50 - 400 * Math.random();
 		}
 		else {
+			var xPos = this.player.x - 500;
 			var move_speed = 50 + 400 * Math.random();
 		}
 		var yPos = this.player.y + 200 - 800 * Math.random();
 
 		var platforms = [];
-		var num_platforms = Math.round(8 * Math.random())+1;
+		var num_platforms = Math.round(8 * Math.random()) + 1;
 		for (let i = 0; i < num_platforms; i++) {
-			var platform = this.physics.add.sprite(xPos+i*32, yPos, 'heliplatform').play("heliplatform_spin", true);
+			var platform = this.physics.add.sprite(xPos + i * 32, yPos, 'heliplatform').play("heliplatform_spin", true);
 			platforms.push(platform);
 			this.wordPlatforms.add(platform);
-      platform.setOrigin(0);
-      platform.setX(move_speed > 0 ? -300 - platform.body.width : 500)      
 			platform.body.setAllowGravity(false);
 			platform.body.setImmovable(true);
 			platform.body.setFriction(1);
@@ -370,7 +370,7 @@ export default class Game extends Phaser.Scene {
 			this.placeBasicPlatform.bind(this)();
 		}
 
-		this.scoreText.setText('Height: ' + Math.round((this.player.y* -1 - 50)/10) + "m");
+		this.scoreText.setText('Height: ' + Math.round((this.player.y * -1 - 50) / 10) + "m");
 
 		if (this.birdTimer++ % 1000 == 0) {
 			this.spawnBird()
@@ -382,7 +382,7 @@ export default class Game extends Phaser.Scene {
 		bird.setImmovable();
 		bird.body.setAllowGravity(false);
 		bird.setVelocityX(-30);
-		bird.play('bird_fly',true);
+		bird.play('bird_fly', true);
 	}
 
 	ingestMessage(phaser, message) {
@@ -408,7 +408,7 @@ export default class Game extends Phaser.Scene {
 			test_word.setColor("#0000FF")
 		}
 
-    test_word.setX(move_speed > 0 ? (-300 - test_word.body.width ) : 500)
+		test_word.setX(move_speed > 0 ? (-300 - test_word.body.width) : 500)
 
 		test_word.body.setAllowGravity(false);
 		test_word.body.setImmovable(true);
@@ -416,11 +416,11 @@ export default class Game extends Phaser.Scene {
 		test_word.body.setFriction(1);
 		test_word.body.checkCollision.down = false;
 
-    var displayName = phaser.add
-      .text(test_word.x, test_word.y + 5 + test_word.height, message.displayName, {
-        fontSize: '14px',
-        fill: '#000000'
-      }).setOrigin(0)
+		var displayName = phaser.add
+			.text(test_word.x, test_word.y + 5 + test_word.height, message.displayName, {
+				fontSize: '14px',
+				fill: '#000000'
+			}).setOrigin(0)
 
 		// this.wordPlatforms.add(displayName);
 		this.passThroughObjects.add(displayName);
