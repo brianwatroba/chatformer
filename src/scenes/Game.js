@@ -80,6 +80,10 @@ export default class Game extends Phaser.Scene {
 			frameWidth: 32,
 			frameHeight: 32,
 		});
+		this.load.spritesheet('heliplatform', 'assets/heliplatform.png', {
+			frameWidth: 32,
+			frameHeight: 10,
+		})
 
 		this.load.spritesheet('bird_fly', 'assets/Bird.png', {
 			frameWidth: 32,
@@ -227,6 +231,12 @@ export default class Game extends Phaser.Scene {
 			frameRate: 20,
 			repeat: 2,
 		});
+		this.anims.create({
+			key: 'heliplatform_spin',
+			frames: this.anims.generateFrameNumbers('heliplatform', { start: 0, end: 3 }),
+			frameRate: 20,
+			repeat: -1,
+		});
 
 		this.anims.create({
 			key: 'bird_fly',
@@ -283,15 +293,20 @@ export default class Game extends Phaser.Scene {
 		}
 		var yPos = this.player.y + 200 - 800 * Math.random();
 
-		var platform = this.physics.add.sprite(0, yPos, 'platform');
-		this.wordPlatforms.add(platform);
-    platform.setOrigin(0);
-    platform.setX(move_speed > 0 ? -300 - platform.body.width : 500)
-		platform.body.setAllowGravity(false);
-		platform.body.setImmovable(true);
-		platform.body.setFriction(1);
-		platform.body.setVelocityX(move_speed);
-		platform.body.checkCollision.down = false;
+		var platforms = [];
+		var num_platforms = Math.round(8 * Math.random())+1;
+		for (let i = 0; i < num_platforms; i++) {
+			var platform = this.physics.add.sprite(xPos+i*32, yPos, 'heliplatform').play("heliplatform_spin", true);
+			platforms.push(platform);
+			this.wordPlatforms.add(platform);
+      platform.setOrigin(0);
+      platform.setX(move_speed > 0 ? -300 - platform.body.width : 500)      
+			platform.body.setAllowGravity(false);
+			platform.body.setImmovable(true);
+			platform.body.setFriction(1);
+			platform.body.setVelocityX(move_speed);
+			platform.body.checkCollision.down = false;
+		}
 	}
 
 	update(time, delta) {
