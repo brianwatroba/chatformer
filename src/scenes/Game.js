@@ -6,6 +6,7 @@ export default class Game extends Phaser.Scene {
 		super('Game');
 	}
 
+	client;
 	player;
 	platforms;
 	enemies;
@@ -31,21 +32,10 @@ export default class Game extends Phaser.Scene {
 
 	messageTimer = 0;
 	messages = [];
-	// client;
 
-	// init(data) {
-	// 	console.log(data.streamer);
-	// 	const opts = {
-	// 		identity: {
-	// 			username: 'brothersgettingbetter',
-	// 			password: 'oauth:rgazhj4lf41hjotkyramciepyss8fk',
-	// 		},
-	// 		channels: [data.streamer],
-	// 	};
-
-	// 	this.client = new tmi.client(opts);
-	// 	this.client.connect();
-	// }
+	init(data) {
+		this.client = data.client;
+	}
 
 	preload() {
 		this.load.image('sky', 'assets/sky.png');
@@ -60,18 +50,26 @@ export default class Game extends Phaser.Scene {
 		this.load.image('cloud3', 'assets/cloud3.png');
 
 
-		this.load.spritesheet('dude_idle', 'assets/main_character/Idle (32x32).png', {
-			frameWidth: 32,
-			frameHeight: 32,
-		});
+		this.load.spritesheet(
+			'dude_idle',
+			'assets/main_character/Idle (32x32).png',
+			{
+				frameWidth: 32,
+				frameHeight: 32,
+			}
+		);
 		this.load.spritesheet('dude_run', 'assets/main_character/Run (32x32).png', {
 			frameWidth: 32,
 			frameHeight: 32,
 		});
-		this.load.spritesheet('dude_jump', 'assets/main_character/Jump (32x32).png', {
-			frameWidth: 32,
-			frameHeight: 32,
-		});
+		this.load.spritesheet(
+			'dude_jump',
+			'assets/main_character/Jump (32x32).png',
+			{
+				frameWidth: 32,
+				frameHeight: 32,
+			}
+		);
 		this.load.spritesheet('dude_hit', 'assets/main_character/Hit (32x32).png', {
 			frameWidth: 32,
 			frameHeight: 32,
@@ -97,10 +95,13 @@ export default class Game extends Phaser.Scene {
 
 		client.connect();
 
-		client.on('message', (target, context, msg, self) => {
-			this.messages.push({ message: msg.trim(), displayName: context['display-name'] });
+		this.client.on('message', (target, context, msg, self) => {
+			this.messages.push({
+				message: msg.trim(),
+				displayName: context['display-name'],
+			});
 		});
-		client.on('connected', this.onConnectedHandler);
+		// this.client.on('connected', this.onConnectedHandler);
 	}
 
 	land(a, b) {
@@ -112,12 +113,11 @@ export default class Game extends Phaser.Scene {
 
 		if (this.player.y * -1 > this.score) {
 			this.score = this.player.y * -1;
-
 		}
 	}
 
 	die() {
-		console.log("stun");
+		console.log('stun');
 		if (this.player.stun == false) {
 			this.player.stun = true;
 			this.player.anims.play('hit', true);
@@ -133,8 +133,7 @@ export default class Game extends Phaser.Scene {
 			this.player.setVelocityY(-630);
 			this.player.anims.play('jump', true);
 			this.jumpCount = 0;
-		}
-		else {
+		} else {
 			if (this.jumpCount < 2) {
 				this.player.setVelocityY(-630);
 				//this.player.anims.play('double_jump', true);
@@ -145,8 +144,7 @@ export default class Game extends Phaser.Scene {
 	spaceUp() {
 		if (this.jumpCount == 0) {
 			this.jumpCount = 1;
-		}
-		else if (this.jumpCount == 1) {
+		} else if (this.jumpCount == 1) {
 			this.jumpCount = 2;
 		}
 	}
@@ -213,13 +211,19 @@ export default class Game extends Phaser.Scene {
 
 		this.anims.create({
 			key: 'jump',
-			frames: this.anims.generateFrameNumbers('dude_jump', { start: 0, end: 1 }),
+			frames: this.anims.generateFrameNumbers('dude_jump', {
+				start: 0,
+				end: 1,
+			}),
 			frameRate: 20,
 		});
 
 		this.anims.create({
 			key: 'right',
-			frames: this.anims.generateFrameNumbers('dude_run', { start: 0, end: 11 }),
+			frames: this.anims.generateFrameNumbers('dude_run', {
+				start: 0,
+				end: 11,
+			}),
 			frameRate: 20,
 			repeat: -1,
 		});
@@ -232,7 +236,10 @@ export default class Game extends Phaser.Scene {
 		});
 		this.anims.create({
 			key: 'double_jump',
-			frames: this.anims.generateFrameNumbers('dude_double_jump', { start: 0, end: 5 }),
+			frames: this.anims.generateFrameNumbers('dude_double_jump', {
+				start: 0,
+				end: 5,
+			}),
 			frameRate: 20,
 			repeat: 2,
 		});
@@ -295,8 +302,7 @@ export default class Game extends Phaser.Scene {
 		this.cameras.main.startFollow(this.player, true, 0, 1, 0, 100);
 		this.cameras.main.setZoom(1);
 
-
-		var keyObj = this.input.keyboard.addKey('up');  // Get key object
+		var keyObj = this.input.keyboard.addKey('up'); // Get key object
 		keyObj.on('down', this.spaceDown.bind(this));
 		keyObj.on('up', this.spaceUp.bind(this));
 	}
@@ -339,7 +345,6 @@ export default class Game extends Phaser.Scene {
 				this.player.setFlipX(true);
 
 				if (this.player.body.touching.down) {
-
 					this.player.anims.play('right', true);
 				}
 
@@ -351,18 +356,15 @@ export default class Game extends Phaser.Scene {
 				if (this.player.body.touching.down) {
 					this.player.anims.play('right', true);
 				}
-
-			} else { /// IDLE
+			} else {
+				/// IDLE
 				this.player.setVelocityX(0);
 
 				if (this.player.body.touching.down) {
 					this.player.anims.play('idle', true);
 				}
-
 			}
-		}
-		else {
-
+		} else {
 			this.stunCounter++;
 			if (this.stunCounter > 100) {
 				this.stunCounter = 0;
@@ -372,9 +374,14 @@ export default class Game extends Phaser.Scene {
 
 		this.leftWall.clear(true, true);
 		this.rightWall.clear(true, true);
-		this.leftWall.create(-300, this.player.y, "wall").setScale(10).refreshBody();
-		this.rightWall.create(500, this.player.y, "wall").setScale(10).refreshBody();
-
+		this.leftWall
+			.create(-300, this.player.y, 'wall')
+			.setScale(10)
+			.refreshBody();
+		this.rightWall
+			.create(500, this.player.y, 'wall')
+			.setScale(10)
+			.refreshBody();
 
 		//ADD MESSAGE
 
@@ -382,12 +389,13 @@ export default class Game extends Phaser.Scene {
 			console.log(this.messages.length);
 			this.ingestMessage(this, this.messages.shift());
 			this.lastPlatformPlacedSec = time;
-		} else if (time - this.lastPlatformPlacedSec >= (this.minPlatformIntervalSecs * 1000.0)) {
-			console.log("place platform minimum. Last one placed: " + (time - this.lastPlatformPlacedSec));
+		} else if (
+			time - this.lastPlatformPlacedSec >=
+			this.minPlatformIntervalSecs * 1000.0
+		) {
 			this.lastPlatformPlacedSec = time;
 			this.placeBasicPlatform.bind(this)();
 		}
-
 		this.scoreText.setText('Height: ' + Math.round((this.player.y * -1 - 50) / 10) + "m");
 
 		if (this.birdTimer++ % 1000 == 0) {
@@ -417,13 +425,13 @@ export default class Game extends Phaser.Scene {
 		var test_word = phaser.add
 			.text(0, yPos, message.message, {
 				fontSize: '26px',
-				fill: Math.random() < .05 ? '#FF0000' : '#FFFFFF',
+				fill: Math.random() < 0.05 ? '#FF0000' : '#FFFFFF',
 			})
 			.setOrigin(0);
 
 		this.wordPlatforms.add(test_word);
 		if (test_word.body.width < 200) {
-			test_word.setColor("#0000FF")
+			test_word.setColor('#0000FF');
 		}
 
 		test_word.setX(move_speed > 0 ? (-300 - test_word.body.width) : 500)
@@ -448,7 +456,7 @@ export default class Game extends Phaser.Scene {
 
 	}
 
-	onConnectedHandler(addr, port) {
-		console.log(`* Connected to ${addr}:${port}`);
-	}
+	// onConnectedHandler(addr, port) {
+	// 	console.log(`* Connected to ${addr}:${port}`);
+	// }
 }
