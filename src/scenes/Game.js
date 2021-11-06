@@ -51,7 +51,7 @@ export default class Game extends Phaser.Scene {
 		this.load.image('star', 'assets/star.png');
 		this.load.image('bomb', 'assets/bomb.png');
 		this.load.image('pewdiepie', 'assets/pewdiepie.png');
-		
+
 		this.load.spritesheet('dude_idle', 'assets/main_character/Idle (32x32).png', {
 			frameWidth: 32,
 			frameHeight: 32,
@@ -72,12 +72,12 @@ export default class Game extends Phaser.Scene {
 			frameWidth: 32,
 			frameHeight: 32,
 		});
-	
+
 
 		client.connect();
 
 		client.on('message', (target, context, msg, self) => {
-			this.messages.push(msg.trim());
+			this.messages.push({ message: msg.trim(), displayName: context['display-name'] });
 		});
 		client.on('connected', this.onConnectedHandler);
 	}
@@ -85,7 +85,7 @@ export default class Game extends Phaser.Scene {
 	land(a, b) {
 		//BOUNCE
 		if (b.body.width < 200) {
-			this.player.setVelocityY( -1 * (1200 - 600 * (b.body.width / 200)));
+			this.player.setVelocityY(-1 * (1200 - 600 * (b.body.width / 200)));
 		}
 
 		if (this.player.y * -1 > this.score) {
@@ -98,7 +98,7 @@ export default class Game extends Phaser.Scene {
 		console.log("stun");
 		if (this.player.stun == false) {
 			this.player.stun = true;
-			this.player.anims.play('hit', true);	
+			this.player.anims.play('hit', true);
 		}
 	}
 
@@ -140,6 +140,7 @@ export default class Game extends Phaser.Scene {
 		this.enemies = this.physics.add.group();
 
 		this.wordPlatforms = this.physics.add.group();
+		this.passThroughObjects = this.physics.add.group();
 
 		//  Here we create the ground.
 		//  Scale it to fit the width of the game (the original sprite is 400x32 in size)
@@ -147,16 +148,16 @@ export default class Game extends Phaser.Scene {
 
 		var pewdiepie = this.enemies.create(200, -400, 'pewdiepie').setScale(.25).refreshBody();
 		this.tweens.add({
-	        targets: [pewdiepie, pewdiepie.body],
-	        x: 50,
-	        duration: 1000,
-	        ease: 'Sine.easeInOut',
-	        repeat: -1,
-	        yoyo: true
-    	});
-    	pewdiepie.setImmovable();
-    	pewdiepie.body.setAllowGravity(false);
-    	pewdiepie.setFriction(1, 1)
+			targets: [pewdiepie, pewdiepie.body],
+			x: 50,
+			duration: 1000,
+			ease: 'Sine.easeInOut',
+			repeat: -1,
+			yoyo: true
+		});
+		pewdiepie.setImmovable();
+		pewdiepie.body.setAllowGravity(false);
+		pewdiepie.setFriction(1, 1)
 
 		// The player and its settings
 		this.player = this.physics.add.sprite(100, -450, 'dude_idle');
@@ -260,32 +261,31 @@ export default class Game extends Phaser.Scene {
 		if (this.player.stun == false) {
 			// TURN LEFT
 			if (this.cursors.left.isDown) {
-				this.player.setVelocityX(-160);
-				this.player.setFlipX(true);	
+				this.player.setVelocityX(-300);
+				this.player.setFlipX(true);
 
 				if (this.player.body.touching.down) {
-					
+
 					this.player.anims.play('right', true);
 				}
 
-			// TURN RIGHT
+				// TURN RIGHT
 			} else if (this.cursors.right.isDown) {
-				this.player.setVelocityX(160);
-				this.player.setFlipX(false);	
+				this.player.setVelocityX(300);
+				this.player.setFlipX(false);
 
 				if (this.player.body.touching.down) {
 					this.player.anims.play('right', true);
 				}
-				
+
 			} else { /// IDLE
 				this.player.setVelocityX(0);
 
 				if (this.player.body.touching.down) {
-					this.player.anims.play('idle', true);	
+					this.player.anims.play('idle', true);
 				}
-				
+
 			}
-			
 		}
 		else {
 
@@ -295,7 +295,7 @@ export default class Game extends Phaser.Scene {
 				this.player.stun = false;
 			}
 		}
-		
+
 
 		//ADD MESSAGE
 
@@ -322,11 +322,19 @@ export default class Game extends Phaser.Scene {
 		var yPos = this.player.y + 200 - 800 * Math.random();
 
 		var test_word = phaser.add
-			.text(xPos, yPos, message, {
+			.text(xPos, yPos, message.message, {
 				fontSize: '22px',
-				fill: Math.random() < .05 ? '#FF0000' : '#FFFFFF' ,
+				fill: Math.random() < .05 ? '#FF0000' : '#FFFFFF',
 			})
 			.setOrigin(0.5);
+
+		var displayX = test_word.x - test_word.displayWidth / 2;
+		var displayY = (test_word.y + test_word.displayHeight / 2) + 5;
+		var displayName = phaser.add
+			.text(displayX, displayY, message.displayName, {
+				fontSize: '14px',
+				fill: '#000000'
+			})
 
 		this.wordPlatforms.add(test_word);
 		if (test_word.body.width < 200) {
@@ -334,9 +342,15 @@ export default class Game extends Phaser.Scene {
 		}
 		test_word.body.setAllowGravity(false);
 		test_word.body.setImmovable(true);
-		test_word.body.setFriction(1);
 		test_word.body.setVelocityX(move_speed);
+		test_word.body.setFriction(1);
 		test_word.body.checkCollision.down = false;
+
+		// this.wordPlatforms.add(displayName);
+		this.passThroughObjects.add(displayName);
+		displayName.body.setAllowGravity(false);
+		displayName.body.setImmovable(true);
+		displayName.body.setVelocityX(move_speed);
 	}
 
 	onConnectedHandler(addr, port) {
