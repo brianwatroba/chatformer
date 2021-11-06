@@ -100,7 +100,7 @@ export default class Game extends Phaser.Scene {
 	land(a, b) {
 		this.jumpCount = 0;
 		//BOUNCE
-		if (b.body.width < 200) {
+		if (b.body.width < 200 && !b.isHeliPad) {
 			this.player.setVelocityY(-1 * (1200 - 600 * (b.body.width / 200)));
 		}
 
@@ -310,6 +310,7 @@ export default class Game extends Phaser.Scene {
 			platform.body.setFriction(1);
 			platform.body.setVelocityX(move_speed);
 			platform.body.checkCollision.down = false;
+			platform.isHeliPad = true;
 		}
 	}
 
