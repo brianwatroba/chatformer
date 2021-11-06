@@ -11,13 +11,13 @@ export default new Phaser.Game({
 	scale: {
 		parent: 'Game',
 		autoCenter: Phaser.Scale.CENTER_BOTH,
-		mode: Phaser.Scale.FIT,
 		width: 800,
 		height: 600,
 	},
 	dom: {
 		createContainer: true,
 	},
+	resolution: window.devicePixelRatio,
 	scene: [Start, Game],
 	physics: {
 		default: 'arcade',
