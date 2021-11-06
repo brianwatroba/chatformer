@@ -54,6 +54,8 @@ export default class Game extends Phaser.Scene {
 		this.load.image('bomb', 'assets/bomb.png');
 		this.load.image('wall', 'assets/1x100.png');
 		this.load.image('pewdiepie', 'assets/pewdiepie.png');
+		// this.load.image('chest_gold', 'assets/chest_gold.png');
+		// this.load.image('chest', 'assets/chest.png');
 
 		this.load.spritesheet('dude_idle', 'assets/main_character/Idle (32x32).png', {
 			frameWidth: 32,
@@ -75,6 +77,10 @@ export default class Game extends Phaser.Scene {
 			frameWidth: 32,
 			frameHeight: 32,
 		});
+		this.load.spritesheet('chest', 'assets/chest_gold.png', {
+			frameWidth: 21,
+			frameHeight: 18,
+		});
 
 
 		client.connect();
@@ -94,10 +100,9 @@ export default class Game extends Phaser.Scene {
 
 		if (this.player.y * -1 > this.score) {
 			this.score = this.player.y * -1;
-			
+
 		}
 	}
-
 	die() {
 		console.log("stun");
 		if (this.player.stun == false) {
@@ -146,7 +151,7 @@ export default class Game extends Phaser.Scene {
 		this.rightWall = this.physics.add.staticGroup();
 		this.rightWall.allowGravity = false;
 		this.enemies = this.physics.add.group();
-    
+		this.loots = this.physics.add.group();
 		this.wordPlatforms = this.physics.add.group();
 		this.passThroughObjects = this.physics.add.group();
 
@@ -154,18 +159,18 @@ export default class Game extends Phaser.Scene {
 		//  Scale it to fit the width of the game (the original sprite is 400x32 in size)
 		this.platforms.create(0, 0, 'ground').setScale(3).refreshBody();
 
-		var pewdiepie = this.enemies.create(200, -400, 'pewdiepie').setScale(.25).refreshBody();
-		this.tweens.add({
-			targets: [pewdiepie, pewdiepie.body],
-			x: 50,
-			duration: 1000,
-			ease: 'Sine.easeInOut',
-			repeat: -1,
-			yoyo: true
-		});
-		pewdiepie.setImmovable();
-		pewdiepie.body.setAllowGravity(false);
-		pewdiepie.setFriction(1, 1)
+		// var pewdiepie = this.enemies.create(200, -400, 'pewdiepie').setScale(.25).refreshBody();
+		// this.tweens.add({
+		// 	targets: [pewdiepie, pewdiepie.body],
+		// 	x: 50,
+		// 	duration: 1000,
+		// 	ease: 'Sine.easeInOut',
+		// 	repeat: -1,
+		// 	yoyo: true
+		// });
+		// pewdiepie.setImmovable();
+		// pewdiepie.body.setAllowGravity(false);
+		// pewdiepie.setFriction(1, 1)
 
 		// The player and its settings
 		this.player = this.physics.add.sprite(100, -450, 'dude_idle');
@@ -213,6 +218,12 @@ export default class Game extends Phaser.Scene {
 			frameRate: 20,
 			repeat: 2,
 		});
+		this.anims.create({
+			key: 'chest_open',
+			frames: this.anims.generateFrameNumbers('chest', { start: 0, end: 1 }),
+			frameRate: 20,
+			repeat: 0,
+		});
 
 		//  Input Events
 		this.cursors = this.input.keyboard.createCursorKeys();
@@ -238,6 +249,11 @@ export default class Game extends Phaser.Scene {
 			this.wordPlatforms,
 			this.land.bind(this)
 		);
+		this.physics.add.overlap(
+			this.player,
+			this.loots,
+			this.getLoot
+		)
 		this.cameras.main.startFollow(this.player, true, 0, 1, 0, 100);
 		this.cameras.main.setZoom(1);
 
@@ -319,16 +335,14 @@ export default class Game extends Phaser.Scene {
 		//ADD MESSAGE
 
 		if (this.messages.length > 0) {
-			console.log(this.messages.length);
 			this.ingestMessage(this, this.messages.shift());
 			this.lastPlatformPlacedSec = time;
 		} else if (time - this.lastPlatformPlacedSec >= (this.minPlatformIntervalSecs * 1000.0)) {
-			console.log("place platform minimum. Last one placed: " + (time - this.lastPlatformPlacedSec));
 			this.lastPlatformPlacedSec = time;
 			this.placeBasicPlatform.bind(this)();
 		}
 
-		this.scoreText.setText('Height: ' + Math.round((this.player.y* -1 - 64)/10) + "m");
+		this.scoreText.setText('Height: ' + Math.round((this.player.y * -1 - 64) / 10) + "m");
 	}
 
 	ingestMessage(phaser, message) {
@@ -367,14 +381,37 @@ export default class Game extends Phaser.Scene {
 		test_word.body.setFriction(1);
 		test_word.body.checkCollision.down = false;
 
-		
-
-		// this.wordPlatforms.add(displayName);
 		this.passThroughObjects.add(displayName);
 		displayName.body.setAllowGravity(false);
 		displayName.body.setImmovable(true);
 		displayName.body.setVelocityX(move_speed);
-		
+
+		// Maybe spawn chest on top of the text.
+		this.maybeSpawnChest(test_word)
+	}
+
+	/** Random chance to initialize loot on top of the `word`. */
+	maybeSpawnChest(word) {
+		if (Math.random() >= .1) {
+			return;
+		}
+		var topOfWordY = word.y - word.displayHeight / 2
+		console.log(topOfWordY)
+		console.log(word.body.velocityX)
+		var chest = this.physics.add.sprite(word.x, topOfWordY, 'chest', /*frame=*/0);
+		chest.setScale(1.8)
+		chest.setOrigin(0, 1); // bottom, left
+		chest.on('animationcomplete', () => {
+			chest.body.checkCollision.none = true;
+		});
+		this.loots.add(chest);
+		chest.body.setVelocityX(word.body.velocity.x);
+		chest.body.setAllowGravity(false);
+		chest.body.setImmovable(true);
+	}
+
+	getLoot(player, chest) {
+		chest.play('chest_open', true);
 	}
 
 	onConnectedHandler(addr, port) {
