@@ -50,6 +50,7 @@ export default class Game extends Phaser.Scene {
 		this.load.image('cloud1', 'assets/cloud1.png');
 		this.load.image('cloud2', 'assets/cloud2.png');
 		this.load.image('cloud3', 'assets/cloud3.png');
+		this.load.image('transparent_ground', 'assets/2400x100.png');
 
 		this.load.spritesheet(
 			'dude_idle',
@@ -194,6 +195,8 @@ export default class Game extends Phaser.Scene {
 		//  Here we create the ground.
 		//  Scale it to fit the width of the game (the original sprite is 400x32 in size)
 		//this.platforms.create(0, 0, 'ground').setScale(3).refreshBody();
+
+		this.platforms.create(0, 15, 'transparent_ground').refreshBody();
 
 		for (var i = 0; i < 15; i++) {
 			this.platforms.create(-300 + i * 44 * 1.5, 0, 'ground').setScale(1.5).refreshBody();
