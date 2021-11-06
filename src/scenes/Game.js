@@ -444,6 +444,14 @@ export default class Game extends Phaser.Scene {
 		if (this.birdTimer++ % 1000 == 0) {
 			this.spawnBird()
 		}
+		
+		for (let item of this.wordPlatforms.children.entries) {
+			if (Math.abs(item.x) > 2000) {
+				item.destroy();
+			}
+
+		}
+		
 	}
 
 	spawnBird() {
@@ -455,7 +463,7 @@ export default class Game extends Phaser.Scene {
 	}
 
 	ingestMessage(phaser, message) {
-		if (Math.random() > 0.5) {
+		if (Math.random() > 0.1) {
 			//var xPos = this.player.x + 500;
 			var move_speed = -50 - 200 * Math.random();
 		} else {
