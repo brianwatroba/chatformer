@@ -1,9 +1,9 @@
 const opts = {
 	identity: {
-		username: 'lxr417',
-		password: 'oauth:veslxwroq4rphzzs6sbvzwlp2m9e1b',
+		username: 'hongj77',
+		password: 'oauth:vnesc34bnn9fln4j2qong2ilz2mz75',
 	},
-	channels: ['LIRIK'],
+	channels: ['PGL'],
 };
 
 const client = new tmi.client(opts);

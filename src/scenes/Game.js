@@ -49,7 +49,6 @@ export default class Game extends Phaser.Scene {
 		this.load.image('cloud2', 'assets/cloud2.png');
 		this.load.image('cloud3', 'assets/cloud3.png');
 
-
 		this.load.spritesheet(
 			'dude_idle',
 			'assets/main_character/Idle (32x32).png',
@@ -97,6 +96,11 @@ export default class Game extends Phaser.Scene {
 			frameHeight: 32,
 		});
 
+		this.load.spritesheet('chest', 'assets/chest_gold.png', {
+			frameWidth: 21,
+			frameHeight: 18,
+		});
+
 		client.connect();
 
 		this.client.on('message', (target, context, msg, self) => {
@@ -119,7 +123,6 @@ export default class Game extends Phaser.Scene {
 			this.score = this.player.y * -1;
 		}
 	}
-
 	die() {
 		console.log('stun');
 		if (this.player.stun == false) {
@@ -178,7 +181,8 @@ export default class Game extends Phaser.Scene {
 		this.rightWall = this.physics.add.staticGroup();
 		this.rightWall.allowGravity = false;
 		this.enemies = this.physics.add.group();
-
+		this.boxes = this.physics.add.group();
+		this.items = this.physics.add.group();
 		this.wordPlatforms = this.physics.add.group();
 		this.passThroughObjects = this.physics.add.group();
 
@@ -196,9 +200,10 @@ export default class Game extends Phaser.Scene {
 			}
 		}
 
+
 		// The player and its settings
-		this.player = this.physics.add.sprite(100, -50, 'dude_idle');
-		this.player.setScale(1);
+		this.player = this.physics.add.sprite(100, -100, 'dude_idle');
+		this.player.setScale(1.5);
 		this.player.stun = false;
 
 		//  Player physics properties. Give the little guy a slight bounce.
@@ -281,10 +286,17 @@ export default class Game extends Phaser.Scene {
 		bird.setVelocityX(-30);
 		bird.play('bird_fly', true);
 
-		var coin = this.enemies.create(400,-400, 'coin').setScale(1.2);
+		var coin = this.enemies.create(400, -400, 'coin').setScale(1.2);
 		coin.setImmovable();
 		coin.body.setAllowGravity(false)
 		coin.play('coin_sparkle', true);
+
+		this.anims.create({
+			key: 'chest_open',
+			frames: this.anims.generateFrameNumbers('chest', { start: 0, end: 1 }),
+			frameRate: 20,
+			repeat: 0,
+		});
 
 		//  Input Events
 		this.cursors = this.input.keyboard.createCursorKeys();
@@ -310,6 +322,21 @@ export default class Game extends Phaser.Scene {
 			this.wordPlatforms,
 			this.land.bind(this)
 		);
+		this.physics.add.overlap(
+			this.player,
+			this.boxes,
+			this.getBox
+		)
+		this.physics.add.collider(this.items, this.wordPlatforms);
+		this.physics.add.collider(this.items, this.rightWall);
+		this.physics.add.collider(this.items, this.leftWall);
+		this.physics.add.collider(this.items, this.platforms);
+		this.physics.add.overlap(
+			this.player,
+			this.items,
+			this.getItem
+		)
+
 		this.cameras.main.startFollow(this.player, true, 0, 1, 0, 100);
 		this.cameras.main.setZoom(1);
 
@@ -397,7 +424,6 @@ export default class Game extends Phaser.Scene {
 		//ADD MESSAGE
 
 		if (this.messages.length > 0) {
-			console.log(this.messages.length);
 			this.ingestMessage(this, this.messages.shift());
 			this.lastPlatformPlacedSec = time;
 		} else if (
@@ -436,7 +462,7 @@ export default class Game extends Phaser.Scene {
 		var test_word = phaser.add
 			.text(0, yPos, message.message, {
 				fontSize: '26px',
-				fill: Math.random() < 0.05 ? '#FF0000' : '#FFFFFF',
+				fill: '#FFFFFF',
 			})
 			.setOrigin(0);
 
@@ -465,6 +491,60 @@ export default class Game extends Phaser.Scene {
 		displayName.body.setImmovable(true);
 		displayName.body.setVelocityX(move_speed);
 
+		// Maybe spawn chest on top of the text.
+		this.maybeSpawnChest(test_word)
+	}
+
+	/** Random chance to initialize loot on top of the `word`. */
+	maybeSpawnChest(word) {
+		if (Math.random() >= .1) {
+			return;
+		}
+		var topOfWordY = word.y - word.displayHeight / 2
+		var middleOfWordX = word.x + word.displayWidth / 2
+		var chest = this.boxes.create(middleOfWordX, topOfWordY, 'chest', /*frame=*/0)
+		chest.setScale(1.8)
+		chest.on('animationcomplete', () => {
+			this.createCoins(chest)
+		});
+		chest.body.setVelocityX(word.body.velocity.x);
+		chest.body.setAllowGravity(false);
+		chest.body.setImmovable(true);
+	}
+
+	getBox(player, chest) {
+		chest.body.checkCollision.none = true;
+		chest.play('chest_open', true);
+	}
+
+	createCoins(chest) {
+		// number between 5 to 10
+		var numCoins = Math.floor(Math.random() * 5) + 5;
+		var xSpread = 100.0
+		var yBase = 1500
+		var yBuffer = 100.0
+		for (var i = 0; i < numCoins; i++) {
+			var velocityX = (Math.random() * 100) + 50
+			var velocityX = Phaser.Math.FloatBetween(-xSpread, xSpread)
+			var velocityY = -1 * Phaser.Math.FloatBetween(yBase - yBuffer, yBase + yBuffer)
+			var item = this.items.create(chest.x, chest.y, 'star')
+			item.setBounce(0.5)
+			item.setVelocityX(velocityX)
+			item.setVelocityY(velocityY)
+			item.body.checkCollision.none = true
+			setTimeout(
+				function (item) {
+					return function () {
+						item.body.checkCollision.none = false
+					}
+				}(item),
+				200)
+		}
+	}
+
+	getItem(player, item) {
+		console.log('got item')
+		item.disableBody(true, true)
 	}
 
 	// onConnectedHandler(addr, port) {
