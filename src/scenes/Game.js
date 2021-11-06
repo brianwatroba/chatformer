@@ -17,6 +17,7 @@ export default class Game extends Phaser.Scene {
 	score = 0;
 	stunCounter = 0;
 	wordPlatforms;
+	jumpCount = 0;
 	randomMessages = [
 		'bacon',
 		'omegalul',
@@ -64,7 +65,10 @@ export default class Game extends Phaser.Scene {
 			frameHeight: 32,
 		});
 		this.load.spritesheet('dude_hit', 'assets/main_character/Hit (32x32).png', {
-
+			frameWidth: 32,
+			frameHeight: 32,
+		});
+		this.load.spritesheet('dude_double_jump', 'assets/main_character/Double Jump (32x32).png', {
 			frameWidth: 32,
 			frameHeight: 32,
 		});
@@ -95,6 +99,33 @@ export default class Game extends Phaser.Scene {
 		if (this.player.stun == false) {
 			this.player.stun = true;
 			this.player.anims.play('hit', true);
+		}
+	}
+
+	spaceDown() {
+		if (this.player.stun) {
+			return;
+		}
+
+		if (this.player.body.touching.down) {
+			this.player.setVelocityY(-430);
+			this.player.anims.play('jump', true);
+			this.jumpCount = 0;
+		}
+		else {
+			if (this.jumpCount < 2) {
+				this.player.setVelocityY(-430);
+				//this.player.anims.play('double_jump', true);
+			}
+		}
+	}
+
+	spaceUp() {
+		if (this.jumpCount == 0) {
+			this.jumpCount = 1;
+		}
+		else if (this.jumpCount == 1) {
+			this.jumpCount = 2;
 		}
 	}
 
@@ -168,6 +199,12 @@ export default class Game extends Phaser.Scene {
 			frameRate: 20,
 			repeat: -1,
 		});
+		this.anims.create({
+			key: 'double_jump',
+			frames: this.anims.generateFrameNumbers('dude_double_jump', { start: 0, end: 5 }),
+			frameRate: 20,
+			repeat: 2,
+		});
 
 		//  Input Events
 		this.cursors = this.input.keyboard.createCursorKeys();
@@ -189,6 +226,11 @@ export default class Game extends Phaser.Scene {
 		);
 		this.cameras.main.startFollow(this.player, true, 0, 1, 0, 100);
 		this.cameras.main.setZoom(1);
+
+
+		var keyObj = this.input.keyboard.addKey('up');  // Get key object
+		keyObj.on('down', this.spaceDown.bind(this));
+		keyObj.on('up', this.spaceUp.bind(this));
 	}
 
 	placeBasicPlatform() {
@@ -244,12 +286,6 @@ export default class Game extends Phaser.Scene {
 				}
 
 			}
-
-			if (this.cursors.up.isDown && this.player.body.touching.down) {
-				this.player.setVelocityY(-800);
-				this.player.anims.play('jump', true);
-			}
-
 		}
 		else {
 
