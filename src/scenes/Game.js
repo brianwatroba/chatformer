@@ -91,7 +91,7 @@ export default class Game extends Phaser.Scene {
 			frameWidth: 32,
 			frameHeight: 32,
 		});
-		this.load.spritesheet('collected', 'assets/main_character/Collected.png', {
+		this.load.spritesheet('collected', 'assets/Collected.png', {
 			frameWidth: 32,
 			frameHeight: 32,
 		});
@@ -143,7 +143,10 @@ export default class Game extends Phaser.Scene {
 		} else {
 			if (this.jumpCount < 2) {
 				this.player.setVelocityY(-630);
-				//this.player.anims.play('double_jump', true);
+				this.player.anims.play('double_jump', true);
+				this.player.on('animationcomplete', () => {
+					this.player.anims.play('jump', true)
+				});
 			}
 		}
 	}
@@ -247,10 +250,10 @@ export default class Game extends Phaser.Scene {
 			key: 'double_jump',
 			frames: this.anims.generateFrameNumbers('dude_double_jump', {
 				start: 0,
-				end: 5,
+				end: 4,
 			}),
 			frameRate: 20,
-			repeat: 2,
+			repeat: 0,
 		});
 		this.anims.create({
 			key: 'heliplatform_spin',
@@ -277,7 +280,7 @@ export default class Game extends Phaser.Scene {
 			key: 'collect',
 			frames: this.anims.generateFrameNumbers('collected', { start: 0, end: 5 }),
 			frameRate: 20,
-			repeat: -1,
+			repeat: 0,
 		});
 
 		var bird = this.enemies.create(400, -200, 'bird_fly').setScale(1).refreshBody();
@@ -527,7 +530,9 @@ export default class Game extends Phaser.Scene {
 			var velocityX = (Math.random() * 100) + 50
 			var velocityX = Phaser.Math.FloatBetween(-xSpread, xSpread)
 			var velocityY = -1 * Phaser.Math.FloatBetween(yBase - yBuffer, yBase + yBuffer)
-			var item = this.items.create(chest.x, chest.y, 'star')
+			var item = this.items.create(chest.x, chest.y, 'coin')
+			item.setScale(1.5)
+			item.play('coin_sparkle', true);
 			item.setBounce(0.5)
 			item.setVelocityX(velocityX)
 			item.setVelocityY(velocityY)
@@ -544,7 +549,10 @@ export default class Game extends Phaser.Scene {
 
 	getItem(player, item) {
 		console.log('got item')
-		item.disableBody(true, true)
+		item.play('collect', true);
+		item.on('animationcomplete', () => {
+			item.destroy()
+		});
 	}
 
 	// onConnectedHandler(addr, port) {
