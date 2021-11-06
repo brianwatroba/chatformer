@@ -21,6 +21,7 @@ export default class Game extends Phaser.Scene {
 	leftWall;
 	rightWall;
 	jumpCount = 0;
+	birdTimer = 0;
 	randomMessages = [
 		'bacon',
 		'omegalul',
@@ -38,12 +39,16 @@ export default class Game extends Phaser.Scene {
 
 	preload() {
 		this.load.image('sky', 'assets/sky.png');
-		this.load.image('ground', 'assets/platform.png');
 		this.load.image('platform', 'assets/platform.png');
 		this.load.image('star', 'assets/star.png');
 		this.load.image('bomb', 'assets/bomb.png');
 		this.load.image('wall', 'assets/1x100.png');
-		this.load.image('pewdiepie', 'assets/pewdiepie.png');
+		this.load.image('ground', 'assets/ground.png');
+		this.load.image('dirt', 'assets/dirt.png');
+		this.load.image('cloud1', 'assets/cloud1.png');
+		this.load.image('cloud2', 'assets/cloud2.png');
+		this.load.image('cloud3', 'assets/cloud3.png');
+
 
 		this.load.spritesheet(
 			'dude_idle',
@@ -69,14 +74,19 @@ export default class Game extends Phaser.Scene {
 			frameWidth: 32,
 			frameHeight: 32,
 		});
-		this.load.spritesheet(
-			'dude_double_jump',
-			'assets/main_character/Double Jump (32x32).png',
-			{
-				frameWidth: 32,
-				frameHeight: 32,
-			}
-		);
+		this.load.spritesheet('dude_double_jump', 'assets/main_character/Double Jump (32x32).png', {
+			frameWidth: 32,
+			frameHeight: 32,
+		});
+		this.load.spritesheet('heliplatform', 'assets/heliplatform.png', {
+			frameWidth: 32,
+			frameHeight: 10,
+		})
+
+		this.load.spritesheet('bird_fly', 'assets/Bird.png', {
+			frameWidth: 32,
+			frameHeight: 32,
+		});
 
 		this.client.on('message', (target, context, msg, self) => {
 			this.messages.push({
@@ -88,7 +98,7 @@ export default class Game extends Phaser.Scene {
 	}
 
 	land(a, b) {
-		this.player.jumpCount = 0;
+		this.jumpCount = 0;
 		//BOUNCE
 		if (b.body.width < 200) {
 			this.player.setVelocityY(-1 * (1200 - 600 * (b.body.width / 200)));
@@ -134,9 +144,21 @@ export default class Game extends Phaser.Scene {
 
 	create() {
 		//  A simple background for our game
+
+		this.add.image(100, 0, 'sky').setScale(20)
+
+		var clouds = [];
 		for (var i = 0; i < 100; i++) {
-			this.add.image(100, 600 - 300 * i, 'sky');
+			clouds.push(this.add.image(-600 + Math.random() * 400, -700 * i, 'cloud' + Math.floor(1 + Math.random() * 3)).setScale(.5));
+
 		}
+		var tween = this.tweens.add({
+			targets: clouds,
+			x: 700,
+			duration: 50000,
+			ease: 'Linear',
+			loop: -1
+		});
 
 		//  The platforms group contains the ground and the 2 ledges we can jump on
 		this.platforms = this.physics.add.staticGroup();
@@ -151,23 +173,17 @@ export default class Game extends Phaser.Scene {
 
 		//  Here we create the ground.
 		//  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-		this.platforms.create(0, 0, 'ground').setScale(3).refreshBody();
+		//this.platforms.create(0, 0, 'ground').setScale(3).refreshBody();
 
-		var pewdiepie = this.enemies
-			.create(200, -400, 'pewdiepie')
-			.setScale(0.25)
-			.refreshBody();
-		this.tweens.add({
-			targets: [pewdiepie, pewdiepie.body],
-			x: 50,
-			duration: 1000,
-			ease: 'Sine.easeInOut',
-			repeat: -1,
-			yoyo: true,
-		});
-		pewdiepie.setImmovable();
-		pewdiepie.body.setAllowGravity(false);
-		pewdiepie.setFriction(1, 1);
+		for (var i = 0; i < 15; i++) {
+			this.platforms.create(-300 + i * 44 * 1.5, 0, 'ground').setScale(1.5).refreshBody();
+			this.platforms.create(-300 + i * 44 * 1.5, 32, 'dirt').setScale(1.5).refreshBody();
+		}
+		for (var i = 0; i < 15; i++) {
+			for (var j = 0; j < 5; j++) {
+				this.platforms.create(-300 + i * 44 * 1.5, 32 + j * 19 * 1.5, 'dirt').setScale(1.5).refreshBody();
+			}
+		}
 
 		// The player and its settings
 		this.player = this.physics.add.sprite(100, -450, 'dude_idle');
@@ -178,18 +194,11 @@ export default class Game extends Phaser.Scene {
 		this.player.setBounce(0.1);
 		this.player.setCollideWorldBounds(false);
 
-		//this.player.body.checkCollision.up = false;
-		//this.player.body.checkCollision.left = false;
-		//this.player.body.checkCollision.right = false;
-
 		//  Our player animations, turning, walking left and walking right.
 
 		this.anims.create({
 			key: 'idle',
-			frames: this.anims.generateFrameNumbers('dude_idle', {
-				start: 0,
-				end: 11,
-			}),
+			frames: this.anims.generateFrameNumbers('dude_idle', { start: 0, end: 10 }),
 			frameRate: 20,
 		});
 
@@ -227,6 +236,25 @@ export default class Game extends Phaser.Scene {
 			frameRate: 20,
 			repeat: 2,
 		});
+		this.anims.create({
+			key: 'heliplatform_spin',
+			frames: this.anims.generateFrameNumbers('heliplatform', { start: 0, end: 3 }),
+			frameRate: 20,
+			repeat: -1,
+		});
+
+		this.anims.create({
+			key: 'bird_fly',
+			frames: this.anims.generateFrameNumbers('bird_fly', { start: 0, end: 8 }),
+			frameRate: 20,
+			repeat: -1,
+		});
+
+		var bird = this.enemies.create(400, -200, 'bird_fly').setScale(1).refreshBody();
+		bird.setImmovable();
+		bird.body.setAllowGravity(false);
+		bird.setVelocityX(-30);
+		bird.play('bird_fly', true);
 
 		//  Input Events
 		this.cursors = this.input.keyboard.createCursorKeys();
@@ -262,21 +290,27 @@ export default class Game extends Phaser.Scene {
 
 	placeBasicPlatform() {
 		if (Math.random() > 0.5) {
-			var xPos = this.player.x + 500;
+			var xPos = this.player.x + 500
 			var move_speed = -50 - 400 * Math.random();
-		} else {
+		}
+		else {
 			var xPos = this.player.x - 500;
 			var move_speed = 50 + 400 * Math.random();
 		}
 		var yPos = this.player.y + 200 - 800 * Math.random();
 
-		var platform = this.physics.add.sprite(xPos, yPos, 'platform');
-		this.wordPlatforms.add(platform);
-		platform.body.setAllowGravity(false);
-		platform.body.setImmovable(true);
-		platform.body.setFriction(1);
-		platform.body.setVelocityX(move_speed);
-		platform.body.checkCollision.down = false;
+		var platforms = [];
+		var num_platforms = Math.round(8 * Math.random()) + 1;
+		for (let i = 0; i < num_platforms; i++) {
+			var platform = this.physics.add.sprite(xPos + i * 32, yPos, 'heliplatform').play("heliplatform_spin", true);
+			platforms.push(platform);
+			this.wordPlatforms.add(platform);
+			platform.body.setAllowGravity(false);
+			platform.body.setImmovable(true);
+			platform.body.setFriction(1);
+			platform.body.setVelocityX(move_speed);
+			platform.body.checkCollision.down = false;
+		}
 	}
 
 	update(time, delta) {
@@ -342,52 +376,64 @@ export default class Game extends Phaser.Scene {
 			this.lastPlatformPlacedSec = time;
 			this.placeBasicPlatform.bind(this)();
 		}
+		this.scoreText.setText('Height: ' + Math.round((this.player.y * -1 - 50) / 10) + "m");
 
-		this.scoreText.setText(
-			'Height: ' + Math.round((this.player.y * -1 - 64) / 10) + 'm'
-		);
+		if (this.birdTimer++ % 1000 == 0) {
+			this.spawnBird()
+		}
+	}
+
+	spawnBird() {
+		var bird = this.enemies.create(400, this.player.y - 500, 'bird_fly').setScale(1).refreshBody();
+		bird.setImmovable();
+		bird.body.setAllowGravity(false);
+		bird.setVelocityX(-30);
+		bird.play('bird_fly', true);
 	}
 
 	ingestMessage(phaser, message) {
 		if (Math.random() > 0.5) {
-			var xPos = this.player.x + 500;
+			//var xPos = this.player.x + 500;
 			var move_speed = -50 - 200 * Math.random();
 		} else {
-			var xPos = this.player.x - 500;
+			//var xPos = this.player.x - 500;
 			var move_speed = 50 + 200 * Math.random();
 		}
 
 		var yPos = this.player.y + 200 - 800 * Math.random();
 
 		var test_word = phaser.add
-			.text(xPos, yPos, message.message, {
+			.text(0, yPos, message.message, {
 				fontSize: '26px',
 				fill: Math.random() < 0.05 ? '#FF0000' : '#FFFFFF',
 			})
-			.setOrigin(0.5);
-
-		var displayX = test_word.x - test_word.displayWidth / 2;
-		var displayY = test_word.y + test_word.displayHeight / 2 + 5;
-		var displayName = phaser.add.text(displayX, displayY, message.displayName, {
-			fontSize: '14px',
-			fill: '#000000',
-		});
+			.setOrigin(0);
 
 		this.wordPlatforms.add(test_word);
 		if (test_word.body.width < 200) {
 			test_word.setColor('#0000FF');
 		}
+
+		test_word.setX(move_speed > 0 ? (-300 - test_word.body.width) : 500)
+
 		test_word.body.setAllowGravity(false);
 		test_word.body.setImmovable(true);
 		test_word.body.setVelocityX(move_speed);
 		test_word.body.setFriction(1);
 		test_word.body.checkCollision.down = false;
 
+		var displayName = phaser.add
+			.text(test_word.x, test_word.y + 5 + test_word.height, message.displayName, {
+				fontSize: '14px',
+				fill: '#000000'
+			}).setOrigin(0)
+
 		// this.wordPlatforms.add(displayName);
 		this.passThroughObjects.add(displayName);
 		displayName.body.setAllowGravity(false);
 		displayName.body.setImmovable(true);
 		displayName.body.setVelocityX(move_speed);
+
 	}
 
 	// onConnectedHandler(addr, port) {
