@@ -12,7 +12,7 @@ export default class Game extends Phaser.Scene {
 	cursors;
 	gameOver = false;
 	scoreText;
-	minPlatformIntervalSecs = 2; // at minimum one platform every x seconds.
+	minPlatformIntervalSecs = 1; // at minimum one platform every x seconds.
 	lastPlatformPlacedSec = 0;
 	score = 0;
 	stunCounter = 0;
@@ -83,6 +83,7 @@ export default class Game extends Phaser.Scene {
 	}
 
 	land(a, b) {
+		this.player.jumpCount = 0;
 		//BOUNCE
 		if (b.body.width < 200) {
 			this.player.setVelocityY(-1 * (1200 - 600 * (b.body.width / 200)));
@@ -90,7 +91,7 @@ export default class Game extends Phaser.Scene {
 
 		if (this.player.y * -1 > this.score) {
 			this.score = this.player.y * -1;
-			this.scoreText.setText('Score: ' + Math.round(this.score));
+			
 		}
 	}
 
@@ -108,13 +109,13 @@ export default class Game extends Phaser.Scene {
 		}
 		
 		if (this.player.body.touching.down) {
-			this.player.setVelocityY(-430);
+			this.player.setVelocityY(-630);
 			this.player.anims.play('jump', true);
 			this.jumpCount = 0;
 		}
 		else {
 			if (this.jumpCount < 2) {
-				this.player.setVelocityY(-430);
+				this.player.setVelocityY(-630);
 				//this.player.anims.play('double_jump', true);
 			}
 		}
@@ -261,7 +262,7 @@ export default class Game extends Phaser.Scene {
 		if (this.player.stun == false) {
 			// TURN LEFT
 			if (this.cursors.left.isDown) {
-				this.player.setVelocityX(-300);
+				this.player.setVelocityX(-270);
 				this.player.setFlipX(true);
 
 				if (this.player.body.touching.down) {
@@ -271,7 +272,7 @@ export default class Game extends Phaser.Scene {
 
 				// TURN RIGHT
 			} else if (this.cursors.right.isDown) {
-				this.player.setVelocityX(300);
+				this.player.setVelocityX(270);
 				this.player.setFlipX(false);
 
 				if (this.player.body.touching.down) {
@@ -308,22 +309,24 @@ export default class Game extends Phaser.Scene {
 			this.lastPlatformPlacedSec = time;
 			this.placeBasicPlatform.bind(this)();
 		}
+
+		this.scoreText.setText('Height: ' + Math.round((this.player.y* -1 - 64)/10) + "m");
 	}
 
 	ingestMessage(phaser, message) {
 		if (Math.random() > 0.5) {
 			var xPos = this.player.x + 500;
-			var move_speed = -50 - 400 * Math.random();
+			var move_speed = -50 - 200 * Math.random();
 		} else {
 			var xPos = this.player.x - 500;
-			var move_speed = 50 + 400 * Math.random();
+			var move_speed = 50 + 200 * Math.random();
 		}
 
 		var yPos = this.player.y + 200 - 800 * Math.random();
 
 		var test_word = phaser.add
 			.text(xPos, yPos, message.message, {
-				fontSize: '22px',
+				fontSize: '26px',
 				fill: Math.random() < .05 ? '#FF0000' : '#FFFFFF',
 			})
 			.setOrigin(0.5);
@@ -346,11 +349,14 @@ export default class Game extends Phaser.Scene {
 		test_word.body.setFriction(1);
 		test_word.body.checkCollision.down = false;
 
+		
+
 		// this.wordPlatforms.add(displayName);
 		this.passThroughObjects.add(displayName);
 		displayName.body.setAllowGravity(false);
 		displayName.body.setImmovable(true);
 		displayName.body.setVelocityX(move_speed);
+		
 	}
 
 	onConnectedHandler(addr, port) {
