@@ -17,6 +17,8 @@ export default class Game extends Phaser.Scene {
 	lastPlatformPlacedSec = 0;
 	score = 0;
 	stunCounter = 0;
+	gold = 0;
+	goldText;
 	wordPlatforms;
 	leftWall;
 	rightWall;
@@ -289,11 +291,6 @@ export default class Game extends Phaser.Scene {
 		bird.setVelocityX(-30);
 		bird.play('bird_fly', true);
 
-		var coin = this.enemies.create(400, -400, 'coin').setScale(1.2);
-		coin.setImmovable();
-		coin.body.setAllowGravity(false)
-		coin.play('coin_sparkle', true);
-
 		this.anims.create({
 			key: 'chest_open',
 			frames: this.anims.generateFrameNumbers('chest', { start: 0, end: 1 }),
@@ -310,6 +307,12 @@ export default class Game extends Phaser.Scene {
 			fill: '#000',
 		});
 		this.scoreText.setScrollFactor(0);
+
+		this.goldText = this.add.text(16,48, 'Gold: 0', {
+			fontSize: '32px',
+			fill: '#000',
+		});
+		this.goldText.setScrollFactor(0);
 
 		//  Collide the player and the stars with the platforms
 		this.physics.add.collider(this.player, this.platforms);
@@ -337,7 +340,7 @@ export default class Game extends Phaser.Scene {
 		this.physics.add.overlap(
 			this.player,
 			this.items,
-			this.getItem
+			this.getItem.bind(this)
 		)
 
 		this.cameras.main.startFollow(this.player, true, 0, 1, 0, 100);
@@ -500,7 +503,7 @@ export default class Game extends Phaser.Scene {
 
 	/** Random chance to initialize loot on top of the `word`. */
 	maybeSpawnChest(word) {
-		if (Math.random() >= .1) {
+		if (Math.random() >= .5) {
 			return;
 		}
 		var topOfWordY = word.y - word.displayHeight / 2
@@ -551,6 +554,10 @@ export default class Game extends Phaser.Scene {
 		console.log('got item')
 		item.play('collect', true);
 		item.on('animationcomplete', () => {
+			if (item.active) {
+				this.gold+=1;
+				this.goldText.setText("Gold: " + this.gold)	
+			}
 			item.destroy()
 		});
 	}
