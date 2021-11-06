@@ -167,7 +167,7 @@ export default class Game extends Phaser.Scene {
 		this.add.image(100, 0, 'sky').setScale(30)
 
 		var clouds = [];
-		for (var i = 0; i < 100; i++) {
+		for (var i = 1; i < 100; i++) {
 			clouds.push(this.add.image(-600 + Math.random() * 400, -700 * i, 'cloud' + Math.floor(1 + Math.random() * 3)).setScale(.5));
 
 		}
@@ -360,7 +360,7 @@ export default class Game extends Phaser.Scene {
 			var xPos = this.player.x - 500;
 			var move_speed = 50 + 400 * Math.random();
 		}
-		var yPos = this.player.y + 200 - 800 * Math.random();
+		var yPos = Math.min(this.player.y + 200 - 800 * Math.random(), -200);
 
 		var platforms = [];
 		var num_platforms = Math.round(8 * Math.random()) + 1;
@@ -463,7 +463,7 @@ export default class Game extends Phaser.Scene {
 			var move_speed = 50 + 200 * Math.random();
 		}
 
-		var yPos = this.player.y + 200 - 800 * Math.random();
+		var yPos = Math.min(this.player.y + 200 - 800 * Math.random(), -200);
 
 		var test_word = phaser.add
 			.text(0, yPos, message.message, {
