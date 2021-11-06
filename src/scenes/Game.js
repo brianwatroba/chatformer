@@ -90,6 +90,11 @@ export default class Game extends Phaser.Scene {
 			frameHeight: 32,
 		});
 
+		this.load.spritesheet('coin', 'assets/Coin_Sparkle.png', {
+			frameWidth: 32,
+			frameHeight: 32,
+		});
+
 		client.connect();
 
 		client.on('message', (target, context, msg, self) => {
@@ -190,7 +195,7 @@ export default class Game extends Phaser.Scene {
 		}
 
 		// The player and its settings
-		this.player = this.physics.add.sprite(100, -450, 'dude_idle');
+		this.player = this.physics.add.sprite(100, -50, 'dude_idle');
 		this.player.setScale(1);
 		this.player.stun = false;
 
@@ -245,11 +250,23 @@ export default class Game extends Phaser.Scene {
 			repeat: -1,
 		});
 
+		this.anims.create({
+			key: 'coin_sparkle',
+			frames: this.anims.generateFrameNumbers('coin', { start: 0, end: 5 }),
+			frameRate: 20,
+			repeat: -1,
+		});
+
 		var bird = this.enemies.create(400, -200, 'bird_fly').setScale(1).refreshBody();
 		bird.setImmovable();
 		bird.body.setAllowGravity(false);
 		bird.setVelocityX(-30);
 		bird.play('bird_fly', true);
+
+		var coin = this.enemies.create(400,-400, 'coin').setScale(1.2);
+		coin.setImmovable();
+		coin.body.setAllowGravity(false)
+		coin.play('coin_sparkle', true);
 
 		//  Input Events
 		this.cursors = this.input.keyboard.createCursorKeys();
