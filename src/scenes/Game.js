@@ -75,6 +75,10 @@ export default class Game extends Phaser.Scene {
 			frameWidth: 32,
 			frameHeight: 32,
 		});
+		this.load.spritesheet('heliplatform', 'assets/heliplatform.png', {
+			frameWidth: 32,
+			frameHeight: 10,
+		})
 
 
 		client.connect();
@@ -213,6 +217,12 @@ export default class Game extends Phaser.Scene {
 			frameRate: 20,
 			repeat: 2,
 		});
+		this.anims.create({
+			key: 'heliplatform_spin',
+			frames: this.anims.generateFrameNumbers('heliplatform', { start: 0, end: 3 }),
+			frameRate: 20,
+			repeat: -1,
+		});
 
 		//  Input Events
 		this.cursors = this.input.keyboard.createCursorKeys();
@@ -258,13 +268,18 @@ export default class Game extends Phaser.Scene {
 		}
 		var yPos = this.player.y + 200 - 800 * Math.random();
 
-		var platform = this.physics.add.sprite(xPos, yPos, 'platform');
-		this.wordPlatforms.add(platform);
-		platform.body.setAllowGravity(false);
-		platform.body.setImmovable(true);
-		platform.body.setFriction(1);
-		platform.body.setVelocityX(move_speed);
-		platform.body.checkCollision.down = false;
+		var platforms = [];
+		var num_platforms = Math.round(8 * Math.random())+1;
+		for (let i = 0; i < num_platforms; i++) {
+			var platform = this.physics.add.sprite(xPos+i*32, yPos, 'heliplatform').play("heliplatform_spin", true);
+			platforms.push(platform);
+			this.wordPlatforms.add(platform);
+			platform.body.setAllowGravity(false);
+			platform.body.setImmovable(true);
+			platform.body.setFriction(1);
+			platform.body.setVelocityX(move_speed);
+			platform.body.checkCollision.down = false;
+		}
 	}
 
 	update(time, delta) {
