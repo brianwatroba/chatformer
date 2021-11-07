@@ -311,7 +311,7 @@ export default class Game extends Phaser.Scene {
 		});
 		this.scoreText.setScrollFactor(0);
 
-		this.goldText = this.add.text(16,48, 'Gold: 0', {
+		this.goldText = this.add.text(16, 48, 'Gold: 0', {
 			fontSize: '32px',
 			fill: '#000',
 		});
@@ -447,14 +447,14 @@ export default class Game extends Phaser.Scene {
 		if (this.birdTimer++ % 1000 == 0) {
 			this.spawnBird()
 		}
-		
+
 		for (let item of this.wordPlatforms.children.entries) {
 			if (Math.abs(item.x) > 2000) {
 				item.destroy();
 			}
 
 		}
-		
+
 	}
 
 	spawnBird() {
@@ -474,7 +474,7 @@ export default class Game extends Phaser.Scene {
 			var move_speed = 50 + 200 * Math.random();
 		}
 
-		var yPos = Math.min(this.player.y + 200 - 800 * Math.random(), -200);
+		var yPos = Math.min(this.player.y + 200 - 800 * Math.random(), Math.random() * 150 + -300);
 
 		var test_word = phaser.add
 			.text(0, yPos, message.message, {
@@ -514,7 +514,7 @@ export default class Game extends Phaser.Scene {
 
 	/** Random chance to initialize loot on top of the `word`. */
 	maybeSpawnChest(word) {
-		if (Math.random() >= .5) {
+		if (Math.random() >= .1) {
 			return;
 		}
 		var topOfWordY = word.y - word.displayHeight / 2
@@ -566,8 +566,8 @@ export default class Game extends Phaser.Scene {
 		item.play('collect', true);
 		item.on('animationcomplete', () => {
 			if (item.active) {
-				this.gold+=1;
-				this.goldText.setText("Gold: " + this.gold)	
+				this.gold += 1;
+				this.goldText.setText("Gold: " + this.gold)
 			}
 			item.destroy()
 		});
