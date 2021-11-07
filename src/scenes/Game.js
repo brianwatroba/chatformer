@@ -165,7 +165,7 @@ export default class Game extends Phaser.Scene {
 	create() {
 		//  A simple background for our game
 
-		this.add.image(100, 0, 'sky').setScale(30)
+		this.add.image(100, 0, 'sky').setScale(100)
 
 		var clouds = [];
 		for (var i = 1; i < 100; i++) {
