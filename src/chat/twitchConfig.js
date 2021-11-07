@@ -1,7 +1,7 @@
 const opts = {
 	identity: {
 		username: 'hongj77',
-		password: 'oauth:vnesc34bnn9fln4j2qong2ilz2mz75',
+		password: 'oauth:vowuvoqkpomsc22f4cpbnvuwrnpitz',
 	},
 	channels: ['PGL'],
 };
