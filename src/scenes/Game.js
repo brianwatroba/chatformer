@@ -1,4 +1,6 @@
 import Phaser from '../lib/phaser.js';
+import MessagePlatform from '../classes/MessagePlatform.js'
+import MessageTag from '../classes/MessageTag.js'
 import client from '../chat/twitchConfig.js';
 
 export default class Game extends Phaser.Scene {
@@ -24,12 +26,7 @@ export default class Game extends Phaser.Scene {
 	rightWall;
 	jumpCount = 0;
 	birdTimer = 0;
-	randomMessages = [
-		'bacon',
-		'omegalul',
-		'how is this working',
-		'please invest in my startup',
-	];
+	
 	baseXVelocity = 0;
 
 	messageTimer = 0;
@@ -466,50 +463,12 @@ export default class Game extends Phaser.Scene {
 	}
 
 	ingestMessage(phaser, message) {
-		if (Math.random() > 0.1) {
-			//var xPos = this.player.x + 500;
-			var move_speed = -50 - 200 * Math.random();
-		} else {
-			//var xPos = this.player.x - 500;
-			var move_speed = 50 + 200 * Math.random();
-		}
 
-		var yPos = Math.min(this.player.y + 200 - 800 * Math.random(), Math.random() * 150 + -300);
-
-		var test_word = phaser.add
-			.text(0, yPos, message.message, {
-				fontSize: '26px',
-				fill: '#FFFFFF',
-			})
-			.setOrigin(0);
-
-		this.wordPlatforms.add(test_word);
-		if (test_word.body.width < 200) {
-			test_word.setColor('#0000FF');
-		}
-
-		test_word.setX(move_speed > 0 ? (-300 - test_word.body.width) : 500)
-
-		test_word.body.setAllowGravity(false);
-		test_word.body.setImmovable(true);
-		test_word.body.setVelocityX(move_speed);
-		test_word.body.setFriction(1);
-		test_word.body.checkCollision.down = false;
-
-		var displayName = phaser.add
-			.text(test_word.x, test_word.y + 5 + test_word.height, message.displayName, {
-				fontSize: '14px',
-				fill: '#000000'
-			}).setOrigin(0)
-
-		// this.wordPlatforms.add(displayName);
-		this.passThroughObjects.add(displayName);
-		displayName.body.setAllowGravity(false);
-		displayName.body.setImmovable(true);
-		displayName.body.setVelocityX(move_speed);
+		var messagePlatform = phaser.add.existing(new MessagePlatform(this, message.message, this.wordPlatforms));
+		var messageTag = phaser.add.existing(new MessageTag(this, message.displayName, messagePlatform));
 
 		// Maybe spawn chest on top of the text.
-		this.maybeSpawnChest(test_word)
+		this.maybeSpawnChest(messagePlatform)
 	}
 
 	/** Random chance to initialize loot on top of the `word`. */
