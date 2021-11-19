@@ -8,7 +8,6 @@ const gameConfig = {
 	height: 600,
 	parent: 'phaser-game',
 	scale: {
-		// autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
 		width: 800,
 		height: 600,
 	},

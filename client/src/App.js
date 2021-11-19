@@ -1,40 +1,29 @@
 import React, { useEffect } from 'react';
-import './App.css';
 import Phaser from 'phaser';
-import gameConfig from './chatjump/main';
+import gameConfig from './phaser/gameConfig';
 
 function App() {
 	useEffect(() => {
 		new Phaser.Game(gameConfig);
 	});
+
+	// ugly inline styling until we decide on style system
 	return (
 		<div
 			className="App"
 			style={{
 				display: 'flex',
-
 				justifyContent: 'center',
 				flexDirection: 'column',
 			}}
 		>
 			<div
+				id="phaser-game"
 				style={{
 					display: 'flex',
-					justifyContent: 'space-around',
-					flexDirection: 'row',
+					justifyContent: 'center',
 				}}
-			>
-				<div>Chat Jump!!</div>
-				<div
-					id="phaser-game"
-					style={{
-						display: 'flex',
-
-						justifyContent: 'center',
-					}}
-				/>
-				<div>Testing!!</div>
-			</div>
+			/>
 		</div>
 	);
 }
