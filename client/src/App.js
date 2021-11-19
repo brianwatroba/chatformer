@@ -5,8 +5,15 @@ import ChatJump from './chatjump/main';
 
 function App() {
 	return (
-		<div className="App">
-			<IonPhaser game={ChatJump} initialize={true} />
+		<div
+			className="App"
+			style={{
+				display: 'flex',
+				flexDirection: 'row',
+			}}
+		>
+			<div>Chat Jump!!</div>
+			<IonPhaser game={ChatJump} initialize={true} style={{}} />
 		</div>
 	);
 }

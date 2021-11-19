@@ -9,7 +9,7 @@ const ChatJump = {
 	parent: 'Game',
 	scale: {
 		parent: 'Game',
-		autoCenter: Phaser.Scale.CENTER_BOTH,
+		autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
 		width: 800,
 		height: 600,
 	},

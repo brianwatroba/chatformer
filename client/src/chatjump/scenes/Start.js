@@ -8,8 +8,6 @@ const CJ_PINK = '#DB79BA';
 const COLOR_LIGHT = 0x7b5e57;
 const COLOR_DARK = 0x260e04;
 
-const groundSprite = require('../assets/ground.png');
-
 export default class StartScreen extends Phaser.Scene {
 	constructor() {
 		super('Start');
