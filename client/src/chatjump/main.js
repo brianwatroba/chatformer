@@ -2,19 +2,19 @@ import Phaser from 'phaser';
 import Game from './scenes/Game.js';
 import Start from './scenes/Start.js';
 
-const ChatJump = {
+const gameConfig = {
 	type: Phaser.AUTO,
 	width: 800,
 	height: 600,
-	parent: 'Game',
+	parent: 'phaser-game',
 	scale: {
-		parent: 'Game',
-		autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
+		// autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
 		width: 800,
 		height: 600,
 	},
 	dom: {
 		createContainer: true,
+		autoCenter: true,
 	},
 	resolution: window.devicePixelRatio,
 	scene: [Start, Game],
@@ -29,4 +29,4 @@ const ChatJump = {
 	},
 };
 
-export default ChatJump;
+export default gameConfig;
