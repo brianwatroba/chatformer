@@ -3,7 +3,7 @@ import Phaser from './lib/phaser.js';
 import Game from './scenes/Game.js';
 import Start from './scenes/Start.js';
 
-export default new Phaser.Game({
+const ChatJump = new Phaser.Game({
 	type: Phaser.AUTO,
 	width: 800,
 	height: 600,
@@ -29,3 +29,5 @@ export default new Phaser.Game({
 		},
 	},
 });
+
+export default ChatJump;
