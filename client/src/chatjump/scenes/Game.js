@@ -1,7 +1,6 @@
-import Phaser from '../lib/phaser.js';
-import MessagePlatform from '../classes/MessagePlatform.js'
-import MessageTag from '../classes/MessageTag.js'
-import client from '../chat/twitchConfig.js';
+import Phaser from 'phaser';
+import MessagePlatform from '../classes/MessagePlatform.js';
+import MessageTag from '../classes/MessageTag.js';
 
 export default class Game extends Phaser.Scene {
 	constructor() {
@@ -26,7 +25,7 @@ export default class Game extends Phaser.Scene {
 	rightWall;
 	jumpCount = 0;
 	birdTimer = 0;
-	
+
 	baseXVelocity = 0;
 
 	messageTimer = 0;
@@ -73,14 +72,18 @@ export default class Game extends Phaser.Scene {
 			frameWidth: 32,
 			frameHeight: 32,
 		});
-		this.load.spritesheet('dude_double_jump', 'assets/main_character/Double Jump (32x32).png', {
-			frameWidth: 32,
-			frameHeight: 32,
-		});
+		this.load.spritesheet(
+			'dude_double_jump',
+			'assets/main_character/Double Jump (32x32).png',
+			{
+				frameWidth: 32,
+				frameHeight: 32,
+			}
+		);
 		this.load.spritesheet('heliplatform', 'assets/heliplatform.png', {
 			frameWidth: 32,
 			frameHeight: 10,
-		})
+		});
 
 		this.load.spritesheet('bird_fly', 'assets/Bird.png', {
 			frameWidth: 32,
@@ -101,7 +104,7 @@ export default class Game extends Phaser.Scene {
 			frameHeight: 18,
 		});
 
-		client.connect();
+		this.client.connect();
 
 		this.client.on('message', (target, context, msg, self) => {
 			this.messages.push({
@@ -145,7 +148,7 @@ export default class Game extends Phaser.Scene {
 				this.player.setVelocityY(-630);
 				this.player.anims.play('double_jump', true);
 				this.player.on('animationcomplete', () => {
-					this.player.anims.play('jump', true)
+					this.player.anims.play('jump', true);
 				});
 			}
 		}
@@ -162,19 +165,26 @@ export default class Game extends Phaser.Scene {
 	create() {
 		//  A simple background for our game
 
-		this.add.image(100, 0, 'sky').setScale(100)
+		this.add.image(100, 0, 'sky').setScale(100);
 
 		var clouds = [];
 		for (var i = 1; i < 100; i++) {
-			clouds.push(this.add.image(-600 + Math.random() * 400, -700 * i, 'cloud' + Math.floor(1 + Math.random() * 3)).setScale(.5));
-
+			clouds.push(
+				this.add
+					.image(
+						-600 + Math.random() * 400,
+						-700 * i,
+						'cloud' + Math.floor(1 + Math.random() * 3)
+					)
+					.setScale(0.5)
+			);
 		}
 		var tween = this.tweens.add({
 			targets: clouds,
 			x: 700,
 			duration: 50000,
 			ease: 'Linear',
-			loop: -1
+			loop: -1,
 		});
 
 		//  The platforms group contains the ground and the 2 ledges we can jump on
@@ -196,15 +206,23 @@ export default class Game extends Phaser.Scene {
 		this.platforms.create(0, 15, 'transparent_ground').refreshBody();
 
 		for (var i = 0; i < 15; i++) {
-			this.platforms.create(-300 + i * 44 * 1.5, 0, 'ground').setScale(1.5).refreshBody();
-			this.platforms.create(-300 + i * 44 * 1.5, 32, 'dirt').setScale(1.5).refreshBody();
+			this.platforms
+				.create(-300 + i * 44 * 1.5, 0, 'ground')
+				.setScale(1.5)
+				.refreshBody();
+			this.platforms
+				.create(-300 + i * 44 * 1.5, 32, 'dirt')
+				.setScale(1.5)
+				.refreshBody();
 		}
 		for (var i = 0; i < 15; i++) {
 			for (var j = 0; j < 5; j++) {
-				this.platforms.create(-300 + i * 44 * 1.5, 32 + j * 19 * 1.5, 'dirt').setScale(1.5).refreshBody();
+				this.platforms
+					.create(-300 + i * 44 * 1.5, 32 + j * 19 * 1.5, 'dirt')
+					.setScale(1.5)
+					.refreshBody();
 			}
 		}
-
 
 		// The player and its settings
 		this.player = this.physics.add.sprite(100, -100, 'dude_idle');
@@ -219,7 +237,10 @@ export default class Game extends Phaser.Scene {
 
 		this.anims.create({
 			key: 'idle',
-			frames: this.anims.generateFrameNumbers('dude_idle', { start: 0, end: 10 }),
+			frames: this.anims.generateFrameNumbers('dude_idle', {
+				start: 0,
+				end: 10,
+			}),
 			frameRate: 20,
 		});
 
@@ -259,7 +280,10 @@ export default class Game extends Phaser.Scene {
 		});
 		this.anims.create({
 			key: 'heliplatform_spin',
-			frames: this.anims.generateFrameNumbers('heliplatform', { start: 0, end: 3 }),
+			frames: this.anims.generateFrameNumbers('heliplatform', {
+				start: 0,
+				end: 3,
+			}),
 			frameRate: 20,
 			repeat: -1,
 		});
@@ -280,12 +304,18 @@ export default class Game extends Phaser.Scene {
 
 		this.anims.create({
 			key: 'collect',
-			frames: this.anims.generateFrameNumbers('collected', { start: 0, end: 5 }),
+			frames: this.anims.generateFrameNumbers('collected', {
+				start: 0,
+				end: 5,
+			}),
 			frameRate: 20,
 			repeat: 0,
 		});
 
-		var bird = this.enemies.create(400, -200, 'bird_fly').setScale(1).refreshBody();
+		var bird = this.enemies
+			.create(400, -200, 'bird_fly')
+			.setScale(1)
+			.refreshBody();
 		bird.setImmovable();
 		bird.body.setAllowGravity(false);
 		bird.setVelocityX(-30);
@@ -328,20 +358,12 @@ export default class Game extends Phaser.Scene {
 			this.wordPlatforms,
 			this.land.bind(this)
 		);
-		this.physics.add.overlap(
-			this.player,
-			this.boxes,
-			this.getBox
-		)
+		this.physics.add.overlap(this.player, this.boxes, this.getBox);
 		this.physics.add.collider(this.items, this.wordPlatforms);
 		this.physics.add.collider(this.items, this.rightWall);
 		this.physics.add.collider(this.items, this.leftWall);
 		this.physics.add.collider(this.items, this.platforms);
-		this.physics.add.overlap(
-			this.player,
-			this.items,
-			this.getItem.bind(this)
-		)
+		this.physics.add.overlap(this.player, this.items, this.getItem.bind(this));
 
 		this.cameras.main.startFollow(this.player, true, 0, 1, 0, 100);
 		this.cameras.main.setZoom(1);
@@ -353,10 +375,9 @@ export default class Game extends Phaser.Scene {
 
 	placeBasicPlatform() {
 		if (Math.random() > 0.5) {
-			var xPos = this.player.x + 500
+			var xPos = this.player.x + 500;
 			var move_speed = -50 - 400 * Math.random();
-		}
-		else {
+		} else {
 			var xPos = this.player.x - 500;
 			var move_speed = 50 + 400 * Math.random();
 		}
@@ -365,7 +386,9 @@ export default class Game extends Phaser.Scene {
 		var platforms = [];
 		var num_platforms = Math.round(8 * Math.random()) + 1;
 		for (let i = 0; i < num_platforms; i++) {
-			var platform = this.physics.add.sprite(xPos + i * 32, yPos, 'heliplatform').play("heliplatform_spin", true);
+			var platform = this.physics.add
+				.sprite(xPos + i * 32, yPos, 'heliplatform')
+				.play('heliplatform_spin', true);
 			platforms.push(platform);
 			this.wordPlatforms.add(platform);
 			platform.body.setAllowGravity(false);
@@ -439,23 +462,26 @@ export default class Game extends Phaser.Scene {
 			this.lastPlatformPlacedSec = time;
 			this.placeBasicPlatform.bind(this)();
 		}
-		this.scoreText.setText('Height: ' + Math.round((this.player.y * -1 - 50) / 10) + "m");
+		this.scoreText.setText(
+			'Height: ' + Math.round((this.player.y * -1 - 50) / 10) + 'm'
+		);
 
 		if (this.birdTimer++ % 1000 == 0) {
-			this.spawnBird()
+			this.spawnBird();
 		}
 
 		for (let item of this.wordPlatforms.children.entries) {
 			if (Math.abs(item.x) > 2000) {
 				item.destroy();
 			}
-
 		}
-
 	}
 
 	spawnBird() {
-		var bird = this.enemies.create(400, this.player.y - 500, 'bird_fly').setScale(1).refreshBody();
+		var bird = this.enemies
+			.create(400, this.player.y - 500, 'bird_fly')
+			.setScale(1)
+			.refreshBody();
 		bird.setImmovable();
 		bird.body.setAllowGravity(false);
 		bird.setVelocityX(-30);
@@ -463,25 +489,33 @@ export default class Game extends Phaser.Scene {
 	}
 
 	ingestMessage(phaser, message) {
-
-		var messagePlatform = phaser.add.existing(new MessagePlatform(this, message.message, this.wordPlatforms));
-		var messageTag = phaser.add.existing(new MessageTag(this, message.displayName, messagePlatform));
+		var messagePlatform = phaser.add.existing(
+			new MessagePlatform(this, message.message, this.wordPlatforms)
+		);
+		var messageTag = phaser.add.existing(
+			new MessageTag(this, message.displayName, messagePlatform)
+		);
 
 		// Maybe spawn chest on top of the text.
-		this.maybeSpawnChest(messagePlatform)
+		this.maybeSpawnChest(messagePlatform);
 	}
 
 	/** Random chance to initialize loot on top of the `word`. */
 	maybeSpawnChest(word) {
-		if (Math.random() >= .1) {
+		if (Math.random() >= 0.1) {
 			return;
 		}
-		var topOfWordY = word.y - word.displayHeight / 2
-		var middleOfWordX = word.x + word.displayWidth / 2
-		var chest = this.boxes.create(middleOfWordX, topOfWordY, 'chest', /*frame=*/0)
-		chest.setScale(1.8)
+		var topOfWordY = word.y - word.displayHeight / 2;
+		var middleOfWordX = word.x + word.displayWidth / 2;
+		var chest = this.boxes.create(
+			middleOfWordX,
+			topOfWordY,
+			'chest',
+			/*frame=*/ 0
+		);
+		chest.setScale(1.8);
 		chest.on('animationcomplete', () => {
-			this.createCoins(chest)
+			this.createCoins(chest);
 		});
 		chest.body.setVelocityX(word.body.velocity.x);
 		chest.body.setAllowGravity(false);
@@ -496,39 +530,41 @@ export default class Game extends Phaser.Scene {
 	createCoins(chest) {
 		// number between 5 to 10
 		var numCoins = Math.floor(Math.random() * 5) + 5;
-		var xSpread = 100.0
-		var yBase = 1500
-		var yBuffer = 100.0
+		var xSpread = 100.0;
+		var yBase = 1500;
+		var yBuffer = 100.0;
 		for (var i = 0; i < numCoins; i++) {
-			var velocityX = (Math.random() * 100) + 50
-			var velocityX = Phaser.Math.FloatBetween(-xSpread, xSpread)
-			var velocityY = -1 * Phaser.Math.FloatBetween(yBase - yBuffer, yBase + yBuffer)
-			var item = this.items.create(chest.x, chest.y, 'coin')
-			item.setScale(1.5)
+			var velocityX = Math.random() * 100 + 50;
+			var velocityX = Phaser.Math.FloatBetween(-xSpread, xSpread);
+			var velocityY =
+				-1 * Phaser.Math.FloatBetween(yBase - yBuffer, yBase + yBuffer);
+			var item = this.items.create(chest.x, chest.y, 'coin');
+			item.setScale(1.5);
 			item.play('coin_sparkle', true);
-			item.setBounce(0.5)
-			item.setVelocityX(velocityX)
-			item.setVelocityY(velocityY)
-			item.body.checkCollision.none = true
+			item.setBounce(0.5);
+			item.setVelocityX(velocityX);
+			item.setVelocityY(velocityY);
+			item.body.checkCollision.none = true;
 			setTimeout(
-				function (item) {
+				(function (item) {
 					return function () {
-						item.body.checkCollision.none = false
-					}
-				}(item),
-				200)
+						item.body.checkCollision.none = false;
+					};
+				})(item),
+				200
+			);
 		}
 	}
 
 	getItem(player, item) {
-		console.log('got item')
+		console.log('got item');
 		item.play('collect', true);
 		item.on('animationcomplete', () => {
 			if (item.active) {
 				this.gold += 1;
-				this.goldText.setText("Gold: " + this.gold)
+				this.goldText.setText('Gold: ' + this.gold);
 			}
-			item.destroy()
+			item.destroy();
 		});
 	}
 
