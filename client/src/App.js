@@ -5,7 +5,7 @@ import gameConfig from './phaser/gameConfig';
 function App() {
 	useEffect(() => {
 		new Phaser.Game(gameConfig);
-	});
+	}, []);
 
 	// ugly inline styling until we decide on style system
 	return (
