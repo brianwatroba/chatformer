@@ -1,14 +1,14 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 
-app.use(express.static(__dirname + '/src'));
+app.use(express.static(__dirname + "/src"));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-	console.log(`Server listening on ${PORT}`);
+    console.log(`Server listening on ${PORT}`);
 });
 
-app.get('/', function (req, res) {
-	res.sendFile(__dirname + '/index.html');
+app.get("/", function (req, res) {
+    res.sendFile(__dirname + "/index.html");
 });
