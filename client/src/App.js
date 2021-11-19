@@ -13,7 +13,11 @@ function App() {
 			}}
 		>
 			<div>Chat Jump!!</div>
-			<IonPhaser game={ChatJump} initialize={true} style={{}} />
+			<IonPhaser
+				game={ChatJump}
+				initialize={true}
+				style={{ position: 'absolute', top: 10 }}
+			/>
 		</div>
 	);
 }
