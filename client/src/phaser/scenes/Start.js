@@ -4,9 +4,6 @@ import tmi from 'tmi.js';
 const BACKGROUND_COLOR = '#A8E9FF';
 const ERROR_COLOR = '#EF233C';
 const SUBTEXT_COLOR = '#616161';
-const CJ_PINK = '#DB79BA';
-const COLOR_LIGHT = 0x7b5e57;
-const COLOR_DARK = 0x260e04;
 
 export default class StartScreen extends Phaser.Scene {
 	constructor() {
@@ -32,8 +29,8 @@ export default class StartScreen extends Phaser.Scene {
 	create() {
 		const screenCenterX =
 			this.cameras.main.worldView.x + this.cameras.main.width / 2;
-		const screenCenterY =
-			this.cameras.main.worldView.y + this.cameras.main.height / 2;
+		// const screenCenterY =
+		// 	this.cameras.main.worldView.y + this.cameras.main.height / 2;
 
 		this.add.image(375, 100, 'logo').setScale(0.7);
 		for (let i = 0; i < 20; i++) {
@@ -113,7 +110,7 @@ export default class StartScreen extends Phaser.Scene {
 
 	submit() {
 		let name = this.nameInput.getChildByName('name');
-		if (name.value != '') {
+		if (name.value !== '') {
 			this.streamer = name.value;
 			name.value = '';
 		}
