@@ -112,7 +112,6 @@ export default class Game extends Phaser.Scene {
 				displayName: context['display-name'],
 			});
 		});
-		// this.client.on('connected', this.onConnectedHandler);
 	}
 
 	land(a, b) {
@@ -567,8 +566,4 @@ export default class Game extends Phaser.Scene {
 			item.destroy();
 		});
 	}
-
-	// onConnectedHandler(addr, port) {
-	// 	console.log(`* Connected to ${addr}:${port}`);
-	// }
 }

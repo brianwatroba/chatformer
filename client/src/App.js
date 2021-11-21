@@ -1,22 +1,28 @@
-import React, { useRef, useState } from 'react';
-import './App.css';
-import { IonPhaser } from '@ion-phaser/react';
-import ChatJump from './chatjump/main';
+import React, { useEffect } from 'react';
+import Phaser from 'phaser';
+import gameConfig from './phaser/gameConfig';
 
 function App() {
+	useEffect(() => {
+		new Phaser.Game(gameConfig);
+	}, []);
+
+	// ugly inline styling until we decide on style system
 	return (
 		<div
 			className="App"
 			style={{
 				display: 'flex',
-				flexDirection: 'row',
+				justifyContent: 'center',
+				flexDirection: 'column',
 			}}
 		>
-			<div>Chat Jump!!</div>
-			<IonPhaser
-				game={ChatJump}
-				initialize={true}
-				style={{ position: 'absolute', top: 10 }}
+			<div
+				id="phaser-game"
+				style={{
+					display: 'flex',
+					justifyContent: 'center',
+				}}
 			/>
 		</div>
 	);
