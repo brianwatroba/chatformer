@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import axios from "axios";
 import tmi from "tmi.js";
 
 const BACKGROUND_COLOR = "#A8E9FF";
@@ -74,38 +75,50 @@ export default class StartScreen extends Phaser.Scene {
     }
 
     async connectToChat(streamerHandle) {
-        let connectionError = false;
-        this.status.setColor(SUBTEXT_COLOR);
-        const opts = {
-            identity: {
-                username: "chatjumpgg",
-                password: "oauth:qhb7zxwf65mhkz1for52o9mh9280dk",
-            },
+        const res = await axios.post("http://localhost:4000/connect", {
+            streamerHandle: streamerHandle,
+        });
+        console.log(res);
 
-            logger: {
-                info: () => {
-                    return;
-                },
-                warn: (warn) => console.log(warn),
-                error: (err) => (connectionError = true),
-            },
-        };
+        // let connectionError = false;
+        // this.status.setColor(SUBTEXT_COLOR);
+        // console.log(
+        //     "username",
+        //     process.env.CHATBOT_USERNAME,
+        //     "pw",
+        //     process.env.CHATBOT_OAUTH_KEY
+        // );
+        // const opts = {
+        // identity: {
+        //     username: "chatjumpgg",
+        //     password: "oauth:qhb7zxwf65mhkz1for52o9mh9280dk",
+        // },
 
-        this.client = new tmi.client(opts);
+        //     logger: {
+        //         info: () => {
+        //             return;
+        //         },
+        //         warn: (warn) => console.log(warn),
+        //         error: (err) => (connectionError = true),
+        //     },
+        // };
 
-        try {
-            this.status.text = "Connecting to stream...";
-            await this.client.connect();
-            const res = await this.client.join(streamerHandle);
-            if (res) {
-                this.status.text = `Joining ${streamerHandle}'s stream`;
-                this.scene.start("Game", { client: this.client });
-            }
-        } catch (error) {
-            console.log(error);
-            this.status.setColor(ERROR_COLOR);
-            this.status.text = `That streamer isn't live. Try another`;
-        }
+        // this.client = new tmi.client(opts);
+        // console.log(this.client);
+
+        // try {
+        //     this.status.text = "Connecting to stream...";
+        //     await this.client.connect();
+        //     const res = await this.client.join(streamerHandle);
+        //     if (res) {
+        //         this.status.text = `Joining ${streamerHandle}'s stream`;
+        //         this.scene.start("Game", { client: this.client });
+        //     }
+        // } catch (error) {
+        //     console.log(error);
+        //     this.status.setColor(ERROR_COLOR);
+        //     this.status.text = `That streamer isn't live. Try another`;
+        // }
     }
 
     submit() {
