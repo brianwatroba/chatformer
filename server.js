@@ -4,6 +4,8 @@ const cors = require("cors");
 
 const PORT = process.env.PORT || 4000;
 
+app.use(express.json({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 app.listen(PORT, () => {
@@ -14,8 +16,8 @@ app.listen(PORT, () => {
 // 	res.sendFile(__dirname + '/index.html');
 // });
 
-app.post("/connect", function (req, res) {
-    console.log(req);
+app.post("/connect", async (req, res) => {
+    console.log(req.body);
     res.status(200);
 
     // axios.defaults.headers.common["Client-ID"] = process.env.TWITCH_CLIENT_ID;
@@ -29,4 +31,8 @@ app.post("/connect", function (req, res) {
     //     .catch((error) => {
     //         console.log(error);
     //     });
+});
+
+app.get("/connect", async (req, res) => {
+    res.send("Worked");
 });

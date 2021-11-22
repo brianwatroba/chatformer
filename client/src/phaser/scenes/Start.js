@@ -76,8 +76,10 @@ export default class StartScreen extends Phaser.Scene {
 
     async connectToChat(streamerHandle) {
         const res = await axios.post("http://localhost:4000/connect", {
-            streamerHandle: streamerHandle,
+            streamerHandle,
         });
+
+        // const res = await axios.get("http://localhost:4000/connect");
         console.log(res);
 
         // let connectionError = false;
