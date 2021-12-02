@@ -71,8 +71,8 @@ export default class StartScreen extends Phaser.Scene {
             Phaser.Input.Keyboard.KeyCodes.ENTER
         );
 
-        this.returnKey.on("down", () => this.submit());
-        this.playButton.on("pointerdown", () => this.submit());
+        this.returnKey.on("down", async () => await this.submit());
+        this.playButton.on("pointerdown", async () => await this.submit());
     }
 
     async submit() {
@@ -85,9 +85,8 @@ export default class StartScreen extends Phaser.Scene {
             this.status.text = "Connecting to stream...";
             this.client = await connectToChat(this.streamer);
             // console.log(this.client);
-            // if (this.client) {
-            //     this.scene.start("Game", { client: this.client });
-            // }
+
+            this.scene.start("Game", { client: this.client });
         } catch (error) {
             console.log(error);
             return error;

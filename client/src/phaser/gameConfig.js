@@ -16,6 +16,7 @@ const gameConfig = {
         // autoCenter: true,
     },
     resolution: window.devicePixelRatio,
+    backgroundColor: "#64c3e1",
     scene: [Start, Game],
     physics: {
         default: "arcade",
