@@ -1,31 +1,17 @@
-import React, { useEffect } from 'react';
-import Phaser from 'phaser';
-import gameConfig from './phaser/gameConfig';
+import React from "react";
+
+import Game from "./components/Game";
+import Navbar from "./components/Navbar";
+import Landing from "./components/Landing";
 
 function App() {
-	useEffect(() => {
-		new Phaser.Game(gameConfig);
-	}, []);
-
-	// ugly inline styling until we decide on style system
-	return (
-		<div
-			className="App"
-			style={{
-				display: 'flex',
-				justifyContent: 'center',
-				flexDirection: 'column',
-			}}
-		>
-			<div
-				id="phaser-game"
-				style={{
-					display: 'flex',
-					justifyContent: 'center',
-				}}
-			/>
-		</div>
-	);
+    return (
+        <>
+            <Landing />
+            {/* <Navbar />
+            <Game /> */}
+        </>
+    );
 }
 
 export default App;

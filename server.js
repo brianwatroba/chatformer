@@ -19,20 +19,12 @@ app.listen(PORT, () => {
 app.post("/connect", async (req, res) => {
     console.log(req.body);
     res.status(200);
-
-    // axios.defaults.headers.common["Client-ID"] = process.env.TWITCH_CLIENT_ID;
-    // axios
-    //     .get(`https://api.twitch.tv/helix/channels?broadcaster_id=${req.body}`)
-    //     .then((response) => {
-    //         console.log(response.data);
-
-    //         console.log(response.data.length);
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     });
 });
 
 app.get("/connect", async (req, res) => {
     res.send("Worked");
+});
+
+app.get("/", (req, res) => {
+    res.redirect("https://www.google.com");
 });
