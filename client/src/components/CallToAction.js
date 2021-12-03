@@ -27,8 +27,7 @@ const CallToAction = () => {
             muted="true"
             loop="true"
             type="video/mp4"
-            background-size="contain"
-            height="100%"
+            height={isMobile ? "85%" : "100%"}
         />
     ))``;
 

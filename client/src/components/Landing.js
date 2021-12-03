@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 
 import Navbar from "./Navbar";
 import CallToAction from "./CallToAction";
+import HowItWorks from "./HowItWorks";
 
 const Landing = () => {
     return (
@@ -10,6 +11,7 @@ const Landing = () => {
         <>
             <Navbar />
             <CallToAction />
+            <HowItWorks />
         </>
         // </Container>
     );
