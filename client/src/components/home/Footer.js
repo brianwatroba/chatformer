@@ -7,14 +7,14 @@ import assetMapping from "../../assetMapping";
 import FlexColumn from "../shared/FlexColumn";
 import SectionTitle from "../shared/SectionTitle";
 import PlayButton from "../shared/PlayButton";
-import { links } from "../../utils/linkMapping";
+import Links from "../shared/Links";
+// import { links } from "../../utils/linkMapping";
 
 const Footer = () => {
     const { mascot } = assetMapping;
     const isMobile = useMediaQuery("(max-width:768px)");
 
     const Container = styled(FlexColumn)`
-        min-height: 100vh;
         background-color: #333333;
     `;
 
@@ -24,7 +24,7 @@ const Footer = () => {
         padding: 24px;
     `;
 
-    const Links = styled.div`
+    const LinksContainer = styled.div`
         display: flex;
         align-items: center;
         flex-direction: row;
@@ -34,19 +34,19 @@ const Footer = () => {
         padding: 24px 96px;
     `;
 
-    const Link = styled.div`
-        color: #ffffff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0px 18px;
-        font-size: 20px;
+    // const Link = styled.div`
+    //     color: #ffffff;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //     padding: 0px 18px;
+    //     font-size: 20px;
 
-        &:hover {
-            font-weight: 700;
-            cursor: pointer;
-        }
-    `;
+    //     &:hover {
+    //         font-weight: 700;
+    //         cursor: pointer;
+    //     }
+    // `;
 
     const Copyright = styled.div`
         color: #fff;
@@ -59,12 +59,9 @@ const Footer = () => {
             <Mascot />
             <SectionTitle>TRY IT YOURSELF</SectionTitle>
             <PlayButton>PLAY NOW</PlayButton>
-            <Links>
-                <Link>play</Link>
-                <Link>how it works</Link>
-                <Link>leaderboards</Link>
-                <Link>team</Link>
-            </Links>
+            <LinksContainer>
+                <Links linkColor={"#ffffff"} />
+            </LinksContainer>
             <Copyright>© Chat Jump 2021</Copyright>
         </Container>
     );

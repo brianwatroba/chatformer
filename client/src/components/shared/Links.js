@@ -4,8 +4,8 @@ import styled from "@emotion/styled";
 import Link from "./Link";
 import { links } from "../../utils/linkMapping";
 
-const Links = () => {
-    const Links = styled.div`
+const Links = ({ className, linkColor }) => {
+    const Elem = styled.div`
         display: flex;
         flex-grow: 1;
         flex-direction: row;
@@ -15,16 +15,16 @@ const Links = () => {
     `;
 
     return (
-        <Links>
+        <Elem className={className}>
             {links.map((link) => {
                 let [title, url] = link;
                 return (
-                    <Link key={title} href={url}>
+                    <Link linkColor={linkColor} key={title} href={url}>
                         {title}
                     </Link>
                 );
             })}
-        </Links>
+        </Elem>
     );
 };
 

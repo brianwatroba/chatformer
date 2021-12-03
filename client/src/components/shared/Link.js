@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { useTheme } from "@mui/material/styles";
 
-const Link = ({ children }) => {
+const Link = ({ children, className, linkColor }) => {
     const theme = useTheme();
 
     const handleClick = (e) => {
@@ -10,7 +10,7 @@ const Link = ({ children }) => {
     };
 
     const Elem = styled.div`
-        color: ${theme.palette.text.primary};
+        color: ${linkColor || theme.palette.text.primary};
         display: flex;
         align-items: center;
         justify-content: center;
@@ -22,7 +22,11 @@ const Link = ({ children }) => {
         }
     `;
 
-    return <Elem onClick={handleClick}>{children}</Elem>;
+    return (
+        <Elem className={className} onClick={handleClick}>
+            {children}
+        </Elem>
+    );
 };
 
 export default Link;
