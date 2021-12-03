@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import history from "../../utils/history";
 
 import { Button } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -7,12 +8,17 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 const PlayButton = ({ children }) => {
     const isMobile = useMediaQuery("(max-width:768px)");
 
+    const handleClick = () => {
+        history.push("/game");
+    };
+
     const PlayButton = styled((props) => (
         <Button
             {...props}
             variant="contained"
             color="primary"
             size={isMobile ? "medium" : "large"}
+            onClick={handleClick}
         />
     ))`
         border-radius: 6px;
