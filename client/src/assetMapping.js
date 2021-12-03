@@ -9,6 +9,11 @@ const assetMapping = {
     chestWithCoins: process.env.PUBLIC_URL + "/assets/chestwithcoins.svg",
     sampleWords: process.env.PUBLIC_URL + "/assets/samplewords.svg",
     highScoreGuy: process.env.PUBLIC_URL + "/assets/highscoreguy.svg",
+    ground: process.env.PUBLIC_URL + "/assets/ground.png",
+    dirt: process.env.PUBLIC_URL + "/assets/dirt.png",
+    day9Video: process.env.PUBLIC_URL + "/assets/day9video.mp4",
+    day9Logo: process.env.PUBLIC_URL + "/assets/day9logo.svg",
+    mascot: process.env.PUBLIC_URL + "/assets/mascot.svg",
 };
 
 export default assetMapping;

@@ -3,12 +3,12 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 
 import Game from "./components/Game";
-import Landing from "./components/Landing";
+import Home from "./components/Home";
 
 function App() {
     return (
         <ThemeProvider theme={theme}>
-            <Landing />
+            <Home />
 
             {/* <Game /> */}
         </ThemeProvider>
