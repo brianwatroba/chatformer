@@ -1,25 +1,25 @@
 import React from "react";
 import styled from "@emotion/styled";
-import history from "../../utils/history";
 
+import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const PlayButton = ({ children }) => {
     const isMobile = useMediaQuery("(max-width:768px)");
 
-    const handleClick = () => {
-        history.push("/game");
-    };
+    const handleClick = () => {};
 
     const PlayButton = styled((props) => (
-        <Button
-            {...props}
-            variant="contained"
-            color="primary"
-            size={isMobile ? "medium" : "large"}
-            onClick={handleClick}
-        />
+        <Link to="/game" style={{ textDecoration: "none" }}>
+            <Button
+                {...props}
+                variant="contained"
+                color="primary"
+                size={isMobile ? "medium" : "large"}
+                onClick={handleClick}
+            />
+        </Link>
     ))`
         border-radius: 6px;
         color: #ffffff;
