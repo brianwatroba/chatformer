@@ -3,8 +3,9 @@ import styled from "@emotion/styled";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Typography } from "@mui/material";
 
-import assetMapping from "../../assetMapping";
+import assetMapping from "../../utils/assetMapping";
 import FeatureItem from "./FeatureItem";
 import FeatureItems from "./FeatureItems";
 import FlexColumn from "../shared/FlexColumn";
@@ -17,13 +18,6 @@ const HowItWorks = () => {
         assetMapping;
     const isMobile = useMediaQuery("(max-width:768px)");
 
-    const Subtitle = styled.div`
-        text-align: center;
-        color: ${theme.palette.text.primary};
-        padding: 0% 20%;
-        font-size: ${isMobile ? "14px" : "24px"};
-    `;
-
     const YellowArrow = styled.img`
         content: url(${yellowArrow});
         height: ${isMobile ? "4vh" : "7vh"};
@@ -35,7 +29,9 @@ const HowItWorks = () => {
             <Clouds />
             <FlexColumn>
                 <SectionTitle>TIRED OF "JUST CHATTING"?</SectionTitle>
-                <Subtitle>play a game with your viewers instead</Subtitle>
+                <Typography variant={"h4"}>
+                    play a game with your viewers instead
+                </Typography>
                 <YellowArrow />
             </FlexColumn>
             <SectionTitle>HOW IT WORKS</SectionTitle>

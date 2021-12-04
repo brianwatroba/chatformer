@@ -14,6 +14,14 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/game" element={<Game />} />
+                    <Route
+                        path="*"
+                        element={
+                            <main style={{ padding: "1rem" }}>
+                                <p>Placeholder for 404!</p>
+                            </main>
+                        }
+                    />
                 </Routes>
             </ThemeProvider>
         </BrowserRouter>

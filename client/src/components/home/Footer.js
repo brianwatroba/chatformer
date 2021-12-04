@@ -3,11 +3,11 @@ import styled from "@emotion/styled";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-import assetMapping from "../../assetMapping";
+import assetMapping from "../../utils/assetMapping";
 import FlexColumn from "../shared/FlexColumn";
 import SectionTitle from "../shared/SectionTitle";
 import PlayButton from "../shared/PlayButton";
-import Links from "../shared/Links";
+import Links from "../shared/NavLinks";
 // import { links } from "../../utils/linkMapping";
 
 const Footer = () => {

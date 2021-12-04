@@ -1,6 +1,6 @@
 export const links = [
-    ["play", "/"],
-    ["how it works", "/"],
-    ["leaderboards", "/"],
-    ["team", "/"],
+    ["play", "/play"],
+    ["how it works", "/howitworks"],
+    ["leaderboards", "/leaderboards"],
+    ["team", "/team"],
 ];

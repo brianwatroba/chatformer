@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import assetMapping from "../../assetMapping";
+import assetMapping from "../../utils/assetMapping";
 
 const DirtBackground = ({ children }) => {
     const { ground, dirt } = assetMapping;

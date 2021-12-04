@@ -1,13 +1,10 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { useTheme } from "@mui/material/styles";
+import LinksTo from "./LinksTo";
 
-const Link = ({ children, className, linkColor }) => {
+const NavLink = ({ children, className, linkColor, href }) => {
     const theme = useTheme();
-
-    const handleClick = (e) => {
-        console.log(e.target.innerText);
-    };
 
     const Elem = styled.div`
         color: ${linkColor || theme.palette.text.primary};
@@ -23,10 +20,10 @@ const Link = ({ children, className, linkColor }) => {
     `;
 
     return (
-        <Elem className={className} onClick={handleClick}>
-            {children}
-        </Elem>
+        <LinksTo to={href}>
+            <Elem className={className}>{children}</Elem>
+        </LinksTo>
     );
 };
 
-export default Link;
+export default NavLink;

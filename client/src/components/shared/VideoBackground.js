@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import assetMapping from "../../assetMapping";
+import assetMapping from "../../utils/assetMapping";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const VideoBackground = ({ children }) => {

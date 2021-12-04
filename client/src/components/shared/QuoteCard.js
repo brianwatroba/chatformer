@@ -1,16 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
-
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
-import assetMapping from "../../assetMapping";
 
 import FlexRow from "../shared/FlexRow";
 
 const QuoteCard = ({ quote, author, authorLogoUrl }) => {
     const theme = useTheme();
-    const { day9Logo } = assetMapping;
     const isMobile = useMediaQuery("(max-width:768px)");
 
     const Card = styled.div`

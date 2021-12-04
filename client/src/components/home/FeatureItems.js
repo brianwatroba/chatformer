@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "@emotion/styled";
-
-import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const FeatureItems = ({ children }) => {

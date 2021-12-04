@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
-import Link from "./Link";
+import NavLink from "./NavLink";
 import { links } from "../../utils/linkMapping";
 
-const Links = ({ className, linkColor }) => {
+const NavLinks = ({ className, linkColor }) => {
     const Elem = styled.div`
         display: flex;
         flex-grow: 1;
@@ -17,15 +18,15 @@ const Links = ({ className, linkColor }) => {
     return (
         <Elem className={className}>
             {links.map((link) => {
-                let [title, url] = link;
+                let [title, href] = link;
                 return (
-                    <Link linkColor={linkColor} key={title} href={url}>
+                    <NavLink linkColor={linkColor} key={title} href={href}>
                         {title}
-                    </Link>
+                    </NavLink>
                 );
             })}
         </Elem>
     );
 };
 
-export default Links;
+export default NavLinks;

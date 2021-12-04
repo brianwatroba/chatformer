@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Link } from "react-router-dom";
 
-import assetMapping from "../../assetMapping";
+import assetMapping from "../../utils/assetMapping";
 import HamburgerMenu from "./HamburgerMenu";
-import Links from "./Links";
+import Links from "./NavLinks";
 import PlayButtonSecondary from "./PlayButtonSecondary";
-import { Button } from "@mui/material";
 
 const Navbar = () => {
     const isMobile = useMediaQuery("(max-width:768px)");
@@ -32,7 +32,9 @@ const Navbar = () => {
 
     return (
         <Container isMobile={isMobile}>
-            <Logo />
+            <Link to="/" style={{ textDecoration: "none" }}>
+                <Logo />
+            </Link>
             {isMobile ? (
                 <HamburgerMenu />
             ) : (

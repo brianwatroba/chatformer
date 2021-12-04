@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-
-import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
+
+import LinksTo from "./LinksTo";
 
 const PlayButton = ({ children }) => {
     const isMobile = useMediaQuery("(max-width:768px)");
@@ -11,7 +11,7 @@ const PlayButton = ({ children }) => {
     const handleClick = () => {};
 
     const PlayButton = styled((props) => (
-        <Link to="/game" style={{ textDecoration: "none" }}>
+        <LinksTo to="/game">
             <Button
                 {...props}
                 variant="contained"
@@ -19,7 +19,7 @@ const PlayButton = ({ children }) => {
                 size={isMobile ? "medium" : "large"}
                 onClick={handleClick}
             />
-        </Link>
+        </LinksTo>
     ))`
         border-radius: 6px;
         color: #ffffff;

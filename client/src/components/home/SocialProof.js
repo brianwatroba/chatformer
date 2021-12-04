@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-import assetMapping from "../../assetMapping";
+import assetMapping from "../../utils/assetMapping";
 import SectionTitle from "../shared/SectionTitle";
 import DirtBackground from "../shared/DirtBackground";
 import FlexRow from "../shared/FlexRow";

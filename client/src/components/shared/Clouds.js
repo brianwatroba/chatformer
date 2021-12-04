@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import assetMapping from "../../assetMapping";
+import assetMapping from "../../utils/assetMapping";
 
 const Clouds = () => {
     const { cloud1, cloud2, cloud3 } = assetMapping;

@@ -11,25 +11,24 @@ const Game = () => {
         new Phaser.Game(gameConfig);
     }, []);
 
-    const { height, width } = gameConfig.scale;
+    // const { height, width } = gameConfig.scale;
 
     const Container = styled.div`
         display: flex;
+        position: relative;
         justify-content: center;
-        // align-items: center;
+        height: 100vh;
         width: 100%;
-
-        padding: 120px 0px;
         background-color: #333;
     `;
 
     const GameScreen = styled.div`
+        position: absolute;
+        top: 50px;
         display: flex;
         justify-content: center;
         border: 12px solid #d8d8d8;
         border-radius: 12px;
-        width: ${width};
-        height: ${height};
     `;
 
     return (
