@@ -12,9 +12,12 @@ app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
 
-// app.post('/', function (req, res) {
-// 	res.sendFile(__dirname + '/index.html');
-// });
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    });
+}
 
 app.post("/connect", async (req, res) => {
     console.log(req.body);

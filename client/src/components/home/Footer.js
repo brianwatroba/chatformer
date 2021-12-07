@@ -7,8 +7,7 @@ import assetMapping from "../../utils/assetMapping";
 import FlexColumn from "../shared/FlexColumn";
 import SectionTitle from "../shared/SectionTitle";
 import PlayButton from "../shared/PlayButton";
-import Links from "../shared/NavLinks";
-// import { links } from "../../utils/linkMapping";
+import NavLinks from "../shared/NavLinks";
 
 const Footer = () => {
     const { mascot } = assetMapping;
@@ -16,12 +15,12 @@ const Footer = () => {
 
     const Container = styled(FlexColumn)`
         background-color: #333333;
+        padding: 48px 0px;
     `;
 
     const Mascot = styled.img`
         content: url(${mascot});
         height: ${isMobile ? "75px" : "125px"};
-        padding: 24px;
     `;
 
     const LinksContainer = styled.div`
@@ -30,23 +29,9 @@ const Footer = () => {
         flex-direction: row;
         max-width: 65%;
         border-top: 1px solid #fff;
-        margin: 96px 0px 24px 0px;
+        margin: 102px 0px 24px 0px;
         padding: 24px 96px;
     `;
-
-    // const Link = styled.div`
-    //     color: #ffffff;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: center;
-    //     padding: 0px 18px;
-    //     font-size: 20px;
-
-    //     &:hover {
-    //         font-weight: 700;
-    //         cursor: pointer;
-    //     }
-    // `;
 
     const Copyright = styled.div`
         color: #fff;
@@ -58,9 +43,9 @@ const Footer = () => {
         <Container>
             <Mascot />
             <SectionTitle>TRY IT YOURSELF</SectionTitle>
-            <PlayButton>PLAY NOW</PlayButton>
+            <PlayButton style={{ marginTop: "48px" }}>PLAY NOW</PlayButton>
             <LinksContainer>
-                <Links linkColor={"#ffffff"} />
+                <NavLinks linkColor={"#ffffff"} />
             </LinksContainer>
             <Copyright>© Chat Jump 2021</Copyright>
         </Container>

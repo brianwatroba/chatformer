@@ -7,6 +7,7 @@ import assetMapping from "../../utils/assetMapping";
 import HamburgerMenu from "./HamburgerMenu";
 import Links from "./NavLinks";
 import PlayButtonSecondary from "./PlayButtonSecondary";
+import LinksTo from "./LinksTo";
 
 const Navbar = () => {
     const isMobile = useMediaQuery("(max-width:768px)");
@@ -28,13 +29,14 @@ const Navbar = () => {
         &:hover {
             cursor: pointer;
         }
+        padding-right: ${isMobile ? "0px" : "36px"};
     `;
 
     return (
         <Container isMobile={isMobile}>
-            <Link to="/" style={{ textDecoration: "none" }}>
+            <LinksTo to="/">
                 <Logo />
-            </Link>
+            </LinksTo>
             {isMobile ? (
                 <HamburgerMenu />
             ) : (

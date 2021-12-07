@@ -5,7 +5,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 import LinksTo from "./LinksTo";
 
-const PlayButton = ({ children }) => {
+const PlayButton = ({ children, className, style }) => {
     const isMobile = useMediaQuery("(max-width:768px)");
 
     const handleClick = () => {};
@@ -28,7 +28,11 @@ const PlayButton = ({ children }) => {
         font-size: ${isMobile ? "18px" : "28px"};
     `;
 
-    return <PlayButton>{children}</PlayButton>;
+    return (
+        <PlayButton className={className} style={style}>
+            {children}
+        </PlayButton>
+    );
 };
 
 export default PlayButton;
