@@ -4,8 +4,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { Typography } from "@mui/material";
 
 import assetMapping from "../../utils/assetMapping";
-import FeatureItem from "./FeatureItem";
-import FeatureItems from "./FeatureItems";
+import FeatureItem from "../shared/FeatureItem";
+import FeatureItems from "../shared/FeatureItems";
 import FlexColumn from "../shared/FlexColumn";
 import Clouds from "../shared/Clouds";
 import SectionTitle from "../shared/SectionTitle";
