@@ -16,6 +16,7 @@ const SocialProof = () => {
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: space-around;
+        padding: 48px 0px 0px 0px;
     `;
 
     const StreamerVideo = styled(() => (

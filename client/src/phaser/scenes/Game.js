@@ -171,7 +171,7 @@ export default class Game extends Phaser.Scene {
     create() {
         //  A simple background for our game
 
-        // this.add.image(100, 0, "sky").setScale(100);
+        this.add.image(100, 0, "sky").setScale(100);
 
         var clouds = [];
         for (var i = 1; i < 100; i++) {
@@ -352,13 +352,13 @@ export default class Game extends Phaser.Scene {
         //  The score
         this.scoreText = this.add.text(16, 16, "score: 0", {
             fontSize: "32px",
-            fill: "#64c3e1",
+            fill: "#333",
         });
         this.scoreText.setScrollFactor(0);
 
         this.goldText = this.add.text(16, 48, "Gold: 0", {
             fontSize: "32px",
-            fill: "#64c3e1",
+            fill: "#333",
         });
         this.goldText.setScrollFactor(0);
 
