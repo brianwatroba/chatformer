@@ -24,7 +24,7 @@ export default class StartScreen extends Phaser.Scene {
 
     preload() {
         this.load.html("form", "html/input.html");
-        this.load.image("logo", "assets/logo.png");
+        this.load.image("logo", "assets/mainlogo.png");
         this.load.image("ground", "assets/ground.png");
         this.load.image("dirt", "assets/ground.dirt");
     }

@@ -1,6 +1,6 @@
 const assetMapping = {
     mainLogo: process.env.PUBLIC_URL + "/assets/mainlogo.png",
-    gameplayVideo: process.env.PUBLIC_URL + "/assets/gameplay5.mp4",
+    gameplayVideo: process.env.PUBLIC_URL + "/assets/gameplay6.mp4",
     chatJumpTitle: process.env.PUBLIC_URL + "/assets/chatjumptitle.svg",
     cloud1: process.env.PUBLIC_URL + "/assets/cloud1.png",
     cloud2: process.env.PUBLIC_URL + "/assets/cloud2.png",
