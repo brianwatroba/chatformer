@@ -18,7 +18,8 @@ const DirtBackground = ({ children }) => {
         background-image: url(${dirt});
         background-repeat: repeat;
         background-size: 96px;
-        width: 100%;
+        // background-color: #b96e54;
+        // width: 100%;
         height: 100vh;
         display: flex;
         flex-direction: column;

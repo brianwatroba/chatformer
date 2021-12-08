@@ -8,6 +8,7 @@ const FlexColumn = ({ children, className, style }) => {
         align-items: center;
         overflow: hidden;
         position: relative;
+        width: 100%;
     `;
     return (
         <Container className={className} style={style}>

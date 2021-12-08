@@ -16,16 +16,16 @@ const PlayButton = ({ children, className, style }) => {
                 {...props}
                 variant="contained"
                 color="primary"
-                size={isMobile ? "medium" : "large"}
+                size={"large"}
                 onClick={handleClick}
             />
         </LinksTo>
     ))`
         border-radius: 6px;
         color: #ffffff;
-        font-family: Source Code Pro;
+        font-family: Ubuntu;
         font-weight: 700;
-        font-size: ${isMobile ? "18px" : "28px"};
+        font-size: ${isMobile ? "20px" : "24px"};
     `;
 
     return (

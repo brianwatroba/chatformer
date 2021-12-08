@@ -27,10 +27,9 @@ const Footer = () => {
         display: flex;
         align-items: center;
         flex-direction: row;
-        max-width: 65%;
         border-top: 1px solid #fff;
         margin: 102px 0px 24px 0px;
-        padding: 24px 96px;
+        padding: ${isMobile ? "24px 12px" : "24px 96px"};
     `;
 
     const Copyright = styled.div`
@@ -42,7 +41,7 @@ const Footer = () => {
     return (
         <Container>
             <Mascot />
-            <SectionTitle>TRY IT YOURSELF</SectionTitle>
+            <SectionTitle>try it yourself</SectionTitle>
             <PlayButton style={{ marginTop: "48px" }}>PLAY NOW</PlayButton>
             <LinksContainer>
                 <NavLinks linkColor={"#ffffff"} />

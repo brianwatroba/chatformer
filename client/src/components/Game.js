@@ -8,6 +8,7 @@ import Navbar from "./shared/Navbar";
 
 const Game = () => {
     useEffect(() => {
+        window.scrollTo(0, 0);
         new Phaser.Game(gameConfig);
     }, []);
 
