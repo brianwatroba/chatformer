@@ -1,15 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
 import assetMapping from "../../utils/assetMapping";
-
-import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import VideoBackground from "../shared/VideoBackground";
 import PlayButton from "../shared/PlayButton";
 
 const Landing = () => {
-    const theme = useTheme();
     const isMobile = useMediaQuery("(max-width:768px)");
 
     const CTA = styled.div`
@@ -19,9 +16,9 @@ const Landing = () => {
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        background-color: rgba(255, 255, 255, 0.75);
-        padding: ${isMobile ? "24px 60px" : "36px 72px"};
-        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 1);
+        padding: ${isMobile ? "48px 60px" : "64px 64px"};
+        border-radius: 8px;
         backdrop-filter: blur(8px);
     `;
 
@@ -32,9 +29,10 @@ const Landing = () => {
 
     const Subtitle = styled.div`
         display: flex;
-        color: ${theme.palette.grey[700]};
-        padding: ${isMobile ? "12px 0px 36px 0px" : "18px 0px 48px 0px"};
-        font-size: ${isMobile ? "14px" : "18px"};
+        color: #808080;
+        padding: ${isMobile ? "12px 0px 36px 0px" : "18px 0px 64px 0px"};
+        font-size: ${isMobile ? "18px" : "22px"};
+        font-family: Cabin;
     `;
 
     return (
@@ -42,7 +40,7 @@ const Landing = () => {
             <CTA>
                 <Title />
                 <Subtitle>jump high with your chat</Subtitle>
-                <PlayButton>PLAY NOW</PlayButton>
+                <PlayButton>play now</PlayButton>
             </CTA>
         </VideoBackground>
     );

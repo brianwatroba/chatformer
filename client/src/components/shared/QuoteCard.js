@@ -2,11 +2,14 @@ import React from "react";
 import styled from "@emotion/styled";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Typography } from "@mui/material";
 
 import FlexRow from "../shared/FlexRow";
+import assetMapping from "../../utils/assetMapping";
 
 const QuoteCard = ({ quote, author, authorLogoUrl }) => {
     const theme = useTheme();
+    const { quoteMark } = assetMapping;
     const isMobile = useMediaQuery("(max-width:768px)");
 
     const Card = styled.div`
@@ -14,49 +17,51 @@ const QuoteCard = ({ quote, author, authorLogoUrl }) => {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: rgba(255, 255, 255, 0.25);
-        padding: ${isMobile ? "24px 60px" : "36px 72px"};
-        border-radius: 4px;
-        backdrop-filter: blur(8px);
-        max-width: 35%;
+        background-color: #fff;
+        padding: ${isMobile ? "24px" : "48px"};
+        margin: 24px;
+        border-radius: 6px;
+        max-width: ${isMobile ? "65%" : "25%"};
+        font-family: Source Sans Pro;
     `;
 
-    const Quote = styled.div`
+    const Quote = styled(Typography)`
         display: flex;
         text-align: center;
         justify-content: center;
         color: ${theme.palette.text.primary};
-        padding: ${isMobile ? "12px 0px 36px 0px" : "18px 0px 48px 0px"};
-        font-size: ${isMobile ? "24px" : "48px"};
-        font-style: italic;
+        padding: 0px 8px;
+        color: #808080;
+        font-family: Cabin;
     `;
 
-    const Author = styled.div`
-        font-size: 36px;
+    const Author = styled(Typography)`
         font-weight: 700;
-        color: #ffffff;
+        color: #333;
+        font-family: Cabin;
     `;
 
-    const AuthorDescription = styled.div`
-        text-align: center;
-        font-size: 18px;
-        font-style: italic;
-        color: #${theme.palette.grey[500]};
-    `;
-    const AuthorLogo = styled.img`
-        content: url(${authorLogoUrl});
-        height: ${isMobile ? "5vh" : "7vh"};
-        padding: 0px 12px 0px 0px;
+    const QuotationMark = styled.img`
+        content: url(${quoteMark});
+        height: ${isMobile ? "36px" : "72px"};
+        transform: rotate(
+            ${(props) => (props.type === "open" ? "180deg" : "0deg")}
+        );
     `;
 
     return (
         <Card>
-            <Quote> {quote}</Quote>
-            <FlexRow>
-                <AuthorLogo />
-                <Author>{author}</Author>
+            <FlexRow align={"start"}>
+                <QuotationMark type="open" />
             </FlexRow>
-            <AuthorDescription>famous twitch streamer</AuthorDescription>
+            <Quote variant="h4">{quote}</Quote>
+            <FlexRow align={"end"} style={{ alignItems: "end" }}>
+                <QuotationMark />
+            </FlexRow>
+            <FlexRow>
+                <Author variant="h4">{author}</Author>
+            </FlexRow>
+            {/* <AuthorDescription>famous twitch streamer</AuthorDescription> */}
         </Card>
     );
 };

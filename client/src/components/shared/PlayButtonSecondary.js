@@ -16,9 +16,9 @@ const PlayButtonSecondary = ({ children }) => {
             />
         </LinksTo>
     ))`
-        font-family: Source Code Pro;
+        font-family: Ubuntu;
         font-weight: 700;
-        font-size: 16px;
+        font-size: 14px;
     `;
 
     return <PlayButton>{children}</PlayButton>;

@@ -23,11 +23,12 @@ const Clouds = () => {
 
     return (
         <Container>
-            <Cloud src={cloud1} height={200} right={"90%"} top={"10%"} />
+            <Cloud src={cloud1} height={200} right={"90%"} top={"0%"} />
+            <Cloud src={cloud2} height={200} left={"85%"} top={"5%"} />
             <Cloud src={cloud3} height={250} left={"80%"} top={"30%"} />
             <Cloud src={cloud2} height={300} right={"75%"} top={"50%"} />
             <Cloud src={cloud2} height={200} left={"80%"} top={"50%"} />
-            <Cloud src={cloud1} height={200} left={"80%"} top={"20%"} />
+            <Cloud src={cloud1} height={200} left={"70%"} top={"20%"} />
             <Cloud src={cloud3} height={200} right={"80%"} top={"30%"} />
         </Container>
     );

@@ -1,11 +1,11 @@
 body {
     margin: 0;
     background-color: rgb(101, 193, 226);
-    font-family: "Source Code Pro", sans-serif;
+    font-family: "Cabin", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    letter-spacing: -1px;
-    word-spacing: -4px;
+    /* letter-spacing: -1px;
+    word-spacing: -4px; */
 }
 
 code {

@@ -2,10 +2,13 @@ import React, { useState } from "react";
 
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useNavigate } from "react-router-dom";
 
 import { links } from "../../utils/linkMapping";
+import LinksTo from "./LinksTo";
 
 const HamburgerMenu = () => {
+    const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -14,6 +17,9 @@ const HamburgerMenu = () => {
     };
     const handleLinkClick = (e) => {
         setAnchorEl(null);
+        const noSpaces = e.target.innerText.replace(/\s/g, "");
+        console.log(noSpaces);
+        navigate("/" + noSpaces);
     };
     const handleClose = () => {
         setAnchorEl(null);
@@ -28,11 +34,20 @@ const HamburgerMenu = () => {
 
             <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
                 {links.map((link) => {
-                    let [title] = link;
+                    let [title, url] = link;
                     return (
-                        <MenuItem key={title} onClick={handleLinkClick}>
-                            {title}
-                        </MenuItem>
+                        <LinksTo to={url}>
+                            <MenuItem
+                                key={title}
+                                onClick={handleLinkClick}
+                                style={{
+                                    fontFamily: "cabin",
+                                    color: "#333",
+                                }}
+                            >
+                                {title}
+                            </MenuItem>
+                        </LinksTo>
                     );
                 })}
             </Menu>

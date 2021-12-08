@@ -5,14 +5,15 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 const FeatureItems = ({ children }) => {
     const isMedium = useMediaQuery("(max-width:1200px)");
 
-    const GridContainer = styled.div`
+    const Elem = styled.div`
         display: flex;
         flex-direction: ${isMedium ? "column" : "row"};
         justify-content: center;
         align-items: center;
+        width: 100%;
     `;
 
-    return <GridContainer>{children}</GridContainer>;
+    return <Elem>{children}</Elem>;
 };
 
 export default FeatureItems;

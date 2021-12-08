@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Link } from "react-router-dom";
 
 import assetMapping from "../../utils/assetMapping";
 import HamburgerMenu from "./HamburgerMenu";

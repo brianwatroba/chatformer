@@ -7,16 +7,28 @@ import SectionTitle from "../shared/SectionTitle";
 import DirtBackground from "../shared/DirtBackground";
 import FlexRow from "../shared/FlexRow";
 import QuoteCard from "../shared/QuoteCard";
+import SectionSubtitle from "../shared/SectionSubtitle";
 
 const SocialProof = () => {
     const { day9Logo, day9Video } = assetMapping;
-    const isMobile = useMediaQuery("(max-width:768px)");
+    const isMedium = useMediaQuery("(max-width:1200px)");
 
-    const Endorsement = styled(FlexRow)`
+    const TitleContainer = styled(FlexRow)`
         flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: space-around;
-        padding: 48px 0px 0px 0px;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        padding: 24px 0px;
+        background-color: #b96e54;
+    `;
+
+    const Endorsement = styled.div`
+        display: flex;
+        flex-direction: ${isMedium ? "column" : "row"};
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        background-color: #b96e54;
     `;
 
     const StreamerVideo = styled(() => (
@@ -27,7 +39,7 @@ const SocialProof = () => {
             muted="true"
             loop="true"
             type="video/mp4"
-            width={isMobile ? "80%" : "35%"}
+            width={isMedium ? "80%" : "50%"}
             style={{
                 borderRadius: "12px",
             }}
@@ -36,8 +48,14 @@ const SocialProof = () => {
 
     return (
         <DirtBackground>
-            <SectionTitle>STREAMERS LOVE IT</SectionTitle>
+            <TitleContainer>
+                <SectionTitle>streamers love it</SectionTitle>
+                <SectionSubtitle>
+                    deepens chat interaction, brings viewers closer
+                </SectionSubtitle>
+            </TitleContainer>
             <Endorsement>
+                <StreamerVideo />
                 <QuoteCard
                     author={"Day9tv"}
                     authorLogoUrl={day9Logo}
@@ -45,7 +63,6 @@ const SocialProof = () => {
                         "omg I had no idea it worked like this. This is !%$#ing sick!"
                     }
                 />
-                <StreamerVideo />
             </Endorsement>
         </DirtBackground>
     );

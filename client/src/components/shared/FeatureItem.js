@@ -11,35 +11,52 @@ const FeatureItem = ({ title, subtitle, imgUrl, imgHeight }) => {
 
     const Container = styled.div`
         display: flex;
-        padding: ${isMedium ? "10% 3%" : "7.5% 5%"};
+        padding: ${isMedium ? "10% 7%" : "3%"};
         flex-direction: column;
         justify-content: center;
-        max-width: ${isMedium ? "60%" : "25%"};
+        width: ${isMedium ? "200px" : "225px"};
+        background-color: #fff;
+        margin: 24px;
+        border-radius: 6px;
     `;
 
     const Title = styled(Typography)`
         text-align: center;
         padding: 8px 0px;
         font-weight: 700;
+        font-family: Ubuntu;
     `;
 
     const Subtitle = styled(Typography)`
         text-align: center;
+        font-family: Cabin;
+        line-height: normal;
         padding: 0px 0px;
+        color: #808080;
     `;
 
     const Image = styled.img`
         content: url(${(props) => props.imgUrl});
         height: ${(props) => props.height};
+        width: auto;
+    `;
+
+    const ImageContainer = styled.div`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: ${isMedium ? "55px" : "75px"};
     `;
 
     return (
         <Container>
-            <Image imgUrl={imgUrl} height={imgHeight} />
-            <Title variant={"h5"} color={theme.palette.text.primary}>
+            <ImageContainer>
+                <Image imgUrl={imgUrl} height={imgHeight} />
+            </ImageContainer>
+            <Title variant={"h3"} color={theme.palette.text.primary}>
                 {title}
             </Title>
-            <Subtitle variant={"subtitle1"} color={theme.palette.text.primary}>
+            <Subtitle variant={"h6"} color={theme.palette.text.primary}>
                 {subtitle}
             </Subtitle>
         </Container>

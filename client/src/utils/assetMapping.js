@@ -14,6 +14,10 @@ const assetMapping = {
     day9Video: process.env.PUBLIC_URL + "/assets/day9video.mp4",
     day9Logo: process.env.PUBLIC_URL + "/assets/day9logo.svg",
     mascot: process.env.PUBLIC_URL + "/assets/mascot.svg",
+    quoteMark: process.env.PUBLIC_URL + "/assets/quotemark.svg",
+    singleJumper: process.env.PUBLIC_URL + "/assets/singlejumper.png",
+    coins: process.env.PUBLIC_URL + "/assets/coins.png",
+    chest: process.env.PUBLIC_URL + "/assets/chestsingle.png",
 };
 
 export default assetMapping;
