@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 
 import assetMapping from "../utils/assetMapping";
-import Navbar from "./shared/Navbar";
 import Clouds from "./shared/Clouds";
 import FlexColumn from "./shared/FlexColumn";
 import SectionTitle from "./shared/SectionTitle";
@@ -59,7 +58,6 @@ const NotFound = () => {
 
     return (
         <>
-            <Navbar />
             <FlexColumn>
                 <Clouds />
                 <Section>
@@ -75,7 +73,7 @@ const NotFound = () => {
                     <SubItem>
                         <Image imgUrl={star} height={"55px"} />
                         <Subtitle variant={"h4"} component="div">
-                            viewers want to engage more
+                            viewers want to engage
                         </Subtitle>
                         <Subtext variant="h6" component="div">
                             they’re interested in new, deeper ways to connect
@@ -86,7 +84,7 @@ const NotFound = () => {
                     <SubItem>
                         <Image imgUrl={coins} height={"100px"} />
                         <Subtitle variant={"h4"} component="div">
-                            streamer monetization is hard
+                            monetization is hard
                         </Subtitle>
                         <Subtext variant="h6" component="div">
                             despite loyal and engaged followings, on-platform
@@ -107,7 +105,7 @@ const NotFound = () => {
                     </SubItem>
                 </Section>
                 <Section>
-                    <SectionTitle>games to get us there</SectionTitle>
+                    <SectionTitle>games can help</SectionTitle>
                     <SubItem>
                         <Image imgUrl={mascot} height={"65px"} />
                         <Subtext
