@@ -18,10 +18,10 @@ const QuoteCard = ({ quote, author, authorLogoUrl }) => {
         align-items: center;
         justify-content: center;
         background-color: #fff;
-        padding: ${isMobile ? "24px" : "48px"};
+        padding: ${isMobile ? "24px" : "36px"};
         margin: 24px;
         border-radius: 6px;
-        max-width: ${isMobile ? "65%" : "25%"};
+        max-width: 65%;
         font-family: Source Sans Pro;
     `;
 
