@@ -6,7 +6,7 @@ const cors = require("cors");
 
 const PORT = process.env.PORT || 4000;
 
-loadEnv();
+// procloadEnv();
 
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
@@ -16,7 +16,7 @@ app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
 
-connectDB();
+// connectDB();
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
