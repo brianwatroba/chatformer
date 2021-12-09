@@ -1,10 +1,9 @@
 import Phaser from "phaser";
-import axios from "axios";
 
 import connectToChat from "../utils/connectToChat";
 
 const BACKGROUND_COLOR = "#A8E9FF";
-const ERROR_COLOR = "#EF233C";
+// const ERROR_COLOR = "#EF233C";
 const SUBTEXT_COLOR = "#616161";
 
 export default class StartScreen extends Phaser.Scene {
