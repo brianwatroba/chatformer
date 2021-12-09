@@ -1,5 +1,5 @@
 import tmi from "tmi.js";
-import axios from "axios";
+// import axios from "axios";
 
 const connectToChat = async (streamerHandle) => {
     const client = new tmi.client();

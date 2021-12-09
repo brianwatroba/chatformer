@@ -1,7 +1,5 @@
 import React from "react";
-import styled from "@emotion/styled";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Typography } from "@mui/material";
 
 import assetMapping from "../../utils/assetMapping";
 import FeatureItem from "../shared/FeatureItem";

@@ -134,7 +134,7 @@ export default class Game extends Phaser.Scene {
     }
     die() {
         console.log("stun");
-        if (this.player.stun == false) {
+        if (this.player.stun === false) {
             this.player.stun = true;
             this.player.anims.play("hit", true);
         }
@@ -161,9 +161,9 @@ export default class Game extends Phaser.Scene {
     }
 
     spaceUp() {
-        if (this.jumpCount == 0) {
+        if (this.jumpCount === 0) {
             this.jumpCount = 1;
-        } else if (this.jumpCount == 1) {
+        } else if (this.jumpCount === 1) {
             this.jumpCount = 2;
         }
     }
@@ -185,7 +185,7 @@ export default class Game extends Phaser.Scene {
                     .setScale(0.5)
             );
         }
-        var tween = this.tweens.add({
+        this.tweens.add({
             targets: clouds,
             x: 700,
             duration: 50000,
@@ -211,7 +211,7 @@ export default class Game extends Phaser.Scene {
 
         this.platforms.create(0, 15, "transparent_ground").refreshBody();
 
-        for (var i = 0; i < 15; i++) {
+        for (i = 0; i < 15; i++) {
             this.platforms
                 .create(-300 + i * 44 * 1.5, 0, "ground")
                 .setScale(1.5)
@@ -221,7 +221,7 @@ export default class Game extends Phaser.Scene {
                 .setScale(1.5)
                 .refreshBody();
         }
-        for (var i = 0; i < 15; i++) {
+        for (i = 0; i < 15; i++) {
             for (var j = 0; j < 5; j++) {
                 this.platforms
                     .create(-300 + i * 44 * 1.5, 32 + j * 19 * 1.5, "dirt")
@@ -404,8 +404,8 @@ export default class Game extends Phaser.Scene {
             var xPos = this.player.x + 500;
             var move_speed = -50 - 400 * Math.random();
         } else {
-            var xPos = this.player.x - 500;
-            var move_speed = 50 + 400 * Math.random();
+            xPos = this.player.x - 500;
+            move_speed = 50 + 400 * Math.random();
         }
         var yPos = Math.min(this.player.y + 200 - 800 * Math.random(), -200);
 
@@ -431,7 +431,7 @@ export default class Game extends Phaser.Scene {
             return;
         }
 
-        if (this.player.stun == false) {
+        if (this.player.stun === false) {
             // TURN LEFT
             if (this.cursors.left.isDown) {
                 this.player.setVelocityX(-270);
@@ -492,7 +492,7 @@ export default class Game extends Phaser.Scene {
             "Height: " + Math.round((this.player.y * -1 - 50) / 10) + "m"
         );
 
-        if (this.birdTimer++ % 1000 == 0) {
+        if (this.birdTimer++ % 1000 === 0) {
             this.spawnBird();
         }
 
@@ -518,7 +518,7 @@ export default class Game extends Phaser.Scene {
         var messagePlatform = phaser.add.existing(
             new MessagePlatform(this, message.message, this.wordPlatforms)
         );
-        var messageTag = phaser.add.existing(
+        phaser.add.existing(
             new MessageTag(this, message.displayName, messagePlatform)
         );
 
@@ -556,12 +556,12 @@ export default class Game extends Phaser.Scene {
     createCoins(chest) {
         // number between 5 to 10
         var numCoins = Math.floor(Math.random() * 5) + 5;
-        var xSpread = 100.0;
+        // var xSpread = 100.0;
         var yBase = 1500;
         var yBuffer = 100.0;
         for (var i = 0; i < numCoins; i++) {
             var velocityX = Math.random() * 100 + 50;
-            var velocityX = Phaser.Math.FloatBetween(-xSpread, xSpread);
+            // var velocityX = Phaser.Math.FloatBetween(-xSpread, xSpread);
             var velocityY =
                 -1 * Phaser.Math.FloatBetween(yBase - yBuffer, yBase + yBuffer);
             var item = this.items.create(chest.x, chest.y, "coin");

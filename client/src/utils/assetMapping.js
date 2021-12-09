@@ -18,6 +18,10 @@ const assetMapping = {
     singleJumper: process.env.PUBLIC_URL + "/assets/singlejumper.png",
     coins: process.env.PUBLIC_URL + "/assets/coins.png",
     chest: process.env.PUBLIC_URL + "/assets/chestsingle.png",
+    star: process.env.PUBLIC_URL + "/assets/star.png",
+    brian: process.env.PUBLIC_URL + "/assets/brian.jpeg",
+    hong: process.env.PUBLIC_URL + "/assets/hong.jpeg",
+    lawrence: process.env.PUBLIC_URL + "/assets/lawrence.jpeg",
 };
 
 export default assetMapping;
