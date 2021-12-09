@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 import assetMapping from "../utils/assetMapping";
 import Navbar from "./shared/Navbar";
@@ -12,9 +13,10 @@ import TeamMember from "./shared/TeamMember";
 import FlexRow from "./shared/FlexRow";
 
 const NotFound = () => {
-    // useEffect(() => {
-    //     window.scrollTo(0, 0);
-    // }, []);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    const isMobile = useMediaQuery("(max-width:768px)");
 
     const { star, coins, chest, mascot, brian, hong, lawrence } = assetMapping;
 
@@ -23,8 +25,13 @@ const NotFound = () => {
         margin: 24px% 0px;
     `;
 
-    const SubItem = styled(FlexColumn)`
-        padding: 48px 0px;
+    const SubItem = styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 24px;
+        max-width: 500px;
     `;
 
     const Image = styled.img`
@@ -43,9 +50,13 @@ const NotFound = () => {
 
     const Subtext = styled(Typography)`
         color: #505050;
-        width: 500px;
         text-align: center;
         font-family: cabin;
+    `;
+
+    const FlexRowWrap = styled(FlexRow)`
+        flex-wrap: wrap;
+        width: 100%;
     `;
 
     return (
@@ -132,7 +143,7 @@ const NotFound = () => {
                 </Section>
                 <Section>
                     <SectionTitle>team</SectionTitle>
-                    <FlexRow>
+                    <FlexRowWrap>
                         <TeamMember
                             imgUrl={lawrence}
                             name={"Lawrence Rogers"}
@@ -151,30 +162,32 @@ const NotFound = () => {
                             title={"eng, dev ops"}
                             ghUsername={"hongj77"}
                         />
-                    </FlexRow>
+                    </FlexRowWrap>
                 </Section>
                 <Section>
                     <SectionTitle>contribute</SectionTitle>
-                    <Subtext
-                        variant="h6"
-                        component="div"
-                        style={{ margin: "18px 0px" }}
-                    >
-                        Chat Jump is open source. We’re always looking for new
-                        contributors and ideas.
-                    </Subtext>
-                    <Subtext
-                        variant="h6"
-                        component="div"
-                        style={{ margin: "18px 0px" }}
-                    >
-                        If you’re interested in collaborating, please check our
-                        roadmap and open issues on our{" "}
-                        <u>
-                            <b>Github</b>
-                        </u>
-                        .
-                    </Subtext>
+                    <SubItem>
+                        <Subtext
+                            variant="h6"
+                            component="div"
+                            style={{ margin: "18px 0px" }}
+                        >
+                            Chat Jump is open source. We’re always looking for
+                            new contributors and ideas.
+                        </Subtext>
+                        <Subtext
+                            variant="h6"
+                            component="div"
+                            style={{ margin: "18px 0px" }}
+                        >
+                            If you’re interested in collaborating, please check
+                            our roadmap and open issues on our{" "}
+                            <u>
+                                <b>Github</b>
+                            </u>
+                            .
+                        </Subtext>
+                    </SubItem>
                 </Section>
             </FlexColumn>
         </>

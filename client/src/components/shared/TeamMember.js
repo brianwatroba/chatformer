@@ -7,8 +7,10 @@ import FlexColumn from "./FlexColumn";
 const TeamMember = ({ imgUrl, name, title, ghUsername }) => {
     const ghLink = "https://www.github.com/" + ghUsername;
 
-    const handleClick = () => {};
-    const Container = styled(FlexColumn)`
+    const Container = styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         margin: 28px;
     `;
 
@@ -24,7 +26,6 @@ const TeamMember = ({ imgUrl, name, title, ghUsername }) => {
         display: flex;
         height: 200px;
         width: 200px;
-
         border-radius: 8px;
         border: solid #fff 4px;
         margin: 0px 0px 18px 0px; ;;;;;;;;
