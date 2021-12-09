@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const SectionTitle = ({ children }) => {
+const SectionTitle = ({ children, className, style }) => {
     const isMobile = useMediaQuery("(max-width:768px)");
     const Elem = styled(Typography)`
         text-align: center;
@@ -16,7 +16,12 @@ const SectionTitle = ({ children }) => {
     `;
 
     return (
-        <Elem variant={"h3"} component="div">
+        <Elem
+            variant={"h3"}
+            component="div"
+            className={className}
+            style={style}
+        >
             {children}
         </Elem>
     );

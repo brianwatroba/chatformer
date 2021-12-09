@@ -4,15 +4,11 @@ import styled from "styled-components";
 import Phaser from "phaser";
 import gameConfig from "../phaser/gameConfig";
 
-import Navbar from "./shared/Navbar";
-
 const Game = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
         new Phaser.Game(gameConfig);
     }, []);
-
-    // const { height, width } = gameConfig.scale;
 
     const Container = styled.div`
         display: flex;
@@ -34,7 +30,6 @@ const Game = () => {
 
     return (
         <>
-            <Navbar />
             <Container>
                 <GameScreen id="phaser-game" />
             </Container>
