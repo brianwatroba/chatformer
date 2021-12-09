@@ -2,8 +2,6 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 
-import FlexColumn from "./FlexColumn";
-
 const TeamMember = ({ imgUrl, name, title, ghUsername }) => {
     const ghLink = "https://www.github.com/" + ghUsername;
 

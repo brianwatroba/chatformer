@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
-import useMediaQuery from "@mui/material/useMediaQuery";
 
 import assetMapping from "../utils/assetMapping";
 import Navbar from "./shared/Navbar";
@@ -16,7 +15,6 @@ const NotFound = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-    const isMobile = useMediaQuery("(max-width:768px)");
 
     const { star, coins, chest, mascot, brian, hong, lawrence } = assetMapping;
 
