@@ -1,29 +1,37 @@
 import React from "react";
 import styled from "@emotion/styled";
+import keyframes from "@emotion/keyframes";
 
-import Clouds from "./shared/Clouds";
-import FlexColumn from "./shared/FlexColumn";
-import SectionTitle from "./shared/SectionTitle";
-// import SectionSubtitle from "./shared/SectionSubtitle";
+import Clouds from "./Clouds";
+import FlexColumn from "./FlexColumn";
+import SectionTitle from "./SectionTitle";
 
-const NotFound = () => {
+const LoadingGame = () => {
     const Container = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
-        // justify-content: center;
         position: relative;
         height: 100vh;
+        width: 100%;
+        background-color: #333;
+    `;
+
+    const FadeInOut = keyframes`
+	    0% { opacity:1; }
+        50% { opacity:0; }
+        100% { opacity:1; }
     `;
 
     const LoadingText = styled(SectionTitle)`
         padding: 100px 0px 0px 0px;
+        color: #fff;
+        animation: ${FadeInOut} 2s ease-out infinite;
     `;
 
     return (
         <>
             <FlexColumn>
-                <Clouds />
                 <Container>
                     <LoadingText>Loading...</LoadingText>
                 </Container>
@@ -32,4 +40,4 @@ const NotFound = () => {
     );
 };
 
-export default NotFound;
+export default LoadingGame;
