@@ -2,7 +2,6 @@ import React from "react";
 import styled from "@emotion/styled";
 import keyframes from "@emotion/keyframes";
 
-import Clouds from "./Clouds";
 import FlexColumn from "./FlexColumn";
 import SectionTitle from "./SectionTitle";
 
