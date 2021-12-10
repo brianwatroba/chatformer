@@ -25,7 +25,8 @@ const LoadingGame = () => {
     const LoadingText = styled(SectionTitle)`
         padding: 100px 0px 0px 0px;
         color: #fff;
-        animation: ${FadeInOut} 2s ease-out infinite;
+        animation: ${FadeInOut} 1s ease-out infinite;
+        padding: 15% 0% 0% 0%;
     `;
 
     return (
