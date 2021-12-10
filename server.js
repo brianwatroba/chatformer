@@ -1,22 +1,25 @@
 const loadEnv = require("./config/loadEnv");
 const express = require("express");
-const app = express();
 const connectDB = require("./config/db");
 const cors = require("cors");
+loadEnv();
 
+// Connections on server startup
+const app = express();
 const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+    console.log(`Server listening on ${PORT}`);
+});
+// connectDB();
 
-// procloadEnv();
-
+// Init middleware
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-app.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
-});
-
-// connectDB();
+// Define routes
+app.use("/api/twitch/users", require("./routes/api/twitch/users"));
+app.use("/api/twitch/streams", require("./routes/api/twitch/streams"));
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
