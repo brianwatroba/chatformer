@@ -4,7 +4,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 import assetMapping from "../../utils/assetMapping";
 import HamburgerMenu from "./HamburgerMenu";
-import Links from "./NavLinks";
+import NavLinks from "./NavLinks";
 import PlayButtonSecondary from "./PlayButtonSecondary";
 import LinksTo from "./LinksTo";
 
@@ -40,7 +40,7 @@ const Navbar = () => {
                 <HamburgerMenu />
             ) : (
                 <>
-                    <Links />
+                    <NavLinks />
                     <PlayButtonSecondary>PLAY NOW</PlayButtonSecondary>
                 </>
             )}

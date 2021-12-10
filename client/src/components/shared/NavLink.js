@@ -4,7 +4,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import LinksTo from "./LinksTo";
 
-const NavLink = ({ children, className, linkColor, href }) => {
+const NavLink = ({ children, className, linkColor, href, active }) => {
     const theme = useTheme();
     const isMobile = useMediaQuery("(max-width:768px)");
 
@@ -20,6 +20,7 @@ const NavLink = ({ children, className, linkColor, href }) => {
             font-weight: 700;
             cursor: pointer;
         }
+        font-weight: ${active ? "700" : "500"};
     `;
 
     return (

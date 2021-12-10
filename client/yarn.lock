@@ -1241,6 +1241,13 @@
   dependencies:
     "@emotion/memoize" "^0.7.4"
 
+"@emotion/keyframes@^0.9.1":
+  "integrity" "sha1-7Dh4+Qp6sRVANJDfpp/HVrpyntk="
+  "resolved" "https://registry.npmjs.org/@emotion/keyframes/-/keyframes-0.9.1.tgz"
+  "version" "0.9.1"
+  dependencies:
+    "@emotion/utils" "^0.7.1"
+
 "@emotion/memoize@^0.7.4", "@emotion/memoize@0.7.4":
   "integrity" "sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw=="
   "resolved" "https://registry.npmjs.org/@emotion/memoize/-/memoize-0.7.4.tgz"
@@ -1300,6 +1307,11 @@
   "integrity" "sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg=="
   "resolved" "https://registry.npmjs.org/@emotion/unitless/-/unitless-0.7.5.tgz"
   "version" "0.7.5"
+
+"@emotion/utils@^0.7.1":
+  "integrity" "sha512-1bGqG9IYJETOOqQEjWinGx1deLlAW/Fcew4GyrzZx0dJIgAjivZTmwzjrhB+Vhj7TgjMr0aTyj5byHmZezisZQ=="
+  "resolved" "https://registry.npmjs.org/@emotion/utils/-/utils-0.7.3.tgz"
+  "version" "0.7.3"
 
 "@emotion/utils@^1.0.0":
   "integrity" "sha512-mQC2b3XLDs6QCW+pDQDiyO/EdGZYOygE8s5N5rrzjSI4M3IejPE/JPndCBwRT9z982aqQNi6beWs1UeayrQxxA=="
