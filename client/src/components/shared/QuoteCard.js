@@ -55,7 +55,7 @@ const QuoteCard = ({ quote, author, authorLogoUrl }) => {
                 <QuotationMark type="open" />
             </FlexRow>
             <Quote variant="h4">{quote}</Quote>
-            <FlexRow align={"end"} style={{ alignItems: "end" }}>
+            <FlexRow align={"flex-end"}>
                 <QuotationMark />
             </FlexRow>
             <FlexRow>
