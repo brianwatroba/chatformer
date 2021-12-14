@@ -13,7 +13,6 @@ const gameConfig = {
     },
     dom: {
         createContainer: true,
-        // autoCenter: true,
     },
     resolution: window.devicePixelRatio,
     scene: [Start, Game],

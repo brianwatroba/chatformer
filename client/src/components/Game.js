@@ -1,16 +1,25 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { Typography } from "@mui/material";
 
 import Phaser from "phaser";
 import gameConfig from "../phaser/gameConfig";
+
+import assetMapping from "../utils/assetMapping";
+import Clouds from "./shared/Clouds";
+import TwitchLoginButton from "./shared/TwitchLoginButton";
+import FlexColumn from "./shared/FlexColumn";
 
 // import FlexRow from "./shared/FlexRow";
 
 const Game = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
-        new Phaser.Game(gameConfig);
+        console.log(document.location.hash);
+        // new Phaser.Game(gameConfig);
     }, []);
+
+    const { mainLogo } = assetMapping;
 
     const Container = styled.div`
         display: flex;
@@ -26,9 +35,28 @@ const Game = () => {
         position: absolute;
         top: 100px;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         border: 12px solid #d8d8d8;
         border-radius: 12px;
+        width: 800px;
+        height: 600px;
+        background-color: #72b9d8;
+    `;
+
+    const SubContainer = styled(FlexColumn)`
+        display: relative;
+    `;
+
+    const Logo = styled.img`
+        content: url(${mainLogo});
+        width: 250px;
+    `;
+
+    const SubText = styled(Typography)`
+        font-family: ubuntu;
+        color: #fff;
+        font-weight: 700;
     `;
 
     // const StreamInfo = styled(FlexRow)`
@@ -83,7 +111,15 @@ const Game = () => {
                         LIVE
                     </LiveStatus>
                 </StreamInfo> */}
-                <GameScreen id="phaser-game" />
+                {/* <GameScreen id="phaser-game" /> */}
+                <GameScreen>
+                    <SubContainer>
+                        <Clouds />
+                        <Logo />
+                        <SubText variant="h6">log in:</SubText>
+                        <TwitchLoginButton>LOGIN WITH TWITCH</TwitchLoginButton>
+                    </SubContainer>
+                </GameScreen>
             </Container>
         </>
     );
