@@ -1,55 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { Typography } from "@mui/material";
 import axios from "axios";
 
 import Phaser from "phaser";
 import gameConfig from "../phaser/gameConfig";
+import GameContext from "../context/game/gameContext";
 
+import Menu from "./game/Menu";
 import assetMapping from "../utils/assetMapping";
 import Clouds from "./shared/Clouds";
 import TwitchLoginButton from "./shared/TwitchLoginButton";
 import FlexColumn from "./shared/FlexColumn";
-
 import FlexRow from "./shared/FlexRow";
 
 const Game = () => {
-    const [player, setPlayer] = useState({
-        loggedIn: false,
-        username: "",
-        avatarUrl: "",
-    });
+    const gameContext = useContext(GameContext);
+    const { logInPlayer, playerName, playerAvatar, isLoggedIn } = gameContext;
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        logIn();
+        logInPlayer();
         new Phaser.Game(gameConfig);
-    }, []);
-
-    const logIn = async () => {
-        const urlParams = new URLSearchParams(document.location.search);
-        const code = urlParams.get("code");
-        window.history.replaceState({}, document.title, "/game");
-        if (code) console.log("code", code);
-        if (code) {
-            try {
-                const response = await axios.post(
-                    `http://localhost:4000/api/twitch/auth`,
-                    {
-                        code: code,
-                    }
-                );
-                const userData = response.data;
-                setPlayer({
-                    loggedIn: true,
-                    username: userData.display_name,
-                    avatarUrl: userData.profile_image_url,
-                });
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    };
+    }, [logInPlayer]);
 
     const { mainLogo } = assetMapping;
 
@@ -114,6 +87,7 @@ const Game = () => {
         font-weight: 700;
         align-items: center;
         justify-content: center;
+        display: ${isLoggedIn ? "" : "none"};
     `;
 
     const RedDot = styled.div`
@@ -125,34 +99,28 @@ const Game = () => {
     `;
 
     const StreamLogo = styled.img`
-        content: url(${player.avatarUrl});
+        content: url(${playerAvatar});
         height: 30px;
-        padding-right: 8px;
+        margin-right: 8px;
+        border-radius: 100%;
     `;
 
     return (
-        <>
-            <Container>
-                <StreamInfo>
-                    {" "}
-                    <StreamLogo />
-                    {player.username}
-                    <LiveStatus>
-                        <RedDot />
-                        LIVE
-                    </LiveStatus>
-                </StreamInfo>
-                {/* <GameScreen id="phaser-game" /> */}
-                <GameScreen>
-                    <SubContainer>
-                        <Clouds />
-                        <Logo />
-                        <SubText variant="h6">log in:</SubText>
-                        <TwitchLoginButton>LOGIN WITH TWITCH</TwitchLoginButton>
-                    </SubContainer>
-                </GameScreen>
-            </Container>
-        </>
+        <Container>
+            <StreamInfo>
+                {" "}
+                <StreamLogo />
+                {playerName}
+                <LiveStatus>
+                    <RedDot />
+                    LIVE
+                </LiveStatus>
+            </StreamInfo>
+            {/* <GameScreen id="phaser-game" /> */}
+            <GameScreen>
+                <Menu></Menu>
+            </GameScreen>
+        </Container>
     );
 };
 

@@ -22,6 +22,8 @@ const assetMapping = {
     brian: process.env.PUBLIC_URL + "/assets/brian.jpeg",
     hong: process.env.PUBLIC_URL + "/assets/hong.jpeg",
     lawrence: process.env.PUBLIC_URL + "/assets/lawrence.jpeg",
+    guest: process.env.PUBLIC_URL + "/assets/guest.svg",
+    twitchLogo: process.env.PUBLIC_URL + "/assets/twitchglitchwhite.svg",
 };
 
 export default assetMapping;
