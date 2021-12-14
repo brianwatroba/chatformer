@@ -20,6 +20,7 @@ app.use(cors());
 // Define routes
 app.use("/api/twitch/users", require("./routes/api/twitch/users"));
 app.use("/api/twitch/streams", require("./routes/api/twitch/streams"));
+app.use("/api/twitch/auth", require("./routes/api/twitch/auth"));
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));

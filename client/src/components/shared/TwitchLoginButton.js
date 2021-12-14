@@ -6,7 +6,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 const TwitchLoginButton = ({ children, className, style }) => {
     const isMobile = useMediaQuery("(max-width:768px)");
     const twitchLoginUrl =
-        "https://id.twitch.tv/oauth2/authorize?client_id=qqyhhc7u3eda4x5rayg3n4e93m3r3g&redirect_uri=http://localhost:3000/game&response_type=token&scope=";
+        "https://id.twitch.tv/oauth2/authorize?client_id=qqyhhc7u3eda4x5rayg3n4e93m3r3g&redirect_uri=http://localhost:3000/game&response_type=code&scope=&force_verify=true";
     const handleClick = () => {
         window.location.href = twitchLoginUrl;
     };
