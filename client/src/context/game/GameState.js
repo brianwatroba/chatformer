@@ -10,6 +10,7 @@ const GameState = (props) => {
         playerAvatar: "",
         isLoggedIn: false,
         currentStream: "",
+        gameStarted: false,
     };
 
     const [state, dispatch] = useReducer(gameReducer, initialState);
@@ -48,6 +49,7 @@ const GameState = (props) => {
                 playerName: state.playerName,
                 playerAvatar: state.playerAvatar,
                 isLoggedIn: state.isLoggedIn,
+                gameStarted: state.gameStarted,
                 logInPlayer,
             }}
         >

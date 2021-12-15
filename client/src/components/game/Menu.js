@@ -15,7 +15,7 @@ import FlexRow from "../shared/FlexRow";
 
 const Menu = ({ title }) => {
     const gameContext = useContext(GameContext);
-    const { MenuPlayer, playerName, playerAvatar, isLoggedIn } = gameContext;
+    const { playerName, playerAvatar, isLoggedIn } = gameContext;
 
     const { mainLogo, ground } = assetMapping;
 
@@ -54,7 +54,7 @@ const Menu = ({ title }) => {
 
     return (
         <Container>
-            <Clouds />
+            {/* <Clouds lowestAltitude={60} count={10} /> */}
             <Logo />
             <TwitchLoginButton />
             <Ground />
