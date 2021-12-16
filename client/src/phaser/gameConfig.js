@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import Game from "./scenes/Game.js";
 import Start from "./scenes/Start.js";
+import Loading from "./scenes/Loading.js";
 
 const gameConfig = {
     type: Phaser.AUTO,
@@ -15,7 +16,7 @@ const gameConfig = {
         createContainer: true,
     },
     resolution: window.devicePixelRatio,
-    scene: [Start, Game],
+    scene: [Loading, Game],
     physics: {
         default: "arcade",
         arcade: {

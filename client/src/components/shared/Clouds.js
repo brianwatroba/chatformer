@@ -42,19 +42,15 @@ const Clouds = ({ lowestAltitude, count }) => {
     };
 
     const generateClouds = () => {
-        console.log(lowestAltitude, count);
         const increment = Math.floor((100 - lowestAltitude) / count);
-        console.log("inc", increment);
         for (let i = 1; i <= count; i++) {
             let cloudType = getCloudType(getRandomInt(1, 4));
             let height = getRandomInt(150, 301);
             let side = i % 2 === 0 ? "right" : "left";
             let altitude = `${increment * i}%`;
-            console.log("alt", altitude);
             let fromSide = `${getRandomInt(75, 91)}%`;
             clouds.push([cloudType, height, side, fromSide, altitude]);
         }
-        console.log(clouds);
     };
 
     generateClouds();
@@ -63,6 +59,7 @@ const Clouds = ({ lowestAltitude, count }) => {
         <Container>
             {clouds.map((cloud) => (
                 <Cloud
+                    key={clouds.indexOf(cloud)}
                     src={cloud[0]}
                     height={cloud[1]}
                     right={cloud[2] === "right" ? cloud[3] : null}

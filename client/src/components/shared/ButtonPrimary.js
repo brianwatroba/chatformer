@@ -3,16 +3,15 @@ import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-import assetMapping from "../../utils/assetMapping";
-
-const TwitchLoginButton = ({ children, className, style }) => {
+const ButtonPrimary = ({
+    children,
+    className,
+    style,
+    onClick,
+    icon,
+    disabled,
+}) => {
     const isMobile = useMediaQuery("(max-width:768px)");
-    const { twitchLogo } = assetMapping;
-    const twitchLoginUrl =
-        "https://id.twitch.tv/oauth2/authorize?client_id=qqyhhc7u3eda4x5rayg3n4e93m3r3g&redirect_uri=http://localhost:3000/game&response_type=code&scope=&force_verify=true";
-    const handleClick = () => {
-        window.location.href = twitchLoginUrl;
-    };
 
     const Elem = styled((props) => (
         <Button
@@ -20,7 +19,8 @@ const TwitchLoginButton = ({ children, className, style }) => {
             variant="contained"
             color="primary"
             size={"large"}
-            onClick={handleClick}
+            onClick={onClick}
+            disabled={disabled}
         />
     ))`
         border-radius: 6px;
@@ -28,22 +28,21 @@ const TwitchLoginButton = ({ children, className, style }) => {
         font-family: Ubuntu;
         font-weight: 700;
         font-size: ${isMobile ? "20px" : "24px"};
+        margin-bottom: 8px;
     `;
 
-    const TwitchLogo = styled.img`
-        content: url(${twitchLogo});
+    const Icon = styled.img`
+        content: url(${icon});
         height: 25px;
         margin-right: 12px;
     `;
 
     return (
         <Elem className={className} style={style}>
-            <TwitchLogo />
-            LOG IN WITH TWITCH
+            {icon && <Icon />}
+            {children}
         </Elem>
     );
 };
 
-export default TwitchLoginButton;
-
-//
+export default ButtonPrimary;

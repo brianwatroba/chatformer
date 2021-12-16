@@ -8,8 +8,8 @@ const axiosConfig = {
     },
 };
 
-// @route  GET api/twitch/users
-// @desc   get info about a Twitch user
+// @route  GET api/twitch/streams
+// @desc   get info about a Twitch stream
 // @access public
 
 router.get("/", async (req, res) => {

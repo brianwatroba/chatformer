@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import GameContext from "../../context/game/gameContext";
 
 import FlexRow from "./FlexRow";
 
 const CurrentStream = () => {
+    const gameContext = useContext(GameContext);
+    const { stream, streamAvatar } = gameContext;
+
     const Container = styled(FlexRow)`
         padding: 12px 0px;
         position: relative;
@@ -16,6 +20,7 @@ const CurrentStream = () => {
         font-family: ubuntu;
         font-weight: 700;
         font-size: 20px;
+        display: ${stream ? "" : "none"};
     `;
 
     const LiveStatus = styled(FlexRow)`
@@ -38,16 +43,17 @@ const CurrentStream = () => {
     `;
 
     const StreamLogo = styled.img`
-        content: url("");
+        content: url(${streamAvatar});
         height: 30px;
+        width: 30px;
         margin-right: 8px;
         border-radius: 100%;
+        border: 2px solid #808080;
     `;
-
     return (
         <Container>
-            {" "}
             <StreamLogo />
+            {stream}
             <LiveStatus>
                 <RedDot />
                 LIVE

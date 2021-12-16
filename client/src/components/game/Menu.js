@@ -1,22 +1,17 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { Typography } from "@mui/material";
-import axios from "axios";
 
-import Phaser from "phaser";
-import gameConfig from "../../phaser/gameConfig";
 import GameContext from "../../context/game/gameContext";
-
 import assetMapping from "../../utils/assetMapping";
 import Clouds from "../shared/Clouds";
-import TwitchLoginButton from "../shared/TwitchLoginButton";
 import FlexColumn from "../shared/FlexColumn";
-import FlexRow from "../shared/FlexRow";
+import LogIn from "./LogIn";
+import SelectStream from "./SelectStream";
+import InputStream from "./InputStream";
 
-const Menu = ({ title }) => {
+const Menu = () => {
     const gameContext = useContext(GameContext);
-    const { playerName, playerAvatar, isLoggedIn } = gameContext;
-
+    const { isLoggedIn, streamType } = gameContext;
     const { mainLogo, ground } = assetMapping;
 
     const Container = styled(FlexColumn)`
@@ -26,20 +21,10 @@ const Menu = ({ title }) => {
 
     const Logo = styled.img`
         content: url(${mainLogo});
-        width: 250px;
-    `;
-
-    const Title = styled(Typography)`
-        font-family: ubuntu;
-        color: #fff;
-        font-weight: 700;
-    `;
-
-    const StreamLogo = styled.img`
-        content: url(${playerAvatar});
-        height: 30px;
-        margin-right: 8px;
-        border-radius: 100%;
+        width: 325px;
+        position: absolute;
+        top: 60px;
+        left: 215px;
     `;
 
     const Ground = styled.div`
@@ -52,11 +37,26 @@ const Menu = ({ title }) => {
         bottom: 0;
     `;
 
+    const MenuOptions = styled(FlexColumn)`
+        position: absolute;
+        top: 225px;
+    `;
+
     return (
         <Container>
-            {/* <Clouds lowestAltitude={60} count={10} /> */}
+            <Clouds lowestAltitude={95} count={6} />
             <Logo />
-            <TwitchLoginButton />
+            <MenuOptions>
+                {isLoggedIn ? (
+                    streamType === null ? (
+                        <SelectStream />
+                    ) : (
+                        <InputStream />
+                    )
+                ) : (
+                    <LogIn />
+                )}
+            </MenuOptions>
             <Ground />
         </Container>
     );

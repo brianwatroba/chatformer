@@ -6,9 +6,7 @@ import assetMapping from "../../utils/assetMapping";
 
 const PlayerMenu = () => {
     const gameContext = useContext(GameContext);
-    const { guest } = assetMapping;
     const { playerName, playerAvatar, isLoggedIn } = gameContext;
-    console.log(playerAvatar);
 
     const Container = styled.div`
         display: flex;
@@ -24,7 +22,7 @@ const PlayerMenu = () => {
     `;
 
     const StreamLogo = styled.img`
-        content: url(${isLoggedIn ? playerAvatar : guest});
+        content: url(${playerAvatar});
         height: 30px;
         margin-right: ${isLoggedIn ? "8px" : "0px"};
         border-radius: 100%;

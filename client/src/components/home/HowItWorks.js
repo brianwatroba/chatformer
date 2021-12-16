@@ -15,7 +15,7 @@ const HowItWorks = () => {
 
     return (
         <FlexColumn>
-            <Clouds lowestAltitude={60} count={5} />
+            <Clouds lowestAltitude={40} count={7} />
             <FlexColumn
                 style={{
                     minHeight: "100vh",

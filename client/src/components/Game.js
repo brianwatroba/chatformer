@@ -9,13 +9,13 @@ import Menu from "./game/Menu";
 
 const Game = () => {
     const gameContext = useContext(GameContext);
-    const { logInPlayer, gameStarted } = gameContext;
+    const { logInTwitch, gameStarted, isLoggedIn } = gameContext;
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        logInPlayer();
+        logInTwitch();
         if (gameStarted) new Phaser.Game(gameConfig);
-    }, [logInPlayer, gameStarted]);
+    }, [logInTwitch, gameStarted, isLoggedIn]);
 
     const Container = styled.div`
         display: flex;
@@ -43,9 +43,7 @@ const Game = () => {
     return (
         <Container>
             <CurrentStream />
-            <GameScreen id="phaser-game">
-                <Menu></Menu>
-            </GameScreen>
+            <GameScreen id="phaser-game">{!gameStarted && <Menu />}</GameScreen>
         </Container>
     );
 };
