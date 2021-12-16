@@ -1,6 +1,5 @@
 import Phaser from "phaser";
 import Game from "./scenes/Game.js";
-import Start from "./scenes/Start.js";
 import Loading from "./scenes/Loading.js";
 
 const gameConfig = {
@@ -17,6 +16,8 @@ const gameConfig = {
     },
     resolution: window.devicePixelRatio,
     scene: [Loading, Game],
+    backgroundColor: "#72b9d8",
+    gameTitle: "trainwreckstv",
     physics: {
         default: "arcade",
         arcade: {

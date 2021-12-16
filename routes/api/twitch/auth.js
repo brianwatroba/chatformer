@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
     const clientSecretParam = `&client_secret=${process.env.TWITCH_CLIENT_SECRET}`;
     const codeParam = `&code=${code}`;
     const grantType = `&grant_type=authorization_code`;
-    const redirectUri = `&redirect_uri=http://localhost:3000/game`;
+    const redirectUri = `&redirect_uri=http://localhost:3000/auth`;
 
     try {
         const twitchResponse = await axios.post(

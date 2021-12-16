@@ -1,4 +1,4 @@
-import Phaser from "phaser";
+import Phaser, { Scene } from "phaser";
 
 import connectToChat from "../../utils/connectToChat";
 
@@ -9,27 +9,28 @@ export default class Loading extends Phaser.Scene {
 
     logoSubtext;
     message;
-    streamer = "kitboga";
+    streamer;
     nameInput;
     client;
     playButton;
     platforms;
     rect;
 
+    init() {
+        this.streamer = document.getElementById("streamer-name").innerText;
+    }
+
     preload() {}
 
     async create() {
-        console.log(Phaser.Game);
         const screenCenterX =
             this.cameras.main.worldView.x + this.cameras.main.width / 2;
 
-        this.add.image(375, 100, "logo").setScale(0.7);
-
         this.logoSubtext = this.add
-            .text(screenCenterX, 168, "LOADING", {
-                color: "#333",
-                fontSize: "12px",
-                fontFamily: "arial",
+            .text(screenCenterX, 275, "CONNECTING...", {
+                color: "#fff",
+                fontSize: "48px",
+                fontFamily: "ubuntu",
             })
             .setOrigin(0.5);
         this.client = await connectToChat(this.streamer);

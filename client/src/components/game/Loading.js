@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, Suspense } from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 
 import Phaser from "phaser";
@@ -9,12 +9,13 @@ import Menu from "./game/Menu";
 
 const Game = () => {
     const gameContext = useContext(GameContext);
-    const { logInTwitch, gameStarted, isLoggedIn, endGame } = gameContext;
+    const { logInTwitch, gameStarted, isLoggedIn } = gameContext;
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        logInTwitch();
         if (gameStarted) new Phaser.Game(gameConfig);
-    }, [logInTwitch, gameStarted, isLoggedIn, endGame]);
+    }, [logInTwitch, gameStarted, isLoggedIn]);
 
     const Container = styled.div`
         display: flex;
@@ -26,7 +27,7 @@ const Game = () => {
         background-color: #333;
     `;
 
-    const ScreenShell = styled.div`
+    const GameScreen = styled.div`
         position: absolute;
         top: 100px;
         display: flex;
@@ -39,24 +40,10 @@ const Game = () => {
         background-color: #72b9d8;
     `;
 
-    const GameScreen = styled.div`
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-    `;
-
     return (
         <Container>
             <CurrentStream />
-            <ScreenShell>
-                <Suspense fallback={<></>}>
-                    <GameScreen id="phaser-game">
-                        {!gameStarted && <Menu />}
-                    </GameScreen>
-                </Suspense>
-            </ScreenShell>
+            <GameScreen id="phaser-game">{!gameStarted && <Menu />}</GameScreen>
         </Container>
     );
 };

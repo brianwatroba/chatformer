@@ -17,6 +17,7 @@ const CurrentStream = () => {
         color: #fff;
         border-radius: 4px;
         border: solid 3px #808080;
+        background-color: #3f3f3f;
         font-family: ubuntu;
         font-weight: 700;
         font-size: 20px;
@@ -53,7 +54,7 @@ const CurrentStream = () => {
     return (
         <Container>
             <StreamLogo />
-            {stream}
+            <div id="streamer-name">{stream}</div>
             <LiveStatus>
                 <RedDot />
                 LIVE

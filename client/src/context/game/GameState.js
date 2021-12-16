@@ -3,7 +3,7 @@ import GameContext from "./gameContext";
 import gameReducer from "./gameReducer";
 import axios from "axios";
 
-import { SET_PLAYER, SET_STREAM_TYPE, START_GAME } from "../types";
+import { SET_PLAYER, SET_STREAM_TYPE, START_GAME, END_GAME } from "../types";
 import assetMapping from "../../utils/assetMapping";
 import isStreamerLive from "../../utils/isStreamerLive";
 import getStreamerInfo from "../../utils/getStreamerInfo";
@@ -22,35 +22,34 @@ const GameState = (props) => {
 
     const [state, dispatch] = useReducer(gameReducer, initialState);
 
-    const logInTwitch = async () => {
-        const urlParams = new URLSearchParams(document.location.search);
-        const code = urlParams.get("code");
-        window.history.replaceState({}, document.title, "/game");
-        if (code) {
-            try {
-                const response = await axios.post(
-                    `http://localhost:4000/api/twitch/auth`,
-                    {
-                        code: code,
-                    }
-                );
-                const userData = response.data;
-                dispatch({
-                    type: SET_PLAYER,
-                    payload: {
-                        playerName: userData.display_name,
-                        playerAvatar: userData.profile_image_url,
-                        isLoggedIn: true,
-                    },
-                });
-            } catch (error) {
-                console.log(error);
-            }
+    const logInTwitch = async (code) => {
+        // const urlParams = new URLSearchParams(document.location.search);
+        // const code = urlParams.get("code");
+        // window.history.replaceState({}, document.title, "/game");
+        // if (code) {
+        try {
+            const response = await axios.post(
+                `http://localhost:4000/api/twitch/auth`,
+                {
+                    code: code,
+                }
+            );
+            const userData = response.data;
+            dispatch({
+                type: SET_PLAYER,
+                payload: {
+                    playerName: userData.display_name,
+                    playerAvatar: userData.profile_image_url,
+                    isLoggedIn: true,
+                },
+            });
+        } catch (error) {
+            console.log(error);
         }
+        // }
     };
 
     const logInGuest = () => {
-        // make new guest
         dispatch({
             type: SET_PLAYER,
             payload: {
@@ -89,7 +88,13 @@ const GameState = (props) => {
         }
     };
 
-    const setStreamType = async (type) => {
+    const endGame = () => {
+        dispatch({
+            type: END_GAME,
+        });
+    };
+
+    const setStreamType = (type) => {
         dispatch({
             type: SET_STREAM_TYPE,
             payload: {
@@ -111,6 +116,7 @@ const GameState = (props) => {
                 stream: state.stream,
                 streamAvatar: state.streamAvatar,
                 startGame,
+                endGame,
                 gameStarted: state.gameStarted,
             }}
         >

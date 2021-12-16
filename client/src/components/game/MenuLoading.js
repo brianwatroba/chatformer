@@ -1,26 +1,29 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Typography } from "@mui/material";
 
-import GameContext from "../../context/game/gameContext";
+import FlexColumn from "../shared/FlexColumn";
+import SectionTitle from "../shared/SectionTitle";
 
-const LogIn = () => {
-    const gameContext = useContext(GameContext);
-    const { playerName, playerAvatar, isLoggedIn } = gameContext;
+const MenuLoading = () => {
+    const Container = styled(FlexColumn)`
+        display: relative;
+        height: 100%;
+    `;
 
-    const Title = styled(Typography)`
-        font-family: ubuntu;
-        color: #fff;
-        font-weight: 700;
-        margin-bottom: 28px;
-        font-size: 20px;
+    const Title = styled(SectionTitle)``;
+
+    const MenuOptions = styled(FlexColumn)`
+        position: absolute;
+        top: 225px;
     `;
 
     return (
-        <>
-            <Title>LOADING</Title>
-        </>
+        <Container>
+            <MenuOptions>
+                <Title>Authenticating...</Title>
+            </MenuOptions>
+        </Container>
     );
 };
 
-export default LogIn;
+export default MenuLoading;

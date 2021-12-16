@@ -1,4 +1,4 @@
-import { SET_PLAYER, SET_STREAM_TYPE, START_GAME } from "../types";
+import { SET_PLAYER, SET_STREAM_TYPE, START_GAME, END_GAME } from "../types";
 
 const gameReducer = (state, action) => {
     switch (action.type) {
@@ -24,6 +24,14 @@ const gameReducer = (state, action) => {
                 streamAvatar: action.payload.streamAvatar,
                 streamType: action.payload.streamType,
                 gameStarted: action.payload.gameStarted,
+            };
+        case END_GAME:
+            return {
+                ...state,
+                stream: null,
+                streamAvatar: null,
+                streamType: null,
+                gameStarted: false,
             };
         default:
             return state;

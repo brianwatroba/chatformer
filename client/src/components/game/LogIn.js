@@ -15,7 +15,7 @@ const LogIn = () => {
 
     const sendToTwitchAuth = () => {
         const twitchLoginUrl =
-            "https://id.twitch.tv/oauth2/authorize?client_id=qqyhhc7u3eda4x5rayg3n4e93m3r3g&redirect_uri=http://localhost:3000/game&response_type=code&scope=&force_verify=true";
+            "https://id.twitch.tv/oauth2/authorize?client_id=qqyhhc7u3eda4x5rayg3n4e93m3r3g&redirect_uri=http://localhost:3000/auth&response_type=code&scope=&force_verify=true";
 
         window.location.href = twitchLoginUrl;
     };
