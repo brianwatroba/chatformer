@@ -1,4 +1,4 @@
-import Phaser, { Scene } from "phaser";
+import Phaser from "phaser";
 
 import connectToChat from "../../utils/connectToChat";
 
@@ -17,6 +17,7 @@ export default class Loading extends Phaser.Scene {
     rect;
 
     init() {
+        console.log(document.getElementById("streamer-name").innerText);
         this.streamer = document.getElementById("streamer-name").innerText;
     }
 

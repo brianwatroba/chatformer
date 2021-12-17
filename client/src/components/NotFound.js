@@ -23,7 +23,7 @@ const NotFound = () => {
     return (
         <>
             <FlexColumn>
-                <Clouds />
+                <Clouds lowestAltitude={20} count={10} />
                 <Container>
                     <SectionTitle>404: not found</SectionTitle>
                     <SectionSubtitle>

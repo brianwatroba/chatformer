@@ -2,8 +2,6 @@ import Phaser from "phaser";
 import MessagePlatform from "../classes/MessagePlatform.js";
 import MessageTag from "../classes/MessageTag.js";
 
-import connectToChat from "../../utils/connectToChat.js";
-
 export default class Game extends Phaser.Scene {
     constructor() {
         super("Game");
@@ -38,7 +36,6 @@ export default class Game extends Phaser.Scene {
     }
 
     async preload() {
-        // this.client = await connectToChat("ninja");
         this.load.image("sky", "assets/sky.png");
         this.load.image("platform", "assets/platform.png");
         this.load.image("star", "assets/star.png");

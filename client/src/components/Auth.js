@@ -16,7 +16,11 @@ const Auth = () => {
         const urlParams = new URLSearchParams(document.location.search);
         const code = urlParams.get("code");
         window.history.replaceState({}, document.title, "/auth");
-        if (code) logInTwitch(code);
+        if (code) {
+            logInTwitch(code);
+        } else {
+            navigate("/game");
+        }
         if (isLoggedIn) navigate("/game");
     }, [logInTwitch, isLoggedIn, navigate]);
 

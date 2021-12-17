@@ -24,6 +24,7 @@ const GameState = (props) => {
 
     const logInTwitch = async (code) => {
         try {
+            // move this into utils with it's own function calling api
             const response = await axios.post(
                 `http://localhost:4000/api/twitch/auth`,
                 {
@@ -63,7 +64,6 @@ const GameState = (props) => {
             if (isLive) {
                 const streamerInfo = await getStreamerInfo(streamName);
                 const avatar = streamerInfo.profile_image_url;
-                console.log(avatar);
                 const type =
                     streamName.toLowerCase() === state.playerName
                         ? "self"

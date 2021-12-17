@@ -5,17 +5,12 @@ import { Typography } from "@mui/material";
 import GameContext from "../../context/game/gameContext";
 import ButtonPrimary from "../shared/ButtonPrimary";
 import ButtonSecondary from "../shared/ButtonSecondary";
-import BackButton from "../shared/BackButton";
 
 const SelectStream = () => {
     const gameContext = useContext(GameContext);
-    const { startGame, setStreamType, playerName, logOut } = gameContext;
+    const { startGame, setStreamType, playerName } = gameContext;
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-
-    const handleBack = () => {
-        logOut();
-    };
 
     const joinDifferentStream = () => {
         setLoading(true);
@@ -49,7 +44,6 @@ const SelectStream = () => {
 
     return (
         <>
-            {/* <BackButton onClick={handleBack} /> */}
             <Title>join:</Title>
             <ErrorText>{error}</ErrorText>
             <ButtonPrimary
