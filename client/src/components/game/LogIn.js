@@ -13,37 +13,59 @@ const LogIn = () => {
     const { logInGuest } = gameContext;
     const { twitchLogo } = assetMapping;
 
+    const [loading, setLoading] = useState(false);
+
     const sendToTwitchAuth = () => {
+        setLoading(true);
         const twitchLoginUrl =
             "https://id.twitch.tv/oauth2/authorize?client_id=qqyhhc7u3eda4x5rayg3n4e93m3r3g&redirect_uri=http://localhost:3000/auth&response_type=code&scope=&force_verify=true";
 
         window.location.href = twitchLoginUrl;
     };
 
+    const playAsGuest = () => {
+        setLoading(true);
+        logInGuest();
+    };
+
     const Title = styled(Typography)`
         font-family: ubuntu;
-        color: #fff;
-        font-weight: 700;
-        margin-bottom: 28px;
+        color: #3f3f3f;
+        margin-bottom: 8px;
         font-size: 20px;
     `;
 
-    const SubText = styled(Typography)`
+    const ErrorText = styled(Typography)`
         font-family: cabin;
-        color: #505050;
+        color: red;
         font-weight: 500;
         margin-bottom: 8px;
         font-style: italic;
+        height: 20px;
+    `;
+
+    const TwitchLoginButton = styled(ButtonPrimary)`
+        margin-bottom: 12px;
     `;
 
     return (
         <>
-            <Title>log in:</Title>
-            <ButtonPrimary onClick={sendToTwitchAuth} icon={twitchLogo}>
+            <Title>player login:</Title>
+            <ErrorText></ErrorText>
+            <TwitchLoginButton
+                disabled={loading}
+                color="twitch"
+                onClick={sendToTwitchAuth}
+                iconLeft={twitchLogo}
+            >
                 LOG IN WITH TWITCH
-            </ButtonPrimary>
-            <SubText>or</SubText>
-            <ButtonSecondary onClick={logInGuest}>
+            </TwitchLoginButton>
+            {/* <SubText>or</SubText> */}
+            <ButtonSecondary
+                disabled={loading}
+                variant="text"
+                onClick={playAsGuest}
+            >
                 PLAY AS GUEST
             </ButtonSecondary>
         </>

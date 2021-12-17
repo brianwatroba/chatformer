@@ -1,15 +1,20 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
+
+import FlexRow from "./FlexRow";
 
 const ButtonPrimary = ({
     children,
     className,
     style,
     onClick,
-    icon,
+    iconLeft,
+    isLive,
     disabled,
+    color,
+    size,
 }) => {
     const isMobile = useMediaQuery("(max-width:768px)");
 
@@ -17,10 +22,11 @@ const ButtonPrimary = ({
         <Button
             {...props}
             variant="contained"
-            color="primary"
-            size={"large"}
+            color={color || "primary"}
+            size={size || "large"}
             onClick={onClick}
             disabled={disabled}
+            type="type"
         />
     ))`
         border-radius: 6px;
@@ -32,15 +38,41 @@ const ButtonPrimary = ({
     `;
 
     const Icon = styled.img`
-        content: url(${icon});
+        content: url(${iconLeft});
         height: 25px;
         margin-right: 12px;
     `;
 
+    const IsLive = styled(FlexRow)`
+        font-size: 8px;
+        color: "#fff";
+        font-weight: 700;
+        font-family: cabin;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-left: 12px;
+    `;
+
+    const RedDot = styled.div`
+        height: 8px;
+        width: 8px;
+        border-radius: 100%;
+        background-color: #ff596e;
+        border: 1px solid #fff;
+        margin-right: 3px;
+    `;
+
     return (
         <Elem className={className} style={style}>
-            {icon && <Icon />}
+            {iconLeft && <Icon />}
             {children}
+            {isLive && (
+                <IsLive>
+                    <RedDot />
+                    LIVE
+                </IsLive>
+            )}
         </Elem>
     );
 };

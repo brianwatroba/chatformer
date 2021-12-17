@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { Typography } from "@mui/material";
-
 import { TextField } from "@mui/material";
 
 import GameContext from "../../context/game/gameContext";
@@ -17,6 +16,7 @@ const InputStream = () => {
 
     const handleChange = (e) => {
         setStreamName(e.target.value);
+        setError(null);
     };
 
     const handleClick = async () => {
@@ -28,24 +28,28 @@ const InputStream = () => {
         setLoading(false);
     };
 
-    //TODO: get most watched current stream
-
     return (
         <>
-            <Title>join stream:</Title>
-            <SubText>enter stream to join:</SubText>
+            <Title>join:</Title>
+            <ErrorText>{error}</ErrorText>
             <Input
                 autoFocus
                 color="secondary"
-                placeholder="username"
+                placeholder="streamer username"
                 InputProps={inputProps}
                 onChange={handleChange}
                 value={streamName}
                 error={error}
                 disabled={loading}
             />
-            <ErrorText>{error}</ErrorText>
-            <ButtonPrimary disabled={loading} onClick={handleClick}>
+
+            <ButtonPrimary
+                size="medium"
+                style={{ fontSize: "18px" }}
+                disabled={loading}
+                onClick={handleClick}
+                type="submit"
+            >
                 PLAY GAME
             </ButtonPrimary>
         </>
@@ -54,20 +58,10 @@ const InputStream = () => {
 
 const Title = styled(Typography)`
     font-family: ubuntu;
-    color: #fff;
-    font-weight: 700;
-    margin-bottom: 28px;
+    color: #3f3f3f;
+    margin-bottom: 8px;
     font-size: 20px;
 `;
-
-const SubText = styled(Typography)`
-    font-family: cabin;
-    color: #505050;
-    font-weight: 500;
-    font-size: 18px;
-    margin-bottom: 8px;
-`;
-
 const Input = styled(TextField)`
     background-color: #fff;
     border-radius: 4px;
@@ -81,6 +75,7 @@ const ErrorText = styled(Typography)`
     font-weight: 500;
     margin-bottom: 8px;
     font-style: italic;
+    height: 20px;
 `;
 
 const inputProps = {

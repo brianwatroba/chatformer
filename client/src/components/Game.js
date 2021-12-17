@@ -6,6 +6,7 @@ import gameConfig from "../phaser/gameConfig";
 import GameContext from "../context/game/gameContext";
 import CurrentStream from "./shared/CurrentStream";
 import Menu from "./game/Menu";
+import BackButton from "./shared/BackButton";
 
 const Game = () => {
     const gameContext = useContext(GameContext);
@@ -15,6 +16,10 @@ const Game = () => {
         window.scrollTo(0, 0);
         if (gameStarted) new Phaser.Game(gameConfig);
     }, [logInTwitch, gameStarted, isLoggedIn, endGame]);
+
+    const handleBack = () => {
+        endGame();
+    };
 
     const Container = styled.div`
         display: flex;
@@ -49,6 +54,9 @@ const Game = () => {
 
     return (
         <Container>
+            {gameStarted && (
+                <BackButton onClick={handleBack} left={"585px"} top={"32px"} />
+            )}
             <CurrentStream />
             <ScreenShell>
                 <Suspense fallback={<></>}>

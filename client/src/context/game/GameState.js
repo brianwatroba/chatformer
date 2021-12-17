@@ -23,10 +23,6 @@ const GameState = (props) => {
     const [state, dispatch] = useReducer(gameReducer, initialState);
 
     const logInTwitch = async (code) => {
-        // const urlParams = new URLSearchParams(document.location.search);
-        // const code = urlParams.get("code");
-        // window.history.replaceState({}, document.title, "/game");
-        // if (code) {
         try {
             const response = await axios.post(
                 `http://localhost:4000/api/twitch/auth`,
@@ -46,7 +42,6 @@ const GameState = (props) => {
         } catch (error) {
             console.log(error);
         }
-        // }
     };
 
     const logInGuest = () => {
@@ -88,6 +83,18 @@ const GameState = (props) => {
         }
     };
 
+    const logOut = async () => {
+        dispatch({
+            type: SET_PLAYER,
+            payload: {
+                playerName: null,
+                playerAvatar: guest,
+                streamType: null,
+                isLoggedIn: false,
+            },
+        });
+    };
+
     const endGame = () => {
         dispatch({
             type: END_GAME,
@@ -109,6 +116,7 @@ const GameState = (props) => {
                 isLoggedIn: state.isLoggedIn,
                 logInTwitch,
                 logInGuest,
+                logOut,
                 playerName: state.playerName,
                 playerAvatar: state.playerAvatar,
                 streamType: state.streamType,

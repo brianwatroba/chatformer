@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import GameContext from "../context/game/gameContext";
 import CurrentStream from "./shared/CurrentStream";
-import MenuLoading from "./game/MenuLoading";
+import SectionTitle from "./shared/SectionTitle";
 
 const Auth = () => {
     const gameContext = useContext(GameContext);
@@ -36,6 +36,7 @@ const Auth = () => {
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         border: 12px solid #d8d8d8;
         border-radius: 12px;
         width: 800px;
@@ -47,7 +48,7 @@ const Auth = () => {
         <Container>
             <CurrentStream />
             <GameScreen>
-                <MenuLoading />
+                <SectionTitle>Authenticating...</SectionTitle>
             </GameScreen>
         </Container>
     );
