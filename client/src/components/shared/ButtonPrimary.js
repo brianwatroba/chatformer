@@ -43,25 +43,25 @@ const ButtonPrimary = ({
         margin-right: 12px;
     `;
 
-    const IsLive = styled(FlexRow)`
-        font-size: 8px;
-        color: "#fff";
-        font-weight: 700;
-        font-family: cabin;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        margin-left: 12px;
-    `;
+    // const IsLive = styled(FlexRow)`
+    //     font-size: 8px;
+    //     color: "#fff";
+    //     font-weight: 700;
+    //     font-family: cabin;
+    //     align-items: center;
+    //     justify-content: center;
+    //     text-align: center;
+    //     margin-left: 12px;
+    // `;
 
-    const RedDot = styled.div`
-        height: 8px;
-        width: 8px;
-        border-radius: 100%;
-        background-color: #ff596e;
-        border: 1px solid #fff;
-        margin-right: 3px;
-    `;
+    // const RedDot = styled.div`
+    //     height: 8px;
+    //     width: 8px;
+    //     border-radius: 100%;
+    //     background-color: #ff596e;
+    //     border: 1px solid #fff;
+    //     margin-right: 3px;
+    // `;
 
     return (
         <Elem className={className} style={style}>
