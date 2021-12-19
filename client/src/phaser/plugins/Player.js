@@ -46,8 +46,6 @@ export class Player extends Phaser.GameObjects.Sprite {
 export class PlayerPlugin extends Phaser.Plugins.BasePlugin {
     constructor(pluginManager) {
         super(pluginManager);
-
-        //  Register our new Game Object type
         pluginManager.registerGameObject('player', this.createPlayer);
     }
 

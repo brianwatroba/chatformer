@@ -3,6 +3,7 @@ import Game from './scenes/Game.js';
 import Start from './scenes/Start.js';
 import GameTest from './scenes/GameTest.js';
 import { PlayerPlugin } from './plugins/Player.js';
+import { MessagePlugin } from './plugins/MessagePlugin';
 
 const gameConfig = {
 	type: Phaser.AUTO,
@@ -22,8 +23,11 @@ const gameConfig = {
 		global: [
 			{ key: 'PlayerPlugin', plugin: PlayerPlugin, start: true }
 		],
+		scene: [
+			{ key: 'MessagePlugin', plugin: MessagePlugin, mapping: 'msgs' }
+		]
 	},
-	scene: [GameTest],
+	scene: [Start, GameTest],
 	physics: {
 		default: 'arcade',
 		arcade: {

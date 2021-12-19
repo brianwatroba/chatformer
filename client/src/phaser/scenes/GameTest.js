@@ -6,6 +6,10 @@ export default class GameTest extends Phaser.Scene {
         super('GameTest');
     }
 
+    init(data) {
+        this.msgs.initClient(data.client)
+    }
+
     preload() {
         this.load.spritesheet(
             'dude_idle',
@@ -79,8 +83,9 @@ export default class GameTest extends Phaser.Scene {
         const map = this.make.tilemap({ key: "map" });
 
         const objectLayer = map.getObjectLayer('Spawn');
-        console.log(objectLayer.objects)
         const { x: start_x, y: start_y } = objectLayer.objects[1]
+
+        console.log(start_y)
 
         // Set up the player character
         window.player = this.player = this.add.player({
@@ -91,11 +96,13 @@ export default class GameTest extends Phaser.Scene {
 
         // Create the ground layer
         const tileset = map.addTilesetImage("Terrain (16x16)", "terrain");
-        const groundLayer = map.createStaticLayer('Platforms', tileset, 0, 0);
+        const groundLayer = map.createLayer('Platforms', tileset, 0, 0);
         groundLayer.setCollisionByProperty({ collides: true });
-        this.physics.add.collider(this.player, groundLayer);
 
-        // debugDraw(groundLayer, this)
+        this.physics.add.collider(this.player, groundLayer);
+        this.physics.add.collider(this.player, this.msgs.group)
+
+        debugDraw(groundLayer, this)
 
         // Place the player above the tile layers
         this.player.setDepth(10);
@@ -107,5 +114,6 @@ export default class GameTest extends Phaser.Scene {
             return;
         }
         this.player.update()
+        this.msgs.update(this.player.y)
     }
 }
