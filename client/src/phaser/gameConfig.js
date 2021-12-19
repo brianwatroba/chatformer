@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Game from './scenes/Game.js';
 import Start from './scenes/Start.js';
+import Preloader from './scenes/Preloader.js';
 import GameTest from './scenes/GameTest.js';
 import { PlayerPlugin } from './plugins/Player.js';
 import { MessagePlugin } from './plugins/MessagePlugin';
@@ -27,14 +28,14 @@ const gameConfig = {
 			{ key: 'MessagePlugin', plugin: MessagePlugin, mapping: 'msgs' }
 		]
 	},
-	scene: [Start, GameTest],
+	scene: [Preloader, Start, GameTest],
 	physics: {
 		default: 'arcade',
 		arcade: {
 			gravity: {
 				y: 1500,
 			},
-			debug: false,
+			debug: true,
 		},
 	},
 };
