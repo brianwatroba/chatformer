@@ -1,26 +1,27 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { Fab } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
-import GameContext from "../../context/game/gameContext";
-
-const BackButton = ({ onClick, style, children, top, left }) => {
-    const gameContext = useContext(GameContext);
-    const { isLoggedIn, streamType, playerName } = gameContext;
-
-    const Elem = styled(Fab)`
-        position: absolute;
-        top: ${top || "12px"};
-        left: ${left || "12px"};
-    `;
-
+const BackButton = ({ onClick, style, top, left }) => {
     return (
-        <Elem size="small" onClick={onClick} style={style}>
+        <Elem
+            top={top}
+            left={left}
+            size="small"
+            onClick={onClick}
+            style={style}
+        >
             <ArrowBackIosNewIcon />
         </Elem>
     );
 };
+
+const Elem = styled(Fab)`
+    position: absolute;
+    top: ${(props) => props.top || "12px"};
+    left: ${(props) => props.left || "12px"};
+`;
 
 export default BackButton;

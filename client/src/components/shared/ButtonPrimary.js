@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import FlexRow from "./FlexRow";
@@ -67,12 +67,12 @@ const ButtonPrimary = ({
         <Elem className={className} style={style}>
             {iconLeft && <Icon />}
             {children}
-            {isLive && (
+            {/* {isLive && (
                 <IsLive>
                     <RedDot />
                     LIVE
                 </IsLive>
-            )}
+            )} */}
         </Elem>
     );
 };
