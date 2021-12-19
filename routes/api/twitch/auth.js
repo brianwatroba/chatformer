@@ -7,6 +7,7 @@ const axiosConfig = {
         "Client-Id": process.env.TWITCH_CLIENT_ID,
     },
 };
+const apiUrl = process.env.REACT_APP_API_URL;
 
 // @route  GET api/twitch/users
 // @desc   get info about a Twitch user
@@ -21,7 +22,7 @@ router.post("/", async (req, res) => {
     const clientSecretParam = `&client_secret=${process.env.TWITCH_CLIENT_SECRET}`;
     const codeParam = `&code=${code}`;
     const grantType = `&grant_type=authorization_code`;
-    const redirectUri = `&redirect_uri=http://localhost:3000/auth`;
+    const redirectUri = `&redirect_uri=${apiUrl}/auth`;
 
     try {
         const twitchResponse = await axios.post(
