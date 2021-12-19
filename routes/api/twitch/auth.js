@@ -7,7 +7,6 @@ const axiosConfig = {
         "Client-Id": process.env.TWITCH_CLIENT_ID,
     },
 };
-const clientUrl = process.env.REACT_APP_CLIENT_URL;
 
 // @route  GET api/twitch/users
 // @desc   get info about a Twitch user
@@ -15,6 +14,7 @@ const clientUrl = process.env.REACT_APP_CLIENT_URL;
 
 router.post("/", async (req, res) => {
     const code = req.body.code;
+    const clientUrl = req.body.clientUrl;
     if (!code) res.status(400).send("No auth code provided");
 
     const baseUrl = "https://id.twitch.tv/oauth2/token";

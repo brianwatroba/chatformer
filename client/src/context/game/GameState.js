@@ -28,6 +28,7 @@ const GameState = (props) => {
             // move this into utils with it's own function calling api
             const response = await axios.post(`${apiUrl}/twitch/auth`, {
                 code: code,
+                clientUrl: process.env.REACT_APP_CLIENT_URL,
             });
             const userData = response.data;
             dispatch({
