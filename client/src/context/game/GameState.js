@@ -10,6 +10,7 @@ import getStreamerInfo from "../../utils/getStreamerInfo";
 
 const GameState = (props) => {
     const { guest } = assetMapping;
+    const apiUrl = process.env.REACT_APP_API_URL;
     const initialState = {
         playerName: null,
         playerAvatar: guest,
@@ -25,12 +26,9 @@ const GameState = (props) => {
     const logInTwitch = async (code) => {
         try {
             // move this into utils with it's own function calling api
-            const response = await axios.post(
-                `http://localhost:4000/api/twitch/auth`,
-                {
-                    code: code,
-                }
-            );
+            const response = await axios.post(`${apiUrl}/twitch/auth`, {
+                code: code,
+            });
             const userData = response.data;
             dispatch({
                 type: SET_PLAYER,

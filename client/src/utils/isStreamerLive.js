@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const isStreamerLive = async (streamerName) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     try {
         const response = await axios.get(
-            `http://localhost:4000/api/twitch/streams?user=${streamerName}`
+            `${apiUrl}/twitch/streams?user=${streamerName}`
         );
         if (response) return true;
     } catch (error) {

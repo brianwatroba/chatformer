@@ -2,7 +2,6 @@ import axios from "axios";
 
 const getStreamerInfo = async (streamerName) => {
     const apiUrl = process.env.REACT_APP_API_URL;
-    console.log("apiUrl", apiUrl);
     try {
         const response = await axios.get(
             `${apiUrl}/twitch/users?user=${streamerName}`
