@@ -17,7 +17,7 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <GameState>
-                <BrowserRouter>
+                <BrowserRouter basename="/">
                     <Navbar />
                     <Routes>
                         <Route exact path="/" element={<Home />} />
