@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { createPlayerAnims } from '../anims/playerAnims';
 import { debugDraw } from '../utils/debug'
 
 export default class GameTest extends Phaser.Scene {
@@ -11,46 +12,17 @@ export default class GameTest extends Phaser.Scene {
     }
 
     preload() {
-
-
-        this.anims.create({
-            key: 'idle',
-            frames: this.anims.generateFrameNumbers('dude_idle', {
-                start: 0,
-                end: 10,
-            }),
-            frameRate: 20,
-        });
-
-        this.anims.create({
-            key: 'jump',
-            frames: this.anims.generateFrameNumbers('dude_jump', {
-                start: 0,
-                end: 1,
-            }),
-            frameRate: 20,
-        });
-
-        this.anims.create({
-            key: 'right',
-            frames: this.anims.generateFrameNumbers('dude_run', {
-                start: 0,
-                end: 11,
-            }),
-            frameRate: 20,
-            repeat: -1,
-        });
-
     }
 
     create() {
+        // Load animations
+        createPlayerAnims(this.anims)
+
         // Load Tileset
         const map = this.make.tilemap({ key: "map" });
 
         const objectLayer = map.getObjectLayer('Spawn');
         const { x: start_x, y: start_y } = objectLayer.objects[1]
-
-        console.log(start_y)
 
         // Set up the player character
         window.player = this.player = this.add.player({

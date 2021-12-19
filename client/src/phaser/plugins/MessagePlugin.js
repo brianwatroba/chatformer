@@ -19,7 +19,6 @@ class MessagePlatform extends Phaser.GameObjects.Text {
     }
 
     setUp() {
-        console.log('setup')
         this.direction = Math.random() > 0.5 ? 1 : -1;
 
         if (this.body.width < 200) {
