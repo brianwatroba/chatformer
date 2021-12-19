@@ -1,7 +1,6 @@
 import Phaser from 'phaser';
 import { createEnemyAnims } from '../anims/EnemyAnims';
 import { createPlayerAnims } from '../anims/PlayerAnims';
-import BasicBird from '../enemies/BasicBird';
 import { debugDraw } from '../utils/debug'
 
 export default class GameTest extends Phaser.Scene {
@@ -24,28 +23,8 @@ export default class GameTest extends Phaser.Scene {
         // Load Tileset
         const map = this.make.tilemap({ key: "map" });
 
-        this.birds = this.physics.add.group({
-            classType: BasicBird,
-            createCallback: (obj) => {
-                console.log('basic bird added')
-            }
-        })
         const enemyLayer = map.getObjectLayer('Enemies');
-        enemyLayer.objects.forEach(obj => {
-            var enemyType = ''
-            var goingRight = false
-            obj.properties.forEach(prop => {
-                if (prop.name == 'name') {
-                    enemyType = prop.value
-                } else if (prop.name == 'right') {
-                    goingRight = prop.value
-                }
-            })
-            if (enemyType == 'bird') {
-                const bird = this.birds.create(obj.x, obj.y)
-                bird.init(goingRight)
-            }
-        })
+        this.enemies.initializeLayer(enemyLayer)
 
         const objectLayer = map.getObjectLayer('Spawn');
         const { x: start_x, y: start_y } = objectLayer.objects[1]
@@ -63,15 +42,14 @@ export default class GameTest extends Phaser.Scene {
         groundLayer.setCollisionByProperty({ collides: true });
 
         this.physics.add.collider(this.player, groundLayer);
-
-        this.physics.add.collider(this.birds, groundLayer);
         this.physics.add.collider(this.player, this.msgs.group)
-
-        debugDraw(groundLayer, this)
+        this.physics.add.collider(this.enemies.group, groundLayer);
 
         // Place the player above the tile layers
         this.player.setDepth(10);
         this.cameras.main.startFollow(this.player);
+
+        debugDraw(groundLayer, this)
     }
 
     update(time, delta) {

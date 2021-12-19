@@ -5,6 +5,7 @@ import Preloader from './scenes/Preloader.js';
 import GameTest from './scenes/GameTest.js';
 import { PlayerPlugin } from './plugins/Player.js';
 import { MessagePlugin } from './plugins/MessagePlugin';
+import { AddEnemyPlugin } from './plugins/AddEnemyPlugin.js';
 
 const gameConfig = {
 	type: Phaser.AUTO,
@@ -25,7 +26,8 @@ const gameConfig = {
 			{ key: 'PlayerPlugin', plugin: PlayerPlugin, start: true }
 		],
 		scene: [
-			{ key: 'MessagePlugin', plugin: MessagePlugin, mapping: 'msgs' }
+			{ key: 'MessagePlugin', plugin: MessagePlugin, mapping: 'msgs' },
+			{ key: 'AddEnemyPlugin', plugin: AddEnemyPlugin, mapping: 'enemies' }
 		]
 	},
 	scene: [Preloader, Start, GameTest],

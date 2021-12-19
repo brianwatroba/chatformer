@@ -93,6 +93,7 @@ export class MessagePlugin extends Phaser.Plugins.ScenePlugin {
         if (this.messages.length > 0) {
             this._ingestMessage(this.messages.shift(), playerY);
         }
+        // TODO: update individual messages?
     }
 
     _ingestMessage(message, playerY) {
