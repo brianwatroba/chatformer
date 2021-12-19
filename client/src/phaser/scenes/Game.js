@@ -31,12 +31,11 @@ export default class Game extends Phaser.Scene {
     messageTimer = 0;
     messages = [];
 
-    init(data) {
-        console.log(this.client);
+    async init(data) {
         this.client = data.client;
     }
 
-    preload() {
+    async preload() {
         this.load.image("sky", "assets/sky.png");
         this.load.image("platform", "assets/platform.png");
         this.load.image("star", "assets/star.png");

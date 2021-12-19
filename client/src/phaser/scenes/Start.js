@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-import connectToChat from "../utils/connectToChat";
+import connectToChat from "../../utils/connectToChat";
 const BACKGROUND_COLOR = "#A8E9FF";
 // const ERROR_COLOR = "#EF233C";
 const SUBTEXT_COLOR = "#616161";

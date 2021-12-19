@@ -5,8 +5,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import assetMapping from "../../utils/assetMapping";
 import HamburgerMenu from "./HamburgerMenu";
 import NavLinks from "./NavLinks";
-import PlayButtonSecondary from "./PlayButtonSecondary";
 import LinksTo from "./LinksTo";
+import PlayerMenu from "./PlayerMenu";
 
 const Navbar = () => {
     const isMobile = useMediaQuery("(max-width:768px)");
@@ -41,7 +41,7 @@ const Navbar = () => {
             ) : (
                 <>
                     <NavLinks />
-                    <PlayButtonSecondary>PLAY NOW</PlayButtonSecondary>
+                    <PlayerMenu />
                 </>
             )}
         </Container>
