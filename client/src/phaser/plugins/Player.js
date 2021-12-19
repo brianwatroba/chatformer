@@ -13,6 +13,8 @@ export class Player extends Phaser.GameObjects.Sprite {
         //  Player physics properties. Give the little guy a slight bounce.
         // this.body.setBounce(0.1);
 
+        this.body.setSize(this.width * 0.75, this.height)
+
         // Track the arrow keys & WASD
         const { LEFT, RIGHT, UP, W, A, D } = Phaser.Input.Keyboard.KeyCodes;
         this.keys = scene.input.keyboard.addKeys({

@@ -41,7 +41,6 @@ class MessagePlatform extends Phaser.GameObjects.Text {
     }
 }
 
-
 export class MessagePlugin extends Phaser.Plugins.ScenePlugin {
     constructor(scene, pluginManager) {
         super(scene, pluginManager);

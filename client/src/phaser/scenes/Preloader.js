@@ -40,6 +40,11 @@ export default class Preloader extends Phaser.Scene {
             }
         );
 
+        this.load.spritesheet('bird_fly', 'assets/Bird.png', {
+            frameWidth: 32,
+            frameHeight: 32,
+        });
+
         // Load Tileset
         this.load.image("terrain", "assets/Terrain (16x16).png");
         this.load.tilemapTiledJSON("map", "assets/level1.json");
