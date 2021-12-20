@@ -1,17 +1,16 @@
-const loadEnv = require("./config/loadEnv");
 const express = require("express");
+const config = require("config");
 const connectDB = require("./config/db");
 const cors = require("cors");
 const path = require("path");
-loadEnv();
 
 // Connections on server startup
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = config.get("PORT");
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
-// connectDB();
+connectDB();
 
 // Init middleware
 app.use(express.json({ extended: false }));

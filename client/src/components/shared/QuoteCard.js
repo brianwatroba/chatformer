@@ -7,7 +7,7 @@ import { Typography } from "@mui/material";
 import FlexRow from "../shared/FlexRow";
 import assetMapping from "../../utils/assetMapping";
 
-const QuoteCard = ({ quote, author, authorLogoUrl }) => {
+const QuoteCard = ({ quote, author, authorLogoUrl, authorDescription }) => {
     const theme = useTheme();
     const { quoteMark } = assetMapping;
     const isMobile = useMediaQuery("(max-width:768px)");
@@ -41,6 +41,21 @@ const QuoteCard = ({ quote, author, authorLogoUrl }) => {
         font-family: Cabin;
     `;
 
+    const AuthorAvatar = styled.img`
+        content: url(${authorLogoUrl});
+        height: 40px;
+        margin-right: 8px;
+        border-radius: 100%;
+    `;
+
+    const AuthorDescription = styled(Typography)`
+        font-family: cabin;
+        font-style: italic;
+        color: #808080;
+        text-align: center;
+        margin-top: 8px;
+    `;
+
     const QuotationMark = styled.img`
         content: url(${quoteMark});
         height: ${isMobile ? "36px" : "72px"};
@@ -59,9 +74,12 @@ const QuoteCard = ({ quote, author, authorLogoUrl }) => {
                 <QuotationMark />
             </FlexRow>
             <FlexRow>
+                {authorLogoUrl && <AuthorAvatar />}
                 <Author variant="h4">{author}</Author>
             </FlexRow>
-            {/* <AuthorDescription>famous twitch streamer</AuthorDescription> */}
+            {authorDescription && (
+                <AuthorDescription>{authorDescription}</AuthorDescription>
+            )}
         </Card>
     );
 };

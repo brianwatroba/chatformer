@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import styled from "styled-components";
 
 import GameState from "./context/game/GameState";
 
@@ -25,7 +26,15 @@ function App() {
                             exact
                             path="/game"
                             element={
-                                <Suspense fallback={<></>}>
+                                <Suspense
+                                    fallback={
+                                        <>
+                                            <Container>
+                                                <ScreenShell />
+                                            </Container>
+                                        </>
+                                    }
+                                >
                                     <Game />
                                 </Suspense>
                             }
@@ -39,5 +48,28 @@ function App() {
         </ThemeProvider>
     );
 }
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background-color: #333;
+`;
+
+const ScreenShell = styled.div`
+    position: absolute;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 12px solid #d8d8d8;
+    border-radius: 12px;
+    width: 800px;
+    height: 600px;
+    background-color: #72b9d8;
+`;
 
 export default App;
