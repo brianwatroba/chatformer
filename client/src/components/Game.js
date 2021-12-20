@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, Suspense } from "react";
 import styled from "@emotion/styled";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 import Phaser from "phaser";
 import gameConfig from "../phaser/gameConfig";
@@ -7,9 +8,11 @@ import GameContext from "../context/game/gameContext";
 import CurrentStream from "./shared/CurrentStream";
 import Menu from "./game/Menu";
 import BackButton from "./shared/BackButton";
+import SectionTitle from "./shared/SectionTitle";
 
 const Game = () => {
     const gameContext = useContext(GameContext);
+    const isMobile = useMediaQuery("(max-width:768px)");
     const { logInTwitch, gameStarted, isLoggedIn, endGame } = gameContext;
 
     useEffect(() => {
@@ -58,17 +61,23 @@ const Game = () => {
                 <BackButton onClick={handleBack} left={"585px"} top={"32px"} />
             )}
             <CurrentStream />
-            <ScreenShell>
-                <Suspense fallback={<></>}>
-                    {gameStarted ? (
-                        <GameScreen id="phaser-game" />
-                    ) : (
-                        <GameScreen>
-                            <Menu />
-                        </GameScreen>
-                    )}
-                </Suspense>
-            </ScreenShell>
+            {isMobile ? (
+                <SectionTitle>
+                    Must be on desktop to play Chat Jump. Sorry!
+                </SectionTitle>
+            ) : (
+                <ScreenShell>
+                    <Suspense fallback={<></>}>
+                        {gameStarted ? (
+                            <GameScreen id="phaser-game" />
+                        ) : (
+                            <GameScreen>
+                                <Menu />
+                            </GameScreen>
+                        )}
+                    </Suspense>
+                </ScreenShell>
+            )}
         </Container>
     );
 };
