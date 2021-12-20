@@ -7,6 +7,7 @@ const path = require("path");
 // Connections on server startup
 const app = express();
 const PORT = config.get("PORT");
+console.log(PORT);
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
