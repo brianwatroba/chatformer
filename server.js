@@ -2,6 +2,7 @@ const loadEnv = require("./config/loadEnv");
 const express = require("express");
 const connectDB = require("./config/db");
 const cors = require("cors");
+const path = require("path");
 loadEnv();
 
 // Connections on server startup
