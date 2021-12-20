@@ -17,7 +17,7 @@ const LogIn = () => {
 
     const sendToTwitchAuth = () => {
         setLoading(true);
-        const clientBaseUrl = process.env.REACT_APP_CLIENT_URL;
+        const clientBaseUrl = window.location.origin;
         const twitchLoginUrl = `https://id.twitch.tv/oauth2/authorize?client_id=qqyhhc7u3eda4x5rayg3n4e93m3r3g&redirect_uri=${clientBaseUrl}/auth&response_type=code&scope=&force_verify=true"`;
         window.location.href = twitchLoginUrl;
     };
