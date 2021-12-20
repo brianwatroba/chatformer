@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 
@@ -12,18 +12,18 @@ const InputStream = () => {
 
     const [streamName, setStreamName] = useState("");
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
 
     const handleChange = (e) => {
         setStreamName(e.target.value);
-        setError(null);
+        setErrorMsg("");
     };
 
     const handleClick = async () => {
         setLoading(true);
         const error = await startGame(streamName);
         if (error) {
-            setError(error.message);
+            setErrorMsg(error.message);
         }
         setLoading(false);
     };
@@ -31,7 +31,7 @@ const InputStream = () => {
     return (
         <>
             <Title>join:</Title>
-            <ErrorText>{error}</ErrorText>
+            <ErrorText>{errorMsg}</ErrorText>
             <Input
                 autoFocus
                 color="secondary"
@@ -39,7 +39,7 @@ const InputStream = () => {
                 InputProps={inputProps}
                 onChange={handleChange}
                 value={streamName}
-                error={error}
+                error={Boolean(errorMsg)}
                 disabled={loading}
             />
 

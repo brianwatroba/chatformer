@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, Suspense } from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 import Phaser from "phaser";
 import gameConfig from "../phaser/gameConfig";
@@ -60,9 +60,13 @@ const Game = () => {
             <CurrentStream />
             <ScreenShell>
                 <Suspense fallback={<></>}>
-                    <GameScreen id="phaser-game">
-                        {!gameStarted && <Menu />}
-                    </GameScreen>
+                    {gameStarted ? (
+                        <GameScreen id="phaser-game" />
+                    ) : (
+                        <GameScreen>
+                            <Menu />
+                        </GameScreen>
+                    )}
                 </Suspense>
             </ScreenShell>
         </Container>

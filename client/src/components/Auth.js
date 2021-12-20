@@ -1,10 +1,9 @@
 import React, { useEffect, useContext } from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
 import GameContext from "../context/game/gameContext";
 import CurrentStream from "./shared/CurrentStream";
-import SectionTitle from "./shared/SectionTitle";
 import MenuLoading from "./game/MenuLoading";
 
 const Auth = () => {

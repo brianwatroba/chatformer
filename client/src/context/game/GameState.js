@@ -1,16 +1,15 @@
 import React, { useReducer } from "react";
 import GameContext from "./gameContext";
 import gameReducer from "./gameReducer";
-import axios from "axios";
 
 import { SET_PLAYER, SET_STREAM_TYPE, START_GAME, END_GAME } from "../types";
 import assetMapping from "../../utils/assetMapping";
-import isStreamerLive from "../../utils/isStreamerLive";
-import getStreamerInfo from "../../utils/getStreamerInfo";
+import isStreamerLive from "../../api/isStreamerLive";
+import getStreamerInfo from "../../api/getStreamerInfo";
+import authenticateTwitch from "../../api/authenticateTwitch";
 
 const GameState = (props) => {
     const { guest } = assetMapping;
-    const apiUrl = process.env.REACT_APP_API_URL;
     const initialState = {
         playerName: null,
         playerAvatar: guest,
@@ -25,12 +24,7 @@ const GameState = (props) => {
 
     const logInTwitch = async (code) => {
         try {
-            // move this into utils with it's own function calling api
-            const response = await axios.post(`${apiUrl}/twitch/auth`, {
-                code: code,
-                clientUrl: process.env.REACT_APP_CLIENT_URL,
-            });
-            const userData = response.data;
+            const userData = await authenticateTwitch(code);
             dispatch({
                 type: SET_PLAYER,
                 payload: {

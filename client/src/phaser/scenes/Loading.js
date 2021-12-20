@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-import connectToChat from "../../utils/connectToChat";
+import connectToChat from "../../api/connectToChat";
 
 export default class Loading extends Phaser.Scene {
     constructor() {

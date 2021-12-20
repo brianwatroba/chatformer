@@ -17,45 +17,6 @@ const NotFound = () => {
 
     const { star, coins, chest, mascot, brian, hong, lawrence } = assetMapping;
 
-    const Section = styled(FlexColumn)`
-        padding: 48px 0px;
-        margin: 24px% 0px;
-    `;
-
-    const SubItem = styled.div`
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 48px 24px;
-        max-width: 500px;
-    `;
-
-    const Image = styled.img`
-        content: url(${(props) => props.imgUrl});
-        height: ${(props) => props.height};
-        width: auto;
-    `;
-
-    const Subtitle = styled(Typography)`
-        color: #fff;
-        font-weight: 700;
-        font-family: cabin;
-        padding: 18px 0px 8px 0px;
-        text-align: center;
-    `;
-
-    const Subtext = styled(Typography)`
-        color: #505050;
-        text-align: center;
-        font-family: cabin;
-    `;
-
-    const FlexRowWrap = styled(FlexRow)`
-        flex-wrap: wrap;
-        width: 100%;
-    `;
-
     return (
         <>
             <FlexColumn>
@@ -191,5 +152,44 @@ const NotFound = () => {
         </>
     );
 };
+
+const Section = styled(FlexColumn)`
+    padding: 48px 0px;
+    margin: 24px% 0px;
+`;
+
+const SubItem = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    max-width: 500px;
+`;
+
+const Image = styled.img`
+    content: url(${(props) => props.imgUrl});
+    height: ${(props) => props.height};
+    width: auto;
+`;
+
+const Subtitle = styled(Typography)`
+    color: #fff;
+    font-weight: 700;
+    font-family: cabin;
+    padding: 18px 0px 8px 0px;
+    text-align: center;
+`;
+
+const Subtext = styled(Typography)`
+    color: #505050;
+    text-align: center;
+    font-family: cabin;
+`;
+
+const FlexRowWrap = styled(FlexRow)`
+    flex-wrap: wrap;
+    width: 100%;
+`;
 
 export default NotFound;

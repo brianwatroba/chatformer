@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 
 import GameContext from "../../context/game/gameContext";
 import ButtonPrimary from "../shared/ButtonPrimary";
 import ButtonSecondary from "../shared/ButtonSecondary";
-import isStreamerLive from "../../utils/isStreamerLive";
+import isStreamerLive from "../../api/isStreamerLive";
 
 const SelectStream = () => {
     const gameContext = useContext(GameContext);
@@ -15,20 +15,19 @@ const SelectStream = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        checkIfLive();
-    });
-
-    const checkIfLive = async () => {
-        try {
-            const live = await isStreamerLive(playerName);
-            if (live) {
-                setIsLive(true);
+        const checkIfLive = async () => {
+            try {
+                const live = await isStreamerLive(playerName);
+                if (live) {
+                    setIsLive(true);
+                }
+            } catch (error) {
+                console.log(error);
             }
-        } catch (error) {
-            console.log(error);
-        }
-        setLoading(false);
-    };
+            setLoading(false);
+        };
+        checkIfLive();
+    }, [playerName]);
 
     const joinDifferentStream = () => {
         setLoading(true);
@@ -43,22 +42,6 @@ const SelectStream = () => {
         }
         setLoading(false);
     };
-
-    const Title = styled(Typography)`
-        font-family: ubuntu;
-        color: #3f3f3f;
-        margin-bottom: 8px;
-        font-size: 20px;
-    `;
-
-    const ErrorText = styled(Typography)`
-        font-family: cabin;
-        color: red;
-        font-weight: 500;
-        margin-bottom: 8px;
-        font-style: italic;
-        height: 20px;
-    `;
 
     return (
         <>
@@ -81,5 +64,20 @@ const SelectStream = () => {
         </>
     );
 };
+const Title = styled(Typography)`
+    font-family: ubuntu;
+    color: #3f3f3f;
+    margin-bottom: 8px;
+    font-size: 20px;
+`;
+
+const ErrorText = styled(Typography)`
+    font-family: cabin;
+    color: red;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-style: italic;
+    height: 20px;
+`;
 
 export default SelectStream;
