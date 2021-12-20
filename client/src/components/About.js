@@ -179,7 +179,9 @@ const NotFound = () => {
                             If you’re interested in collaborating, please check
                             our roadmap and open issues on our{" "}
                             <u>
-                                <b>Github</b>
+                                <a href="https://github.com/brianwatroba/chatformer">
+                                    <b>Github</b>
+                                </a>
                             </u>
                             .
                         </Subtext>

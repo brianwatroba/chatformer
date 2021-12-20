@@ -1,16 +1,34 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import { Typography } from "@mui/material";
 
 import GameContext from "../../context/game/gameContext";
 import ButtonPrimary from "../shared/ButtonPrimary";
 import ButtonSecondary from "../shared/ButtonSecondary";
+import isStreamerLive from "../../utils/isStreamerLive";
 
 const SelectStream = () => {
     const gameContext = useContext(GameContext);
     const { startGame, setStreamType, playerName } = gameContext;
+    const [isLive, setIsLive] = useState(false);
     const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        checkIfLive();
+    });
+
+    const checkIfLive = async () => {
+        try {
+            const live = await isStreamerLive(playerName);
+            if (live) {
+                setIsLive(true);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        setLoading(false);
+    };
 
     const joinDifferentStream = () => {
         setLoading(true);
@@ -48,7 +66,7 @@ const SelectStream = () => {
             <ErrorText>{error}</ErrorText>
             <ButtonPrimary
                 disabled={loading}
-                isLive={true}
+                isLive={isLive}
                 onClick={joinMyStream}
             >
                 MY STREAM
