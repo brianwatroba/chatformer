@@ -14,7 +14,8 @@ const axiosConfig = {
 
 router.post("/", async (req, res) => {
     const code = req.body.code;
-    const clientUrl = req.body.clientUrl;
+    const clientUrl = req.headers.origin;
+
     if (!code) res.status(400).send("No auth code provided");
 
     const baseUrl = "https://id.twitch.tv/oauth2/token";
