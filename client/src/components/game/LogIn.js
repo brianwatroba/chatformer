@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 
 import GameContext from "../../context/game/gameContext";
-
 import assetMapping from "../../utils/assetMapping";
 import ButtonPrimary from "../shared/ButtonPrimary";
 import ButtonSecondary from "../shared/ButtonSecondary";
@@ -27,26 +26,6 @@ const LogIn = () => {
         logInGuest();
     };
 
-    const Title = styled(Typography)`
-        font-family: ubuntu;
-        color: #3f3f3f;
-        margin-bottom: 8px;
-        font-size: 20px;
-    `;
-
-    const ErrorText = styled(Typography)`
-        font-family: cabin;
-        color: red;
-        font-weight: 500;
-        margin-bottom: 8px;
-        font-style: italic;
-        height: 20px;
-    `;
-
-    const TwitchLoginButton = styled(ButtonPrimary)`
-        margin-bottom: 12px;
-    `;
-
     return (
         <>
             <Title>player login:</Title>
@@ -59,7 +38,6 @@ const LogIn = () => {
             >
                 LOG IN WITH TWITCH
             </TwitchLoginButton>
-            {/* <SubText>or</SubText> */}
             <ButtonSecondary
                 disabled={loading}
                 variant="text"
@@ -70,5 +48,25 @@ const LogIn = () => {
         </>
     );
 };
+
+const Title = styled(Typography)`
+    font-family: ubuntu;
+    color: #3f3f3f;
+    margin-bottom: 8px;
+    font-size: 20px;
+`;
+
+const ErrorText = styled(Typography)`
+    font-family: cabin;
+    color: red;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-style: italic;
+    height: 20px;
+`;
+
+const TwitchLoginButton = styled(ButtonPrimary)`
+    margin-bottom: 12px;
+`;
 
 export default LogIn;

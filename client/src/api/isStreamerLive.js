@@ -3,6 +3,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 const isStreamerLive = async (streamerName) => {
     try {
+        console.log("getting here");
         const response = await axios.get(
             `${apiUrl}/twitch/streams?user=${streamerName}`
         );

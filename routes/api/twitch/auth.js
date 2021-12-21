@@ -8,8 +8,8 @@ const axiosConfig = {
     },
 };
 
-// @route  GET api/twitch/users
-// @desc   get info about a Twitch user
+// @route  POST api/twitch/auth
+// @desc   get Twitch user token after client Twitch login, call Twitch API to get info about that user, then return info to client
 // @access public
 
 router.post("/", async (req, res) => {

@@ -36,9 +36,8 @@ const HamburgerMenu = () => {
                 {links.map((link) => {
                     let [title, url] = link;
                     return (
-                        <LinksTo to={url}>
+                        <LinksTo to={url} key={title}>
                             <MenuItem
-                                key={title}
                                 onClick={handleLinkClick}
                                 style={{
                                     fontFamily: "cabin",

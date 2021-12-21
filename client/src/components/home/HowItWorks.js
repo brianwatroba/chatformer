@@ -16,30 +16,24 @@ const HowItWorks = () => {
     return (
         <FlexColumn>
             <Clouds lowestAltitude={40} count={7} />
-            <FlexColumn
-                style={{
-                    minHeight: "100vh",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
+            <FlexColumn justify="center" minHeight="100vh">
                 <SectionTitle>tired of "just chatting"?</SectionTitle>
                 <SectionSubtitle>
                     there's a better way to engage with your community
                 </SectionSubtitle>
             </FlexColumn>
-            <FlexColumn
-                style={{ minHeight: "100vh", justifyContent: "space-around" }}
-            >
+            <FlexColumn justify="space-around" minHeight="100vh">
                 <FlexColumn>
                     <SectionTitle>play with your viewers</SectionTitle>
                     <SectionSubtitle>
-                        Chat Jump is a simple web game that works with your
-                        Twitch chat
+                        Chat Jump is a new game that incorporates your Twitch
+                        chat
                     </SectionSubtitle>
                 </FlexColumn>
                 <FlexColumn>
-                    <SectionSubtitle>- how it works -</SectionSubtitle>
+                    <SectionSubtitle color="#505050">
+                        - how it works -
+                    </SectionSubtitle>
                     <FeatureItems>
                         <FeatureItem
                             imgUrl={singleJumper}

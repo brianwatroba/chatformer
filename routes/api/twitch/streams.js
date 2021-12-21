@@ -13,7 +13,7 @@ const axiosConfig = {
 // @access public
 
 router.get("/", async (req, res) => {
-    const baseUrl = "https://api.twitch.tv/helix/streams?user_login=";
+    const baseUrl = "https://api.twitch.tv/helix/streams?first=1&user_login=";
     const username = req.query.user;
 
     if (username) {
@@ -22,10 +22,13 @@ router.get("/", async (req, res) => {
                 baseUrl + username,
                 axiosConfig
             );
+
             const user = twitchResponse.data.data[0];
+
             if (user) {
                 res.status(200).json(user);
             } else {
+                console.log("getting to else");
                 res.status(404).send("Twitch user does not exist");
             }
         } catch (error) {
