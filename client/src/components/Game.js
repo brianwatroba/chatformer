@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, Suspense } from "react";
 import styled from "@emotion/styled";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -31,7 +31,11 @@ const Game = () => {
         background-color: #333;
     `;
 
-    const GameScreen = styled(FlexColumn)`
+    const GameScreen = styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
         height: 100%;
     `;
 
@@ -45,9 +49,15 @@ const Game = () => {
                 <NeedDesktopWarning />
             ) : (
                 <ScreenShell>
-                    <GameScreen id="phaser-game">
-                        {!gameStarted && <Menu />}
-                    </GameScreen>
+                    <Suspense fallback={<></>}>
+                        {gameStarted ? (
+                            <GameScreen id="phaser-game" />
+                        ) : (
+                            <GameScreen>
+                                <Menu />
+                            </GameScreen>
+                        )}
+                    </Suspense>
                 </ScreenShell>
             )}
         </Container>
