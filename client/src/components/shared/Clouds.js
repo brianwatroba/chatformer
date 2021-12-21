@@ -48,7 +48,7 @@ const Clouds = ({ lowestAltitude, count }) => {
             let height = getRandomInt(150, 301);
             let side = i % 2 === 0 ? "right" : "left";
             let altitude = `${increment * i}%`;
-            let fromSide = `${getRandomInt(75, 91)}%`;
+            let fromSide = `${getRandomInt(65, 101)}%`;
             clouds.push([cloudType, height, side, fromSide, altitude]);
         }
     };

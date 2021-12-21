@@ -7,6 +7,7 @@ const FlexRow = ({ children, className, align }) => {
         flex-direction: row;
         align-items: ${align || "center"};
         justify-content: ${align || "center"};
+        text-align: center;
     `;
     return <Container className={className}>{children}</Container>;
 };

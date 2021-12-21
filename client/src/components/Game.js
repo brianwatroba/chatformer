@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, Suspense } from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "@emotion/styled";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -10,6 +10,7 @@ import Menu from "./game/Menu";
 import BackButton from "./shared/BackButton";
 import NeedDesktopWarning from "./game/NeedDesktopWarning";
 import FlexColumn from "./shared/FlexColumn";
+import ScreenShell from "./shared/ScreenShell";
 
 const Game = () => {
     const gameContext = useContext(GameContext);
@@ -30,24 +31,7 @@ const Game = () => {
         background-color: #333;
     `;
 
-    const ScreenShell = styled.div`
-        position: absolute;
-        top: 100px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border: 12px solid #d8d8d8;
-        border-radius: 12px;
-        width: 800px;
-        height: 600px;
-        background-color: #72b9d8;
-    `;
-
-    const GameScreen = styled.div`
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
+    const GameScreen = styled(FlexColumn)`
         height: 100%;
     `;
 
@@ -61,15 +45,13 @@ const Game = () => {
                 <NeedDesktopWarning />
             ) : (
                 <ScreenShell>
-                    <Suspense fallback={<></>}>
-                        {gameStarted ? (
-                            <GameScreen id="phaser-game" />
-                        ) : (
-                            <GameScreen>
-                                <Menu />
-                            </GameScreen>
-                        )}
-                    </Suspense>
+                    {gameStarted ? (
+                        <GameScreen id="phaser-game" />
+                    ) : (
+                        <GameScreen>
+                            <Menu />
+                        </GameScreen>
+                    )}
                 </ScreenShell>
             )}
         </Container>

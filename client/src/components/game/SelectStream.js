@@ -5,6 +5,7 @@ import { Typography } from "@mui/material";
 import GameContext from "../../context/game/gameContext";
 import ButtonPrimary from "../shared/ButtonPrimary";
 import ButtonSecondary from "../shared/ButtonSecondary";
+import LiveStatus from "../shared/LiveStatus";
 import isStreamerLive from "../../api/isStreamerLive";
 
 const SelectStream = () => {
@@ -49,7 +50,7 @@ const SelectStream = () => {
             <ErrorText>{error}</ErrorText>
             <ButtonPrimary
                 disabled={loading}
-                isLive={isLive}
+                iconRight={<LiveStatus isLive={isLive} />}
                 onClick={joinMyStream}
             >
                 MY STREAM

@@ -26,8 +26,8 @@ const HowItWorks = () => {
                 <FlexColumn>
                     <SectionTitle>play with your viewers</SectionTitle>
                     <SectionSubtitle>
-                        Chat Jump is a simple web game that works with your
-                        Twitch chat
+                        Chat Jump is a new game that incorporates your Twitch
+                        chat
                     </SectionSubtitle>
                 </FlexColumn>
                 <FlexColumn>

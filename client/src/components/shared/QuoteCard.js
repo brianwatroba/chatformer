@@ -58,7 +58,7 @@ const QuoteCard = ({ quote, author, authorLogoUrl, authorDescription }) => {
 
     const QuotationMark = styled.img`
         content: url(${quoteMark});
-        height: ${isMobile ? "36px" : "72px"};
+        height: ${isMobile ? "30px" : "60px"};
         transform: rotate(
             ${(props) => (props.type === "open" ? "180deg" : "0deg")}
         );

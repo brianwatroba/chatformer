@@ -18,10 +18,10 @@ const VideoBackground = ({ children }) => {
     const Video = styled(() => (
         <video
             src={assetMapping.gameplayVideo}
-            playsInLine={true}
-            autoPlay={true}
-            muted={true}
-            loop={true}
+            playsinline="playsinline"
+            autoplay="true"
+            muted="true"
+            loop="true"
             type="video/mp4"
             height={isMobile ? "85%" : "100%"}
         />
