@@ -57,6 +57,10 @@ const Clouds = ({ lowestAltitude, count }) => {
 
     return (
         <Container>
+            <Cloud src={cloud1} height={"200px"} right={"70%"} top={"0%"} />
+            <Cloud src={cloud2} height={"225px"} right={"80%"} top={"5%"} />
+            <Cloud src={cloud3} height={"250px"} right={"80%"} top={"7%"} />
+            <Cloud src={cloud3} height={"200px"} right={"90%"} top={"0%"} />
             {clouds.map((cloud) => (
                 <Cloud
                     key={clouds.indexOf(cloud)}

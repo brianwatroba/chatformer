@@ -13,7 +13,7 @@ const SelectStream = () => {
     const { startGame, setStreamType, playerName } = gameContext;
     const [isLive, setIsLive] = useState(false);
     const [error, setError] = useState("");
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const checkIfLive = async () => {
@@ -38,6 +38,7 @@ const SelectStream = () => {
     const joinMyStream = async () => {
         setLoading(true);
         const error = await startGame(playerName);
+        console.log("error", error);
         if (error) {
             setError(error.message);
         }

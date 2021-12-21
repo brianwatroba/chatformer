@@ -7,7 +7,13 @@ import { Typography } from "@mui/material";
 import FlexRow from "../shared/FlexRow";
 import assetMapping from "../../utils/assetMapping";
 
-const QuoteCard = ({ quote, author, authorLogoUrl, authorDescription }) => {
+const QuoteCard = ({
+    quote,
+    author,
+    authorLogoUrl,
+    authorDescription,
+    maxWidth,
+}) => {
     const theme = useTheme();
     const { quoteMark } = assetMapping;
     const isMobile = useMediaQuery("(max-width:768px)");
@@ -21,7 +27,7 @@ const QuoteCard = ({ quote, author, authorLogoUrl, authorDescription }) => {
         padding: ${isMobile ? "24px" : "36px"};
         margin: 24px;
         border-radius: 6px;
-        max-width: 300px;
+        max-width: ${maxWidth || "300px"};
         font-family: Source Sans Pro;
     `;
 

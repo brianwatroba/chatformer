@@ -1,7 +1,7 @@
 const express = require("express");
 const config = require("config");
 const connectDB = require("./config/db");
-// const cors = require("cors");
+const cors = require("cors");
 const path = require("path");
 
 // Connections on server start
@@ -15,7 +15,7 @@ connectDB();
 // Init middleware
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
-// app.use(cors());
+app.use(cors());
 
 // API routes
 app.use("/api/twitch/users", require("./routes/api/twitch/users"));

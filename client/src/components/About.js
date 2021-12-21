@@ -27,6 +27,7 @@ const NotFound = () => {
                         quote={
                             "help gaming creators engage more deeply with their communities"
                         }
+                        maxWidth="500px"
                     />
                 </Section>
                 <Section>

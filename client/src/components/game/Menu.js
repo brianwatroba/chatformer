@@ -82,6 +82,7 @@ const Menu = () => {
 
     const PlayerText = styled(Typography)`
         font-family: cabin;
+        color: "#505050";
     `;
 
     return (
@@ -91,7 +92,7 @@ const Menu = () => {
             <Logo />
             <CurrentPlayer>
                 <PlayerIcon />
-                <PlayerText color="#505050">{":  " + playerName}</PlayerText>
+                <PlayerText>{":  " + playerName}</PlayerText>
             </CurrentPlayer>
             <MenuOptions>
                 {isLoggedIn ? (

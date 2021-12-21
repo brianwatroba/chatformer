@@ -21,7 +21,7 @@ const LiveStatus = ({ isLive }) => {
         margin-right: 3px;
     `;
 
-    isLive !== undefined && (
+    return (
         <Container>
             <RedDot />
             {isLive ? "LIVE" : "NOT LIVE"}

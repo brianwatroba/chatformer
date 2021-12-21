@@ -45,13 +45,9 @@ const Game = () => {
                 <NeedDesktopWarning />
             ) : (
                 <ScreenShell>
-                    {gameStarted ? (
-                        <GameScreen id="phaser-game" />
-                    ) : (
-                        <GameScreen>
-                            <Menu />
-                        </GameScreen>
-                    )}
+                    <GameScreen id="phaser-game">
+                        {!gameStarted && <Menu />}
+                    </GameScreen>
                 </ScreenShell>
             )}
         </Container>
