@@ -1,5 +1,4 @@
-const loadEnv = require("./loadEnv");
-loadEnv();
+require("./loadEnv")("default");
 
 module.exports = {
     PORT: process.env.PORT,

@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
 
-const loadEnv = () => {
+const loadEnv = (envStr) => {
     if (
         process.env.NODE_ENV === "staging" ||
         process.env.NODE_ENV === "production"
@@ -10,7 +10,7 @@ const loadEnv = () => {
     if (result.error) {
         throw result.error;
     }
-    console.log("env variables loaded successfully");
+    console.log(`${envStr} env variables loaded`);
 };
 
 module.exports = loadEnv;

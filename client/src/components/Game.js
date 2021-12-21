@@ -8,7 +8,8 @@ import GameContext from "../context/game/gameContext";
 import CurrentStream from "./shared/CurrentStream";
 import Menu from "./game/Menu";
 import BackButton from "./shared/BackButton";
-import SectionTitle from "./shared/SectionTitle";
+import NeedDesktopWarning from "./game/NeedDesktopWarning";
+import FlexColumn from "./shared/FlexColumn";
 
 const Game = () => {
     const gameContext = useContext(GameContext);
@@ -24,13 +25,8 @@ const Game = () => {
         endGame();
     };
 
-    const Container = styled.div`
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        align-items: center;
+    const Container = styled(FlexColumn)`
         height: 100vh;
-        width: 100%;
         background-color: #333;
     `;
 
@@ -62,9 +58,7 @@ const Game = () => {
             )}
             <CurrentStream />
             {isMobile ? (
-                <SectionTitle>
-                    Must be on desktop to play Chat Jump. Sorry!
-                </SectionTitle>
+                <NeedDesktopWarning />
             ) : (
                 <ScreenShell>
                     <Suspense fallback={<></>}>

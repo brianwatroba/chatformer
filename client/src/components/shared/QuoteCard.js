@@ -21,7 +21,7 @@ const QuoteCard = ({ quote, author, authorLogoUrl, authorDescription }) => {
         padding: ${isMobile ? "24px" : "36px"};
         margin: 24px;
         border-radius: 6px;
-        max-width: 65%;
+        max-width: 300px;
         font-family: Source Sans Pro;
     `;
 

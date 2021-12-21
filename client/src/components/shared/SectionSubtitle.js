@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const SectionSubtitle = ({ children, className, style }) => {
+const SectionSubtitle = ({ children, className, style, color }) => {
     const isMobile = useMediaQuery("(max-width:768px)");
     const Elem = styled(Typography)`
         text-align: center;
         font-family: Cabin;
-        color: #333;
+        color: ${color || "#333"};
         padding: ${isMobile ? "12px 48px" : "12px 16px"};
     `;
 

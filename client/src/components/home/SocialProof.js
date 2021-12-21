@@ -59,7 +59,7 @@ const SocialProof = () => {
                 <QuoteCard
                     author={"Day9tv"}
                     authorLogoUrl={day9Logo}
-                    authorDescription={"famous streamer"}
+                    authorDescription={"popular streamer"}
                     quote={
                         "omg I had no idea it worked like this. This is !%$#ing sick!"
                     }
