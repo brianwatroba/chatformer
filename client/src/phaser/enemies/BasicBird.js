@@ -3,12 +3,17 @@ import Phaser from 'phaser'
 export default class BasicBird extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
         super(scene, x, y, 'bird_fly')
+
+        // Add to update and display list.
         scene.add.existing(this);
-        // this.right = false
 
         this.anims.play('bird_fly')
 
         scene.physics.world.on(Phaser.Physics.Arcade.Events.TILE_COLLIDE, this._handleTileCollision, this)
+    }
+
+    update() {
+        console.log('BasicBird update()')
     }
 
     init(goingRight) {
@@ -18,10 +23,6 @@ export default class BasicBird extends Phaser.Physics.Arcade.Sprite {
         this.setImmovable();
         this.body.setAllowGravity(false);
         this._flipDirection()
-    }
-
-    destroy(fromScene) {
-        super.destroy(fromScene)
     }
 
     _flipDirection() {
@@ -35,7 +36,6 @@ export default class BasicBird extends Phaser.Physics.Arcade.Sprite {
     }
 
     _handleTileCollision(obj, tile) {
-        console.log('bird collided')
         if (obj !== this) {
             return
         }

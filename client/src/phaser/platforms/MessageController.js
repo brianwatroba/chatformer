@@ -4,6 +4,7 @@ class MessagePlatform extends Phaser.GameObjects.Text {
     BASE_MOVE_SPEED = 50;
     MOVE_SPEED_RANGE = 200;
     direction = 1; //1 is right, -1 is left
+    initialized = false;
 
     constructor(scene, x, y, text, playerY) {
         var style = {
@@ -41,40 +42,17 @@ class MessagePlatform extends Phaser.GameObjects.Text {
     }
 }
 
-export class MessagePlugin extends Phaser.Plugins.ScenePlugin {
-    constructor(scene, pluginManager) {
-        super(scene, pluginManager);
+export class MessageController {
+    constructor(scene) {
+        this.scene = scene
         this.messages = []
-        this.group = undefined
-    }
-
-    boot() {
-        console.log('MessagePlugin boot() called')
-        var eventEmitter = this.systems.events;
-        eventEmitter.once('shutdown', this.shutdown, this);
-        eventEmitter.once('ready', this.ready, this);
-    }
-
-    ready() {
-        console.log('ready')
         this.group = this.scene.physics.add.group({
             classType: MessagePlatform,
             createCallback: (obj) => {
                 obj.setUp()
             }
         });
-    }
-
-    // TODO: keep shutdown() and destroy() empty for now until we 
-    // figure out if we need to persist this plugin across multiple scenes. 
-    shutdown() {
-        console.log('MessagePlugin shutdown() called')
-    }
-
-    destroy() {
-        this.shutdown()
-        this.scene = undefined
-        console.log('MessagePlugin destroy() called')
+        this.initialized = false
     }
 
     // TODO: client is currently initialized in Start scene and passed via SceneManager.
@@ -87,18 +65,21 @@ export class MessagePlugin extends Phaser.Plugins.ScenePlugin {
                 displayName: context['display-name'],
             })
         })
+        this.initialized = true
     }
 
-    update(playerY) {
-        if (this.messages.length > 0) {
-            this._ingestMessage(this.messages.shift(), playerY);
+    update() {
+        const { player } = this.scene
+        if (!player) {
+            return;
         }
-        // TODO: update individual messages?
+        if (this.messages.length > 0) {
+            this._ingestMessage(this.messages.shift(), player);
+        }
     }
 
-    _ingestMessage(message, playerY) {
-        // console.log("ingesting message:", message)
-        const messagePlatform = new MessagePlatform(this.scene, 0, 0, message.message, playerY)
+    _ingestMessage(message, player) {
+        const messagePlatform = new MessagePlatform(this.scene, 0, 0, message.message, player.y)
         this.group.add(messagePlatform, true)
     }
 }

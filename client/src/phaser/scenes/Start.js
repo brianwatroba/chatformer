@@ -99,7 +99,7 @@ export default class StartScreen extends Phaser.Scene {
 			const res = await this.client.join(streamerHandle);
 			if (res) {
 				this.status.text = `Joining ${streamerHandle}'s stream`;
-				this.scene.start('GameTest', { client: this.client });
+				this.scene.start('Level1', { client: this.client });
 			}
 		} catch (error) {
 			console.log(error);
