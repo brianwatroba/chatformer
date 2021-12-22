@@ -54,6 +54,7 @@ export default class GameTest extends Phaser.Scene {
 
     update(time, delta) {
         this.player.update()
+        // TODO: instead of independing on player y locaiton, 
         this.msgs.update(this.player.y)
     }
 }
