@@ -13,12 +13,9 @@ export default class ChatJumpLevel extends Phaser.Scene {
     }
 
     init(data) {
-        if (this.messageController && !this.messageController.initialized) {
-            this.messageController.initClient(data.client)
-        }
+        this.client = data.client
+        this.messageController = new MessageController(this, data.client)
         this.enemiesController = new EnemiesController(this)
-        this.messageController = new MessageController(this)
-        this.onStartLevel()
     }
 
     create() {
@@ -34,30 +31,34 @@ export default class ChatJumpLevel extends Phaser.Scene {
 
         // Process object layers.
         const enemyLayer = map.getObjectLayer('Enemies');
-        this.enemiesController.init(enemyLayer)
+        if (enemyLayer && enemyLayer.objects) {
+            this.enemiesController.init(enemyLayer)
+            this.physics.add.collider(this.enemiesController.birds, groundLayer);
+        }
 
+        // Two separate loops because Start must run first to initialize the player.
         const spawnLayer = map.getObjectLayer('Spawn');
-        const { x: start_x, y: start_y, width: start_width, height: start_height } = spawnLayer.objects[1]
-
-        window.player = this.player = this.add.player({
-            x: start_x + (start_width / 2),
-            y: start_y + (start_height / 2),
-            image: 'dude_idle',
-        });
-
-        this.zones = this.physics.add.staticGroup()
+        spawnLayer.objects.forEach(object => {
+            if (object.name == 'Start') {
+                const { x: start_x, y: start_y, width: start_width, height: start_height } = object
+                window.player = this.player = this.add.player({
+                    x: start_x + (start_width / 2),
+                    y: start_y + (start_height / 2),
+                    image: 'dude_idle',
+                });
+            }
+        })
         spawnLayer.objects.forEach(object => {
             if (object.name == 'Finish') {
                 let zone = this.add.rectangle((object.x + (object.width / 2)), (object.y + (object.height / 2)), object.width, object.height);
                 this.physics.world.enable(zone, 1);
-                this.physics.add.collider(this.player, zone, this.onFinishLevel.bind(this));
+                this.physics.add.collider(this.player, zone, this.collideFinishZone, null, this);
             }
         })
 
         // Add common game configurations.
         this.physics.add.collider(this.player, groundLayer);
         this.physics.add.collider(this.player, this.messageController.group)
-        this.physics.add.collider(this.enemiesController.birds, groundLayer);
 
         // Place the player above the tile layers.
         this.player.setDepth(10);
@@ -68,11 +69,17 @@ export default class ChatJumpLevel extends Phaser.Scene {
         }
     }
 
-    onStartLevel() {
+    collideFinishZone(player, zone) {
+        this.physics.world.disable(zone);
+        this.onFinishLevel()
+    }
+
+    startLevel(nextLevelId) {
+        this.scene.start(nextLevelId, { client: this.client });
     }
 
     onFinishLevel() {
-        console.log("Level finished")
+        console.log(this.levelId + " finished")
     }
 
     update(time, delta) {

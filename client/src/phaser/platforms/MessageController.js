@@ -43,7 +43,7 @@ class MessagePlatform extends Phaser.GameObjects.Text {
 }
 
 export class MessageController {
-    constructor(scene) {
+    constructor(scene, client) {
         this.scene = scene
         this.messages = []
         this.group = this.scene.physics.add.group({
@@ -52,7 +52,7 @@ export class MessageController {
                 obj.setUp()
             }
         });
-        this.initialized = false
+        this.initClient(client)
     }
 
     // TODO: client is currently initialized in Start scene and passed via SceneManager.
@@ -65,7 +65,6 @@ export class MessageController {
                 displayName: context['display-name'],
             })
         })
-        this.initialized = true
     }
 
     update() {

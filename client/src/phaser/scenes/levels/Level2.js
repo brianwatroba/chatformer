@@ -5,9 +5,6 @@ export default class Level2 extends ChatJumpLevel {
         super("Level2", debug)
     }
     init(client) {
-        console.log('Level2 init')
-        console.log(client)
-        console.log(this.msgs)
         super.init(client)
     }
     create() {
@@ -16,10 +13,8 @@ export default class Level2 extends ChatJumpLevel {
     update() {
         super.update()
     }
-    onStartLevel() {
-        console.log('Level2 started')
-    }
     onFinishLevel() {
+        super.onFinishLevel()
     }
 }
 

@@ -13,10 +13,8 @@ export default class Level1 extends ChatJumpLevel {
     update() {
         super.update()
     }
-    onStartLevel() {
-        console.log('Level1 started')
-    }
     onFinishLevel() {
-        this.scene.start('Level2');
+        super.onFinishLevel()
+        this.startLevel('Level2')
     }
 }
