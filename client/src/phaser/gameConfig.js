@@ -1,6 +1,5 @@
 import Phaser from "phaser";
 import Game from "./scenes/Game.js";
-import Start from "./scenes/Start.js";
 import Preloader from "./scenes/Preloader.js";
 import { PlayerPlugin } from "./plugins/Player.js";
 import { Level1, Level2 } from "./scenes/levels";
@@ -19,7 +18,7 @@ const gameConfig = {
     plugins: {
         global: [{ key: "PlayerPlugin", plugin: PlayerPlugin, start: true }],
     },
-    scene: [Preloader, Level1, Level2],
+    scene: [Preloader, Game, Level1, Level2],
     physics: {
         default: "arcade",
         arcade: {
