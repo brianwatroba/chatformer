@@ -6,17 +6,13 @@ import FlexColumn from "./shared/FlexColumn";
 import SectionTitle from "./shared/SectionTitle";
 import SectionSubtitle from "./shared/SectionSubtitle";
 
-const ComingSoon = () => {
+const Placeholder = ({ title, subtitle }) => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    const Container = styled.div`
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    const Container = styled(FlexColumn)`
         justify-content: center;
-        position: relative;
         height: 100vh;
     `;
 
@@ -25,14 +21,12 @@ const ComingSoon = () => {
             <FlexColumn>
                 <Clouds lowestAltitude={20} count={10} />
                 <Container>
-                    <SectionTitle>Coming Soon</SectionTitle>
-                    <SectionSubtitle>
-                        check back for new features
-                    </SectionSubtitle>
+                    <SectionTitle>{title}</SectionTitle>
+                    <SectionSubtitle>{subtitle}</SectionSubtitle>
                 </Container>
             </FlexColumn>
         </>
     );
 };
 
-export default ComingSoon;
+export default Placeholder;
