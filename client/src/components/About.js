@@ -39,7 +39,7 @@ const NotFound = () => {
                         </Subtitle>
                         <Subtext variant="h6" component="div">
                             they’re interested in new, deeper ways to connect
-                            with their favoriate streamers beyond passive
+                            with their favorite streamers beyond passive
                             viewership
                         </Subtext>
                     </SubItem>
