@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import GameContext from "../../context/game/gameContext";
 
-import FlexRow from "./FlexRow";
+import { FlexRow } from "../index";
 
 const CurrentStream = () => {
     const gameContext = useContext(GameContext);

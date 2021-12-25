@@ -3,11 +3,13 @@ import styled from "@emotion/styled";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import assetMapping from "../../utils/assetMapping";
-import SectionTitle from "../shared/SectionTitle";
-import DirtBackground from "../shared/DirtBackground";
-import FlexRow from "../shared/FlexRow";
-import QuoteCard from "../shared/QuoteCard";
-import SectionSubtitle from "../shared/SectionSubtitle";
+import {
+    SectionTitle,
+    DirtBackground,
+    FlexRow,
+    QuoteCard,
+    SectionSubtitle,
+} from "../index";
 
 const SocialProof = () => {
     const { day9Logo, day9Video } = assetMapping;

@@ -3,14 +3,16 @@ import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 
 import assetMapping from "../utils/assetMapping";
-import Clouds from "./shared/Clouds";
-import FlexColumn from "./shared/FlexColumn";
-import SectionTitle from "./shared/SectionTitle";
-import QuoteCard from "./shared/QuoteCard";
-import TeamMember from "./shared/TeamMember";
-import FlexRow from "./shared/FlexRow";
+import {
+    Clouds,
+    FlexColumn,
+    SectionTitle,
+    QuoteCard,
+    TeamMember,
+    FlexRow,
+} from "./index";
 
-const NotFound = () => {
+const About = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -193,4 +195,4 @@ const FlexRowWrap = styled(FlexRow)`
     width: 100%;
 `;
 
-export default NotFound;
+export default About;

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 
-import LinksTo from "./LinksTo";
+import { LinksTo } from "../index";
 
 const PlayButtonSecondary = ({ children }) => {
     const PlayButton = styled((props) => (

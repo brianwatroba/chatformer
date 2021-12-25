@@ -2,12 +2,14 @@ import React from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import assetMapping from "../../utils/assetMapping";
-import FeatureItem from "../shared/FeatureItem";
-import FeatureItems from "../shared/FeatureItems";
-import FlexColumn from "../shared/FlexColumn";
-import Clouds from "../shared/Clouds";
-import SectionTitle from "../shared/SectionTitle";
-import SectionSubtitle from "../shared/SectionSubtitle";
+import {
+    FeatureItem,
+    FeatureItems,
+    FlexColumn,
+    Clouds,
+    SectionTitle,
+    SectionSubtitle,
+} from "../index";
 
 const HowItWorks = () => {
     const { coins, chest, singleJumper } = assetMapping;

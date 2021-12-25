@@ -5,13 +5,15 @@ import { ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import GameState from "./context/game/GameState";
-import Home from "./components/Home";
-import Navbar from "./components/shared/Navbar";
-import About from "./components/About";
-import Auth from "./components/Auth";
-import ScreenShell from "./components/shared/ScreenShell";
-import Placeholder from "./components/Placeholder";
-import FlexColumn from "./components/shared/FlexColumn";
+import {
+    Home,
+    Navbar,
+    About,
+    Auth,
+    ScreenShell,
+    Placeholder,
+    FlexColumn,
+} from "./components/index";
 const Game = React.lazy(() => import("./components/Game"));
 
 function App() {

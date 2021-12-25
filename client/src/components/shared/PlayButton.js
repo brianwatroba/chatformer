@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-import LinksTo from "./LinksTo";
+import { LinksTo } from "../index";
 
 const PlayButton = ({ children, className, style }) => {
     const isMobile = useMediaQuery("(max-width:768px)");

@@ -3,10 +3,7 @@ import styled from "@emotion/styled";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import assetMapping from "../../utils/assetMapping";
-import HamburgerMenu from "./HamburgerMenu";
-import NavLinks from "./NavLinks";
-import LinksTo from "./LinksTo";
-import PlayerMenu from "./PlayerMenu";
+import { HamburgerMenu, NavLinks, LinksTo, PlayerMenu } from "../index";
 
 const Navbar = () => {
     const isMobile = useMediaQuery("(max-width:768px)");

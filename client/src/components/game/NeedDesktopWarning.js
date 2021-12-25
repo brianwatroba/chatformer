@@ -2,9 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import assetMapping from "../../utils/assetMapping";
-import SectionTitle from "../shared/SectionTitle";
-import SectionSubtitle from "../shared/SectionSubtitle";
-import FlexColumn from "../shared/FlexColumn";
+import { SectionTitle, SectionSubtitle, FlexColumn } from "../index";
 
 const { mascot } = assetMapping;
 

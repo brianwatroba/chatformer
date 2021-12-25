@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 
-import Clouds from "./shared/Clouds";
-import FlexColumn from "./shared/FlexColumn";
-import SectionTitle from "./shared/SectionTitle";
-import SectionSubtitle from "./shared/SectionSubtitle";
+import { Clouds, FlexColumn, SectionTitle, SectionSubtitle } from "./index";
 
 const Placeholder = ({ title, subtitle }) => {
     useEffect(() => {

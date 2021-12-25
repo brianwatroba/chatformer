@@ -5,7 +5,6 @@ const SectionContainer = ({ children, className }) => {
     const Elem = styled.div`
         display: flex;
         flex-direction: column;
-        // height: 100vh;
     `;
 
     return <Elem classname={className}>{children}</Elem>;

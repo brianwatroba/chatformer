@@ -2,8 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 
-import FlexColumn from "../shared/FlexColumn";
-import SectionTitle from "../shared/SectionTitle";
+import { FlexColumn, SectionTitle } from "../index";
 
 const MenuLoading = ({ title }) => {
     return (

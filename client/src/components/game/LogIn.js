@@ -4,8 +4,7 @@ import { Typography } from "@mui/material";
 
 import GameContext from "../../context/game/gameContext";
 import assetMapping from "../../utils/assetMapping";
-import ButtonPrimary from "../shared/ButtonPrimary";
-import ButtonSecondary from "../shared/ButtonSecondary";
+import { ButtonPrimary, ButtonSecondary } from "../index";
 
 const LogIn = () => {
     const gameContext = useContext(GameContext);

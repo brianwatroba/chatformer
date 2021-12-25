@@ -1,9 +1,6 @@
 import React from "react";
 
-import Landing from "./home/Landing";
-import HowItWorks from "./home/HowItWorks";
-import SocialProof from "./home/SocialProof";
-import Footer from "./home/Footer";
+import { Landing, HowItWorks, SocialProof, Footer } from "./index";
 
 const Home = () => {
     return (
