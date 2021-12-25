@@ -25,6 +25,26 @@ const LogIn = () => {
         logInGuest();
     };
 
+    const Title = styled(Typography)`
+        font-family: ubuntu;
+        color: #3f3f3f;
+        margin-bottom: 8px;
+        font-size: 20px;
+    `;
+
+    const ErrorText = styled(Typography)`
+        font-family: cabin;
+        color: red;
+        font-weight: 500;
+        margin-bottom: 8px;
+        font-style: italic;
+        height: 20px;
+    `;
+
+    const TwitchLoginButton = styled(ButtonPrimary)`
+        margin-bottom: 12px;
+    `;
+
     return (
         <>
             <Title>player login:</Title>
@@ -47,25 +67,5 @@ const LogIn = () => {
         </>
     );
 };
-
-const Title = styled(Typography)`
-    font-family: ubuntu;
-    color: #3f3f3f;
-    margin-bottom: 8px;
-    font-size: 20px;
-`;
-
-const ErrorText = styled(Typography)`
-    font-family: cabin;
-    color: red;
-    font-weight: 500;
-    margin-bottom: 8px;
-    font-style: italic;
-    height: 20px;
-`;
-
-const TwitchLoginButton = styled(ButtonPrimary)`
-    margin-bottom: 12px;
-`;
 
 export default LogIn;

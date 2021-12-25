@@ -7,6 +7,14 @@ import { SectionTitle, SectionSubtitle, FlexColumn } from "../index";
 const { mascot } = assetMapping;
 
 const NeedDesktopWarning = () => {
+    const Mascot = styled.img`
+        content: url(${mascot});
+        height: "125px";
+    `;
+
+    const Container = styled(FlexColumn)`
+        margin: 48px 0px 0px 0px;
+    `;
     return (
         <Container>
             <Mascot />
@@ -17,14 +25,5 @@ const NeedDesktopWarning = () => {
         </Container>
     );
 };
-
-const Mascot = styled.img`
-    content: url(${mascot});
-    height: "125px";
-`;
-
-const Container = styled(FlexColumn)`
-    margin: 48px 0px 0px 0px;
-`;
 
 export default NeedDesktopWarning;
