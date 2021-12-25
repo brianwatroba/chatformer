@@ -42,7 +42,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         // Two separate loops because Start must run first to initialize the player.
         const spawnLayer = map.getObjectLayer("Spawn");
         spawnLayer.objects.forEach((object) => {
-            if (object.name == "Start") {
+            if (object.name === "Start") {
                 const {
                     x: start_x,
                     y: start_y,
@@ -57,7 +57,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
             }
         });
         spawnLayer.objects.forEach((object) => {
-            if (object.name == "Finish") {
+            if (object.name === "Finish") {
                 let zone = this.add.rectangle(
                     object.x + object.width / 2,
                     object.y + object.height / 2,

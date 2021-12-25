@@ -1,9 +1,7 @@
-import Phaser from 'phaser'
-
 const createPlayerAnims = (anims) => {
     anims.create({
-        key: 'idle',
-        frames: anims.generateFrameNumbers('dude_idle', {
+        key: "idle",
+        frames: anims.generateFrameNumbers("dude_idle", {
             start: 0,
             end: 10,
         }),
@@ -11,8 +9,8 @@ const createPlayerAnims = (anims) => {
     });
 
     anims.create({
-        key: 'right',
-        frames: anims.generateFrameNumbers('dude_run', {
+        key: "right",
+        frames: anims.generateFrameNumbers("dude_run", {
             start: 0,
             end: 11,
         }),
@@ -21,8 +19,8 @@ const createPlayerAnims = (anims) => {
     });
 
     anims.create({
-        key: 'jump',
-        frames: anims.generateFrameNumbers('dude_jump', {
+        key: "jump",
+        frames: anims.generateFrameNumbers("dude_jump", {
             start: 0,
             end: 1,
         }),
@@ -30,16 +28,14 @@ const createPlayerAnims = (anims) => {
     });
 
     anims.create({
-        key: 'double_jump',
-        frames: anims.generateFrameNumbers('dude_double_jump', {
+        key: "double_jump",
+        frames: anims.generateFrameNumbers("dude_double_jump", {
             start: 0,
             end: 4,
         }),
         frameRate: 20,
         repeat: 0,
     });
-}
+};
 
-export {
-    createPlayerAnims
-}
+export { createPlayerAnims };
