@@ -1,12 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios").default;
-const axiosConfig = {
-    headers: {
-        Authorization: `Bearer ${process.env.TWITCH_API_TOKEN}`,
-        "Client-Id": process.env.TWITCH_CLIENT_ID,
-    },
-};
+const twitchHeaders = require("../../../config/twitchHeaders");
 
 // @route  GET api/twitch/streams
 // @desc   get info about a Twitch stream
@@ -20,7 +15,7 @@ router.get("/", async (req, res) => {
         try {
             const twitchResponse = await axios.get(
                 baseUrl + username,
-                axiosConfig
+                twitchHeaders
             );
 
             const user = twitchResponse.data.data[0];
@@ -28,7 +23,6 @@ router.get("/", async (req, res) => {
             if (user) {
                 res.status(200).json(user);
             } else {
-                console.log("getting to else");
                 res.status(404).send("Twitch user does not exist");
             }
         } catch (error) {

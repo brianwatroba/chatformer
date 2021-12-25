@@ -1,26 +1,26 @@
 import React, { Suspense } from "react";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "./theme";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
+import theme from "./theme";
+import { ThemeProvider } from "@mui/material/styles";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import GameState from "./context/game/GameState";
-
-import Home from "./components/Home";
-import NotFound from "./components/NotFound";
-import ComingSoon from "./components/ComingSoon";
-import Navbar from "./components/shared/Navbar";
-import About from "./components/About";
-import Auth from "./components/Auth";
-import ScreenShell from "./components/shared/ScreenShell";
-// import Game from "./components/Game";
+import {
+    Home,
+    Navbar,
+    About,
+    Auth,
+    ScreenShell,
+    Placeholder,
+    FlexColumn,
+} from "./components/index";
 const Game = React.lazy(() => import("./components/Game"));
 
 function App() {
     return (
         <ThemeProvider theme={theme}>
             <GameState>
-                <BrowserRouter basename="/">
+                <BrowserRouter>
                     <Navbar />
                     <Routes>
                         <Route path="/" element={<Home />} />
@@ -39,9 +39,25 @@ function App() {
                             }
                         />
                         <Route path="/about" element={<About />} />
-                        <Route path="/leaderboards" element={<ComingSoon />} />
+                        <Route
+                            path="/leaderboards"
+                            element={
+                                <Placeholder
+                                    title="coming soon"
+                                    subtitle="check back for new features"
+                                />
+                            }
+                        />
                         <Route path="/auth" element={<Auth />} />
-                        <Route path="*" element={<NotFound />} />
+                        <Route
+                            path="*"
+                            element={
+                                <Placeholder
+                                    title="404: not found"
+                                    subtitle="jump higher to find what you're looking for"
+                                />
+                            }
+                        />
                     </Routes>
                 </BrowserRouter>
             </GameState>
@@ -49,13 +65,8 @@ function App() {
     );
 }
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    align-items: center;
+const Container = styled(FlexColumn)`
     height: 100vh;
-    width: 100%;
     background-color: #333;
 `;
 

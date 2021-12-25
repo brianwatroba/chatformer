@@ -6,7 +6,8 @@
 
 1. Clone project
 1. Run "npm i" in root directory, then cd into "client" and run "npm i" again
-1. Run script "npm run dev" to start dev server. This starts both the server and client dev servers simultaneously. Client = port 3000, server = port 5000.
+1. Run script "npm run dev" to start dev server. This starts both the server and client dev servers simultaneously. Client = port 3000, server = port 4000.
+1. Environment variables are in .env. Not committed to repo.
 
 ### Notes about project structure:
 

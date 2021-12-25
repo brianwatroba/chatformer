@@ -4,8 +4,8 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Typography } from "@mui/material";
 
-import FlexRow from "../shared/FlexRow";
 import assetMapping from "../../utils/assetMapping";
+import { FlexRow } from "../index";
 
 const QuoteCard = ({
     quote,

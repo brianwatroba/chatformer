@@ -2,8 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import keyframes from "@emotion/keyframes";
 
-import FlexColumn from "./FlexColumn";
-import SectionTitle from "./SectionTitle";
+import { FlexColumn, SectionTitle } from "../index";
 
 const LoadingGame = () => {
     const Container = styled.div`

@@ -2,7 +2,8 @@ import React from "react";
 import styled from "@emotion/styled";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import LinksTo from "./LinksTo";
+
+import { LinksTo } from "../index";
 
 const NavLink = ({ children, className, linkColor, href, active }) => {
     const theme = useTheme();

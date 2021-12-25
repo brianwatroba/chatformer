@@ -1,12 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios").default;
-const axiosConfig = {
-    headers: {
-        Authorization: `Bearer ${process.env.TWITCH_API_TOKEN}`,
-        "Client-Id": process.env.TWITCH_CLIENT_ID,
-    },
-};
+const twitchHeaders = require("../../../config/twitchHeaders");
 
 // @route  GET api/twitch/users
 // @desc   get info about a Twitch user
@@ -20,7 +15,7 @@ router.get("/", async (req, res) => {
         try {
             const twitchResponse = await axios.get(
                 baseUrl + username,
-                axiosConfig
+                twitchHeaders
             );
             const user = twitchResponse.data.data[0];
             if (user) {

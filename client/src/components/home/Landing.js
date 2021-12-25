@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-import assetMapping from "../../utils/assetMapping";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-import VideoBackground from "../shared/VideoBackground";
-import PlayButton from "../shared/PlayButton";
+import assetMapping from "../../utils/assetMapping";
+import { VideoBackground, PlayButton } from "../index";
 
 const Landing = () => {
     const isMobile = useMediaQuery("(max-width:768px)");

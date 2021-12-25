@@ -3,10 +3,8 @@ import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 
 import GameContext from "../../context/game/gameContext";
-import ButtonPrimary from "../shared/ButtonPrimary";
-import ButtonSecondary from "../shared/ButtonSecondary";
-import LiveStatus from "../shared/LiveStatus";
 import isStreamerLive from "../../api/isStreamerLive";
+import { ButtonPrimary, ButtonSecondary, LiveStatus } from "../index";
 
 const SelectStream = () => {
     const gameContext = useContext(GameContext);

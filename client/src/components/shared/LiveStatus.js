@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import FlexRow from "./FlexRow";
+import { FlexRow } from "../index";
 
 const LiveStatus = ({ isLive }) => {
     const Container = styled(FlexRow)`

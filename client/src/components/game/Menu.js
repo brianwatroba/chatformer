@@ -5,13 +5,16 @@ import { Typography } from "@mui/material";
 
 import GameContext from "../../context/game/gameContext";
 import assetMapping from "../../utils/assetMapping";
-import Clouds from "../shared/Clouds";
-import FlexColumn from "../shared/FlexColumn";
-import LogIn from "./LogIn";
-import SelectStream from "./SelectStream";
-import InputStream from "./InputStream";
-import FlexRow from "../shared/FlexRow";
-import BackButton from "../shared/BackButton";
+
+import {
+    Clouds,
+    FlexColumn,
+    LogIn,
+    SelectStream,
+    InputStream,
+    FlexRow,
+    BackButton,
+} from "../index";
 
 const Menu = () => {
     const gameContext = useContext(GameContext);

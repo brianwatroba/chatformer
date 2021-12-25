@@ -3,8 +3,7 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
 import GameContext from "../context/game/gameContext";
-import CurrentStream from "./shared/CurrentStream";
-import MenuLoading from "./game/MenuLoading";
+import { CurrentStream, MenuLoading } from "./index";
 
 const Auth = () => {
     const gameContext = useContext(GameContext);

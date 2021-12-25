@@ -1,12 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios").default;
-const axiosConfig = {
-    headers: {
-        Authorization: `Bearer ${process.env.TWITCH_API_TOKEN}`,
-        "Client-Id": process.env.TWITCH_CLIENT_ID,
-    },
-};
+const config = require("config");
+const TWITCH_CLIENT_SECRET = config.get("TWITCH_CLIENT_SECRET");
+const TWITCH_CLIENT_ID = config.get("TWITCH_CLIENT_ID");
 
 // @route  POST api/twitch/auth
 // @desc   get Twitch user token after client Twitch login, call Twitch API to get info about that user, then return info to client
@@ -19,12 +16,13 @@ router.post("/", async (req, res) => {
     if (!code) res.status(400).send("No auth code provided");
 
     const baseUrl = "https://id.twitch.tv/oauth2/token";
-    const clientIdParam = `?client_id=${process.env.TWITCH_CLIENT_ID}`;
-    const clientSecretParam = `&client_secret=${process.env.TWITCH_CLIENT_SECRET}`;
+    const clientIdParam = `?client_id=${TWITCH_CLIENT_ID}`;
+    const clientSecretParam = `&client_secret=${TWITCH_CLIENT_SECRET}`;
     const codeParam = `&code=${code}`;
     const grantType = `&grant_type=authorization_code`;
     const redirectUri = `&redirect_uri=${clientUrl}/auth`;
 
+    // Get user token from Twitch, uses code from client Twitch login
     try {
         const twitchResponse = await axios.post(
             baseUrl +
@@ -37,10 +35,11 @@ router.post("/", async (req, res) => {
 
         const token = twitchResponse.data.access_token;
 
+        //  Get info about that user via Twitch API
         const user = await axios.get(`https://api.twitch.tv/helix/users?`, {
             headers: {
                 Authorization: `Bearer ${token}`,
-                "Client-Id": process.env.TWITCH_CLIENT_ID,
+                "Client-Id": TWITCH_CLIENT_ID,
             },
         });
 

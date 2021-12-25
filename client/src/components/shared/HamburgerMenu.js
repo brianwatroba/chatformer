@@ -5,7 +5,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 
 import { links } from "../../utils/linkMapping";
-import LinksTo from "./LinksTo";
+import { LinksTo } from "../index";
 
 const HamburgerMenu = () => {
     const navigate = useNavigate();

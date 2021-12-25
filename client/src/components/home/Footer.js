@@ -1,13 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import assetMapping from "../../utils/assetMapping";
-import FlexColumn from "../shared/FlexColumn";
-import SectionTitle from "../shared/SectionTitle";
-import PlayButton from "../shared/PlayButton";
-import NavLinks from "../shared/NavLinks";
+import { FlexColumn, SectionTitle, PlayButton, NavLinks } from "../index";
 
 const Footer = () => {
     const { mascot } = assetMapping;

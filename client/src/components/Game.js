@@ -1,16 +1,18 @@
 import React, { useEffect, useContext, Suspense } from "react";
 import styled from "@emotion/styled";
-import useMediaQuery from "@mui/material/useMediaQuery";
-
 import Phaser from "phaser";
 import gameConfig from "../phaser/gameConfig";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 import GameContext from "../context/game/gameContext";
-import CurrentStream from "./shared/CurrentStream";
-import Menu from "./game/Menu";
-import BackButton from "./shared/BackButton";
-import NeedDesktopWarning from "./game/NeedDesktopWarning";
-import FlexColumn from "./shared/FlexColumn";
-import ScreenShell from "./shared/ScreenShell";
+import {
+    CurrentStream,
+    Menu,
+    BackButton,
+    NeedDesktopWarning,
+    FlexColumn,
+    ScreenShell,
+} from "./index";
 
 const Game = () => {
     const gameContext = useContext(GameContext);

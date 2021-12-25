@@ -4,8 +4,7 @@ import { Typography } from "@mui/material";
 
 import GameContext from "../../context/game/gameContext";
 import assetMapping from "../../utils/assetMapping";
-import ButtonPrimary from "../shared/ButtonPrimary";
-import ButtonSecondary from "../shared/ButtonSecondary";
+import { ButtonPrimary, ButtonSecondary } from "../index";
 
 const LogIn = () => {
     const gameContext = useContext(GameContext);
@@ -25,6 +24,26 @@ const LogIn = () => {
         setLoading(true);
         logInGuest();
     };
+
+    const Title = styled(Typography)`
+        font-family: ubuntu;
+        color: #3f3f3f;
+        margin-bottom: 8px;
+        font-size: 20px;
+    `;
+
+    const ErrorText = styled(Typography)`
+        font-family: cabin;
+        color: red;
+        font-weight: 500;
+        margin-bottom: 8px;
+        font-style: italic;
+        height: 20px;
+    `;
+
+    const TwitchLoginButton = styled(ButtonPrimary)`
+        margin-bottom: 12px;
+    `;
 
     return (
         <>
@@ -48,25 +67,5 @@ const LogIn = () => {
         </>
     );
 };
-
-const Title = styled(Typography)`
-    font-family: ubuntu;
-    color: #3f3f3f;
-    margin-bottom: 8px;
-    font-size: 20px;
-`;
-
-const ErrorText = styled(Typography)`
-    font-family: cabin;
-    color: red;
-    font-weight: 500;
-    margin-bottom: 8px;
-    font-style: italic;
-    height: 20px;
-`;
-
-const TwitchLoginButton = styled(ButtonPrimary)`
-    margin-bottom: 12px;
-`;
 
 export default LogIn;

@@ -2,13 +2,19 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import assetMapping from "../../utils/assetMapping";
-import SectionTitle from "../shared/SectionTitle";
-import SectionSubtitle from "../shared/SectionSubtitle";
-import FlexColumn from "../shared/FlexColumn";
+import { SectionTitle, SectionSubtitle, FlexColumn } from "../index";
 
 const { mascot } = assetMapping;
 
 const NeedDesktopWarning = () => {
+    const Mascot = styled.img`
+        content: url(${mascot});
+        height: "125px";
+    `;
+
+    const Container = styled(FlexColumn)`
+        margin: 48px 0px 0px 0px;
+    `;
     return (
         <Container>
             <Mascot />
@@ -19,14 +25,5 @@ const NeedDesktopWarning = () => {
         </Container>
     );
 };
-
-const Mascot = styled.img`
-    content: url(${mascot});
-    height: "125px";
-`;
-
-const Container = styled(FlexColumn)`
-    margin: 48px 0px 0px 0px;
-`;
 
 export default NeedDesktopWarning;

@@ -1,30 +1,31 @@
 import Phaser from "phaser";
 import Game from "./scenes/Game.js";
-import Loading from "./scenes/Loading.js";
+import Preloader from "./scenes/Preloader.js";
+import { PlayerPlugin } from "./plugins/Player.js";
+import { Level1, Level2 } from "./scenes/levels";
 
 const gameConfig = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
     parent: "phaser-game",
-    scale: {
-        width: 800,
-        height: 600,
-    },
+    // backgroundColor: "#72b9d8",
     dom: {
         createContainer: true,
+        autoCenter: true,
     },
     resolution: window.devicePixelRatio,
-    scene: [Loading, Game],
-    backgroundColor: "#72b9d8",
-    gameTitle: "trainwreckstv",
+    plugins: {
+        global: [{ key: "PlayerPlugin", plugin: PlayerPlugin, start: true }],
+    },
+    scene: [Preloader, Game, Level1, Level2],
     physics: {
         default: "arcade",
         arcade: {
             gravity: {
                 y: 1500,
             },
-            debug: false,
+            debug: true,
         },
     },
 };
