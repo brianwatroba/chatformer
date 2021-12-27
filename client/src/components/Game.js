@@ -29,8 +29,9 @@ const Game = () => {
     };
 
     const Container = styled(FlexColumn)`
-        height: 100vh;
         background-color: #333;
+        padding-top: 12px;
+        padding-bottom: 12px;
     `;
 
     const GameScreen = styled.div`
