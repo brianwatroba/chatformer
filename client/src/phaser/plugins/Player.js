@@ -62,23 +62,24 @@ export class Player extends Phaser.GameObjects.Sprite {
     update() {
         const { keys } = this;
         const onGround = this.body.blocked.down;
-
-        if (keys.left.isDown) {
-            this.body.setVelocityX(-270);
-            this.setFlipX(true);
-            if (onGround) {
-                this.anims.play("right", true);
-            }
-        } else if (keys.right.isDown) {
-            this.body.setVelocityX(270);
-            this.setFlipX(false);
-            if (onGround) {
-                this.anims.play("right", true);
-            }
-        } else {
-            this.body.setVelocityX(0);
-            if (onGround) {
-                this.anims.play("idle", true);
+        if (!this.body.blocked.left && !this.body.blocked.right) {
+            if (keys.left.isDown) {
+                this.body.setVelocityX(-270);
+                this.setFlipX(true);
+                if (onGround) {
+                    this.anims.play("right", true);
+                }
+            } else if (keys.right.isDown) {
+                this.body.setVelocityX(270);
+                this.setFlipX(false);
+                if (onGround) {
+                    this.anims.play("right", true);
+                }
+            } else {
+                this.body.setVelocityX(0);
+                if (onGround) {
+                    this.anims.play("idle", true);
+                }
             }
         }
     }
