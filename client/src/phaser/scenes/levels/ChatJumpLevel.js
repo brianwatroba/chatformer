@@ -16,11 +16,17 @@ export default class ChatJumpLevel extends Phaser.Scene {
         this.client = data.client;
         this.messageController = new MessageController(this, data.client);
         this.enemiesController = new EnemiesController(this);
+        this.sounds = {};
     }
 
     create() {
+        //Create Animations
         createPlayerAnims(this.anims);
         createEnemyAnims(this.anims);
+
+        //Create Sound Effects
+        this.jumpSound = this.sound.add("jump", {loop: false});
+
 
         const map = this.make.tilemap({ key: this.levelId });
 

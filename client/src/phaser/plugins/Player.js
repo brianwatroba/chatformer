@@ -40,6 +40,7 @@ export class Player extends Phaser.GameObjects.Sprite {
             this.body.setVelocityY(-630);
             this.anims.play("jump", true);
             this.jumpCount = 0;
+            this.scene.sound.play("jump");
         } else {
             if (this.jumpCount < 2) {
                 this.body.setVelocityY(-630);
@@ -47,6 +48,7 @@ export class Player extends Phaser.GameObjects.Sprite {
                 this.on("animationcomplete", () => {
                     this.anims.play("jump", true);
                 });
+                this.scene.sound.play("jump");
             }
         }
     }
