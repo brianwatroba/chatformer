@@ -76,8 +76,9 @@ export default class ChatJumpLevel extends Phaser.Scene {
         });
 
         // Add common game configurations.
-        this.physics.add.collider(this.player, groundLayer);
         this.physics.add.collider(this.player, this.messageController.group);
+        this.physics.add.collider(this.player, groundLayer);
+        
 
         // Place the player above the tile layers.
         this.player.setDepth(10);

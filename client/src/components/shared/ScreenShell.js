@@ -3,8 +3,6 @@ import styled from "@emotion/styled";
 
 const ScreenShell = ({ children, style, className }) => {
     const ScreenShell = styled.div`
-        position: absolute;
-        top: 100px;
         display: flex;
         flex-direction: column;
         align-items: center;
