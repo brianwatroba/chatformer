@@ -1,6 +1,4 @@
 import Phaser from "phaser";
-import MessagePlatform from "../classes/MessagePlatform.js";
-import MessageTag from "../classes/MessageTag.js";
 
 export default class Game extends Phaser.Scene {
     constructor() {
@@ -514,15 +512,15 @@ export default class Game extends Phaser.Scene {
     }
 
     ingestMessage(phaser, message) {
-        var messagePlatform = phaser.add.existing(
-            new MessagePlatform(this, message.message, this.wordPlatforms)
-        );
-        phaser.add.existing(
-            new MessageTag(this, message.displayName, messagePlatform)
-        );
+        // var messagePlatform = phaser.add.existing(
+        //     new MessagePlatform(this, message.message, this.wordPlatforms)
+        // );
+        // phaser.add.existing(
+        //     new MessageTag(this, message.displayName, messagePlatform)
+        // );
 
         // Maybe spawn chest on top of the text.
-        this.maybeSpawnChest(messagePlatform);
+        // this.maybeSpawnChest(messagePlatform);
     }
 
     /** Random chance to initialize loot on top of the `word`. */
