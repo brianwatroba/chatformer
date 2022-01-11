@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import MessageTag from './MessageTag';
 
 
-class MessagePlatform extends Phaser.GameObjects.Text {
+export default class MessagePlatform extends Phaser.GameObjects.Text {
     BASE_MOVE_SPEED = 50;
     MOVE_SPEED_RANGE = 200;
     MAX_BOOST = 1000; // 0 is no bounce, 100 is +100 yVelocity
