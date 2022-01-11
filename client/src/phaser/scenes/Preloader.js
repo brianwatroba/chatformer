@@ -66,6 +66,9 @@ export default class Preloader extends Phaser.Scene {
         this.load.image("terrain", "assets/Terrain (16x16).png");
         this.load.tilemapTiledJSON("Level1", "assets/Level1.json");
         this.load.tilemapTiledJSON("Level2", "assets/Level2.json");
+
+        // Load Sound Effects
+        this.load.audio("jump", ["assets/SoundEffects/jump.wav"]);
     }
 
     async create() {

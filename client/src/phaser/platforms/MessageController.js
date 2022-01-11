@@ -1,5 +1,5 @@
-import Phaser from 'phaser';
 import MessagePlatform from './MessagePlatform';
+
 export class MessageController {
     constructor(scene, client) {
         this.scene = scene

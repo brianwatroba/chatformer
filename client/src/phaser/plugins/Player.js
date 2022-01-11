@@ -1,6 +1,9 @@
 import Phaser from "phaser";
 
 export class Player extends Phaser.GameObjects.Sprite {
+    JUMP_VELOCITY = -630;
+    HORIZONTAL_MOVE_VELOCITY = 270;
+
     constructor({ scene, x, y, image }) {
         super(scene, x, y, image);
 
@@ -31,27 +34,36 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.midJump = false;
 
         var keyObj = this.scene.input.keyboard.addKey("up"); // Get key object
-        keyObj.on("down", this.spaceDown.bind(this));
-        keyObj.on("up", this.spaceUp.bind(this));
+        keyObj.on("down", this.upKeyDown.bind(this));
+        keyObj.on("up", this.upKeyUp.bind(this));
     }
 
-    spaceDown() {
+    //boost the player when they hit a platform with boost enabled
+    platformBoost(platform) {
+        this.body.setVelocityY(-1 * platform.boost);
+        this.jumpCount = 1;
+    }
+
+    upKeyDown() {
+        console.log("jump count", this.jumpCount)
         if (this.body.blocked.down) {
-            this.body.setVelocityY(-630);
+            this.body.setVelocityY(this.JUMP_VELOCITY);
             this.anims.play("jump", true);
             this.jumpCount = 0;
+            this.scene.sound.play("jump");
         } else {
             if (this.jumpCount < 2) {
-                this.body.setVelocityY(-630);
+                this.body.setVelocityY(this.JUMP_VELOCITY);
                 this.anims.play("double_jump", true);
                 this.on("animationcomplete", () => {
                     this.anims.play("jump", true);
                 });
+                this.scene.sound.play("jump");
             }
         }
     }
 
-    spaceUp() {
+    upKeyUp() {
         if (this.jumpCount === 0) {
             this.jumpCount = 1;
         } else if (this.jumpCount === 1) {
@@ -62,26 +74,24 @@ export class Player extends Phaser.GameObjects.Sprite {
     update() {
         const { keys } = this;
         const onGround = this.body.blocked.down;
-        //if (!this.body.blocked.left && !this.body.blocked.right) {
-            if (keys.left.isDown && !this.body.blocked.left) {
-                this.body.setVelocityX(-270);
-                this.setFlipX(true);
-                if (onGround) {
-                    this.anims.play("right", true);
-                }
-            } else if (keys.right.isDown && !this.body.blocked.right) {
-                this.body.setVelocityX(270);
-                this.setFlipX(false);
-                if (onGround) {
-                    this.anims.play("right", true);
-                }
-            } else if(!this.body.blocked.left && !this.body.blocked.right) {
-                this.body.setVelocityX(0);
-                if (onGround) {
-                    this.anims.play("idle", true);
-                }
+        if (keys.left.isDown && !this.body.blocked.left) {
+            this.body.setVelocityX(-1 * this.HORIZONTAL_MOVE_VELOCITY);
+            this.setFlipX(true);
+            if (onGround) {
+                this.anims.play("right", true);
             }
-        //}
+        } else if (keys.right.isDown && !this.body.blocked.right) {
+            this.body.setVelocityX(this.HORIZONTAL_MOVE_VELOCITY);
+            this.setFlipX(false);
+            if (onGround) {
+                this.anims.play("right", true);
+            }
+        } else if(!this.body.blocked.left && !this.body.blocked.right) {
+            this.body.setVelocityX(0);
+            if (onGround) {
+                this.anims.play("idle", true);
+            }
+        }
         if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
             this.anims.play('idle', true)
         }
