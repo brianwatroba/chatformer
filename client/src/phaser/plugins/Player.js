@@ -11,6 +11,7 @@ export class Player extends Phaser.GameObjects.Sprite {
         scene.physics.world.enable(this, 0);
         // Add this sprite to the scene
         scene.add.existing(this);
+        this.body.collideWorldBounds = true;
 
         this.setScale(1.5);
         //  Player physics properties. Give the little guy a slight bounce.
@@ -45,7 +46,6 @@ export class Player extends Phaser.GameObjects.Sprite {
     }
 
     upKeyDown() {
-        console.log("jump count", this.jumpCount)
         if (this.body.blocked.down) {
             this.body.setVelocityY(this.JUMP_VELOCITY);
             this.anims.play("jump", true);
