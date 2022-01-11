@@ -37,7 +37,7 @@ export class MessageController {
     }
 
     _ingestMessage(message, player) {
-        const messagePlatform = new MessagePlatform(this.scene, 0, 0, message, player.y, this.possibleXDirections)
+        const messagePlatform = new MessagePlatform(this.scene, 0, 0, message, player.x, player.y, this.possibleXDirections)
         this.group.add(messagePlatform, true)
     }
 }

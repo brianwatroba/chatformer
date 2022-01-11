@@ -12,13 +12,14 @@ export default class MessagePlatform extends Phaser.GameObjects.Text {
     initialized = false;
     
 
-    constructor(scene, x, y, message, playerY, possibleXDirections) {
+    constructor(scene, x, y, message, playerX, playerY, possibleXDirections) {
         var style = {
             fontSize: '26px',
             fill: '#FFFFFF',
         };
         super(scene, x, y, message.message, style); // x,y is blank here?
-        this.playerY = playerY
+        this.playerX = playerX;
+        this.playerY = playerY;
         this.boost = 0;
         this.message = message;
         this.possibleXDirections = possibleXDirections;
@@ -40,7 +41,7 @@ export default class MessagePlatform extends Phaser.GameObjects.Text {
             );    
         }
 
-        this.setX(this.xDirection > 0 ? -300 - this.body.width : 500);
+        this.setX(this.getXPosition(this.playerX));
         this.setY(this.playerY + 200 - 800 * Math.random())
 
         this.body.setVelocityX(
@@ -56,5 +57,14 @@ export default class MessagePlatform extends Phaser.GameObjects.Text {
 
         // Attach display names to scene but don't add in physics group
         const messageDisplayName = new MessageTag(this.scene, this.message.displayName, this)
+    }
+
+    getXPosition(playerX) {
+        if (this.xDirection === -1) {
+            return playerX + this.scene.sys.game.canvas.width * .8;
+        }
+        else if (this.xDirection === 1) {
+            return playerX - this.scene.sys.game.canvas.width * .8 - this.body.width
+        }
     }
 }
