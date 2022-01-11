@@ -24,8 +24,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         createEnemyAnims(this.anims);
 
         //Create Sound Effects
-        this.sound.add("jump", {loop: false});
-
+        this.sound.add("jump", { loop: false });
 
         const map = this.make.tilemap({ key: this.levelId });
 
@@ -33,16 +32,6 @@ export default class ChatJumpLevel extends Phaser.Scene {
         const tileset = map.addTilesetImage("Terrain (16x16)", "terrain");
         const groundLayer = map.createLayer("Platforms", tileset, 0, 0);
         groundLayer.setCollisionByProperty({ collides: true });
-
-        // Process object layers.
-        const enemyLayer = map.getObjectLayer("Enemies");
-        if (enemyLayer && enemyLayer.objects) {
-            this.enemiesController.init(enemyLayer);
-            this.physics.add.collider(
-                this.enemiesController.birds,
-                groundLayer
-            );
-        }
 
         // Two separate loops because Start must run first to initialize the player.
         const spawnLayer = map.getObjectLayer("Spawn");
@@ -80,10 +69,15 @@ export default class ChatJumpLevel extends Phaser.Scene {
             }
         });
 
+        // Process object layers.
+        const enemyLayer = map.getObjectLayer("Enemies");
+        if (enemyLayer && enemyLayer.objects) {
+            this.enemiesController.init(enemyLayer, groundLayer, this.player);
+        }
+
         // Add common game configurations.
         this.physics.add.collider(this.player, this.messageController.group, this.collideMessagePlatform);
         this.physics.add.collider(this.player, groundLayer);
-        
 
         // Place the player above the tile layers.
         this.player.setDepth(10);
