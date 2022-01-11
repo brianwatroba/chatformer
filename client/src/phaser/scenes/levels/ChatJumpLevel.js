@@ -68,6 +68,9 @@ export default class ChatJumpLevel extends Phaser.Scene {
                 );
             }
         });
+        //set world bounds according to map
+        this.physics.world.setBounds(0,0, map.widthInPixels, map.heightInPixels);
+
 
         // Process object layers.
         const enemyLayer = map.getObjectLayer("Enemies");
@@ -82,6 +85,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         // Place the player above the tile layers.
         this.player.setDepth(10);
         this.cameras.main.startFollow(this.player);
+        this.cameras.main.setBounds(0,0, map.widthInPixels, map.heightInPixels);
 
         if (this.debug) {
             debugDraw(groundLayer, this);
