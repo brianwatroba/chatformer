@@ -36,6 +36,16 @@ const createPlayerAnims = (anims) => {
         frameRate: 20,
         repeat: 0,
     });
+
+    anims.create({
+        key: "hit",
+        frames: anims.generateFrameNumbers("dude_hit", {
+            start: 0,
+            end: 6,
+        }),
+        frameRate: 20,
+        repeat: -1,
+    });
 };
 
 export { createPlayerAnims };

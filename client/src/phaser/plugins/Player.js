@@ -1,12 +1,15 @@
 import Phaser from "phaser";
 
+import { sceneEvents } from '../events/EventsCenter'
 export class Player extends Phaser.GameObjects.Sprite {
     JUMP_VELOCITY = -630;
     HORIZONTAL_MOVE_VELOCITY = 270;
+    STUN_MILLISECONDS = 1500;
+    stunned = false
 
     constructor({ scene, x, y, image }) {
         super(scene, x, y, image);
-
+        this.scene = scene
         // Attach this sprite to the loaded physics engine
         scene.physics.world.enable(this, 0);
         // Add this sprite to the scene
@@ -37,6 +40,21 @@ export class Player extends Phaser.GameObjects.Sprite {
         var keyObj = this.scene.input.keyboard.addKey("up"); // Get key object
         keyObj.on("down", this.upKeyDown.bind(this));
         keyObj.on("up", this.upKeyUp.bind(this));
+
+        // on player stun
+        // set state to stun
+        sceneEvents.on('player-hit-bird', this.handlePlayerHitBird, this)
+    }
+
+    handlePlayerHitBird() {
+        this.stunned = true
+        this.scene.time.addEvent({
+            delay: this.STUN_MILLISECONDS,
+            callback: () => {
+                this.stunned = false
+            },
+        })
+        this.anims.play("hit", true);
     }
 
     //boost the player when they hit a platform with boost enabled
@@ -74,6 +92,11 @@ export class Player extends Phaser.GameObjects.Sprite {
     update() {
         const { keys } = this;
         const onGround = this.body.blocked.down;
+
+        if (this.stunned) {
+            return
+        }
+
         if (keys.left.isDown && !this.body.blocked.left) {
             this.body.setVelocityX(-1 * this.HORIZONTAL_MOVE_VELOCITY);
             this.setFlipX(true);
@@ -86,7 +109,7 @@ export class Player extends Phaser.GameObjects.Sprite {
             if (onGround) {
                 this.anims.play("right", true);
             }
-        } else if(!this.body.blocked.left && !this.body.blocked.right) {
+        } else if (!this.body.blocked.left && !this.body.blocked.right) {
             this.body.setVelocityX(0);
             if (onGround) {
                 this.anims.play("idle", true);
