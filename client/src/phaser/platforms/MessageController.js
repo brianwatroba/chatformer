@@ -3,8 +3,12 @@ import Phaser from 'phaser';
 class MessagePlatform extends Phaser.GameObjects.Text {
     BASE_MOVE_SPEED = 50;
     MOVE_SPEED_RANGE = 200;
+    MAX_BOOST = 1000; // 0 is no bounce, 100 is +100 yVelocity
+    MIN_BOOST = 500;
+    BOOST_WIDTH_CUTOFF = 200; //words smaller than 200 will be blue and boosty
     direction = 1; //1 is right, -1 is left
     initialized = false;
+    
 
     constructor(scene, x, y, text, playerY) {
         var style = {
@@ -13,6 +17,7 @@ class MessagePlatform extends Phaser.GameObjects.Text {
         };
         super(scene, x, y, text, style); // x,y is blank here?
         this.playerY = playerY
+        this.boost = 0;
     }
 
     update() {
@@ -22,8 +27,13 @@ class MessagePlatform extends Phaser.GameObjects.Text {
     setUp() {
         this.direction = Math.random() > 0.5 ? 1 : -1;
 
-        if (this.body.width < 200) {
+        //setup boost paltforms
+        if (this.body.width < this.BOOST_WIDTH_CUTOFF) {
             this.setColor('#0000FF');
+            this.boost = Math.min(
+                this.MAX_BOOST, 
+                (this.BOOST_WIDTH_CUTOFF / Math.max(this.body.width, 1)) * this.MIN_BOOST
+            );    
         }
 
         this.setX(this.direction > 0 ? -300 - this.body.width : 500);

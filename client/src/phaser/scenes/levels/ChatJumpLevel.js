@@ -81,7 +81,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         });
 
         // Add common game configurations.
-        this.physics.add.collider(this.player, this.messageController.group);
+        this.physics.add.collider(this.player, this.messageController.group, this.collideMessagePlatform);
         this.physics.add.collider(this.player, groundLayer);
         
 
@@ -91,6 +91,12 @@ export default class ChatJumpLevel extends Phaser.Scene {
 
         if (this.debug) {
             debugDraw(groundLayer, this);
+        }
+    }
+
+    collideMessagePlatform(player, platform) {
+        if (platform.boost > 0 && platform.body.touching.up) {
+            player.platformBoost(platform);
         }
     }
 
