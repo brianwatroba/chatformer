@@ -1,7 +1,7 @@
 import MessagePlatform from './MessagePlatform';
 
 export class MessageController {
-    constructor(scene, client) {
+    constructor(scene, client, xDirections) {
         this.scene = scene
         this.messages = []
         this.group = this.scene.physics.add.group({
@@ -11,6 +11,7 @@ export class MessageController {
             }
         });
         this.initClient(client)
+        this.possibleXDirections = xDirections;
     }
 
     // TODO: client is currently initialized in Start scene and passed via SceneManager.
@@ -36,7 +37,7 @@ export class MessageController {
     }
 
     _ingestMessage(message, player) {
-        const messagePlatform = new MessagePlatform(this.scene, 0, 0, message, player.y)
+        const messagePlatform = new MessagePlatform(this.scene, 0, 0, message, player.y, this.possibleXDirections)
         this.group.add(messagePlatform, true)
     }
 }

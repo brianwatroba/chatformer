@@ -12,7 +12,7 @@ export default class MessagePlatform extends Phaser.GameObjects.Text {
     initialized = false;
     
 
-    constructor(scene, x, y, message, playerY) {
+    constructor(scene, x, y, message, playerY, possibleXDirections) {
         var style = {
             fontSize: '26px',
             fill: '#FFFFFF',
@@ -21,6 +21,7 @@ export default class MessagePlatform extends Phaser.GameObjects.Text {
         this.playerY = playerY
         this.boost = 0;
         this.message = message;
+        this.possibleXDirections = possibleXDirections;
     }
 
     update() {
@@ -28,8 +29,8 @@ export default class MessagePlatform extends Phaser.GameObjects.Text {
     }
 
     setUp() {
-        this.direction = Math.random() > 0.5 ? 1 : -1;
-
+        this.xDirection = this.possibleXDirections[Math.floor(Math.random() * this.possibleXDirections.length)]
+        
         //setup boost paltforms
         if (this.body.width < this.BOOST_WIDTH_CUTOFF) {
             this.setColor('#0000FF');
@@ -39,11 +40,11 @@ export default class MessagePlatform extends Phaser.GameObjects.Text {
             );    
         }
 
-        this.setX(this.direction > 0 ? -300 - this.body.width : 500);
+        this.setX(this.xDirection > 0 ? -300 - this.body.width : 500);
         this.setY(this.playerY + 200 - 800 * Math.random())
 
         this.body.setVelocityX(
-            this.direction *
+            this.xDirection *
             (this.BASE_MOVE_SPEED + Math.random() * this.MOVE_SPEED_RANGE)
         );
         this.body.setAllowGravity(false);

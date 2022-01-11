@@ -14,7 +14,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
 
     init(data) {
         this.client = data.client;
-        this.messageController = new MessageController(this, data.client);
+        this.messageController = new MessageController(this, data.client, this.levelId === "Level2" ? [-1] : [-1, 1]);
         this.enemiesController = new EnemiesController(this);
     }
 
