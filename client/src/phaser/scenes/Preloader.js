@@ -62,6 +62,11 @@ export default class Preloader extends Phaser.Scene {
             frameHeight: 32,
         });
 
+        this.load.spritesheet("fireball", "assets/FireBall.png", {
+            frameWidth: 100,
+            frameHeight: 100,
+        });
+
         // Load Tileset
         this.load.image("terrain", "assets/Terrain (16x16).png");
         this.load.tilemapTiledJSON("Level1", "assets/Level1.json");
