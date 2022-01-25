@@ -17,7 +17,7 @@ export default class Preloader extends Phaser.Scene {
     preload() {
         this.load.spritesheet(
             "dude_idle",
-            "assets/main_character/Idle (32x32).png",
+            "assets/game/sprites/main_character/Idle (32x32).png",
             {
                 frameWidth: 32,
                 frameHeight: 32,
@@ -25,7 +25,7 @@ export default class Preloader extends Phaser.Scene {
         );
         this.load.spritesheet(
             "dude_run",
-            "assets/main_character/Run (32x32).png",
+            "assets/game/sprites/main_character/Run (32x32).png",
             {
                 frameWidth: 32,
                 frameHeight: 32,
@@ -34,7 +34,7 @@ export default class Preloader extends Phaser.Scene {
 
         this.load.spritesheet(
             "dude_jump",
-            "assets/main_character/Jump (32x32).png",
+            "assets/game/sprites/main_character/Jump (32x32).png",
             {
                 frameWidth: 32,
                 frameHeight: 32,
@@ -42,7 +42,7 @@ export default class Preloader extends Phaser.Scene {
         );
         this.load.spritesheet(
             "dude_hit",
-            "assets/main_character/Hit (32x32).png",
+            "assets/game/sprites/main_character/Hit (32x32).png",
             {
                 frameWidth: 32,
                 frameHeight: 32,
@@ -50,30 +50,30 @@ export default class Preloader extends Phaser.Scene {
         );
         this.load.spritesheet(
             "dude_double_jump",
-            "assets/main_character/Double Jump (32x32).png",
+            "assets/game/sprites/main_character/Double Jump (32x32).png",
             {
                 frameWidth: 32,
                 frameHeight: 32,
             }
         );
 
-        this.load.spritesheet("bird_fly", "assets/Bird.png", {
+        this.load.spritesheet("bird_fly", "assets/game/sprites/enemies/Bird.png", {
             frameWidth: 32,
             frameHeight: 32,
         });
 
-        this.load.spritesheet("fireball", "assets/FireBall.png", {
+        this.load.spritesheet("fireball", "assets/game/sprites/enemies/FireBall.png", {
             frameWidth: 100,
             frameHeight: 100,
         });
 
         // Load Tileset
-        this.load.image("terrain", "assets/Terrain (16x16).png");
-        this.load.tilemapTiledJSON("Level1", "assets/Level1.json");
-        this.load.tilemapTiledJSON("Level2", "assets/Level2.json");
+        this.load.image("terrain", "assets/game/sprites/Environment/Terrain (16x16).png");
+        this.load.tilemapTiledJSON("Level1", "assets/game/levels/Level1.json");
+        this.load.tilemapTiledJSON("Level2", "assets/game/levels/Level2.json");
 
         // Load Sound Effects
-        this.load.audio("jump", ["assets/SoundEffects/jump.wav"]);
+        this.load.audio("jump", ["assets/game/sounds/jump.wav"]);
     }
 
     async create() {
