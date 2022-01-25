@@ -22,7 +22,7 @@ const createPlayerAnims = (anims) => {
         key: "jump",
         frames: anims.generateFrameNumbers("dude_jump", {
             start: 0,
-            end: 1,
+            end: 0,
         }),
         frameRate: 20,
     });
