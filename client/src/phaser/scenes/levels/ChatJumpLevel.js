@@ -27,6 +27,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         this.sound.add("jump", { loop: false });
 
         const map = this.make.tilemap({ key: this.levelId });
+        this.map = map;
 
         // Process tile layers.
         const tileset = map.addTilesetImage("Terrain (16x16)", "terrain");

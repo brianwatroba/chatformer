@@ -9,6 +9,7 @@ export default class Level1 extends ChatJumpLevel {
     }
     create() {
         super.create()
+        this.enemiesController.addFireWall(0, 0, 0, this.map.heightInPixels);
     }
     update() {
         super.update()

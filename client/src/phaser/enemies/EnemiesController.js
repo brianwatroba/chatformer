@@ -1,5 +1,6 @@
 // Contains physics group for each enemy type.
 import BasicBird from "./BasicBird";
+import FireBall from "./FireBall";
 
 import { sceneEvents } from '../events/EventsCenter'
 
@@ -43,5 +44,23 @@ export default class EnemiesController {
 
     handlePlayerCollision(player, bird) {
         sceneEvents.emit('player-hit-bird', bird)
+    }
+
+    addFireWall(x, y, width, height) {
+        this.firewalls = this.scene.physics.add.group({
+            classType: FireBall,
+        });
+
+        var pieceSpacing = 60;
+        var numPieces = Math.floor(height/pieceSpacing);
+        for (var i = 0; i < 1; i++) {
+            for (var j = 0; j < numPieces; j++) {
+                this.firewalls.create(
+                    x + i * 22 + Math.random() * 5,
+                    y + j*pieceSpacing + Math.random() * 5
+                ).init(numPieces - j);
+
+            }    
+        }
     }
 }

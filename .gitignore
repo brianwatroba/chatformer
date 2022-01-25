@@ -1,3 +1,5 @@
 node_modules
 .DS_npStore
 .env
+.vscode
+.DS_Store
