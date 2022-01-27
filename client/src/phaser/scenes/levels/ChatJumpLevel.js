@@ -89,7 +89,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         this.backgroundController.init(backgroundLayer, parallaxLayer, parallaxLayer2);
 
         // Add common game configurations.
-        this.physics.add.collider(this.player, this.messageController.group, this.collideMessagePlatform);
+        this.physics.add.collider(this.player, this.messageController.group, this.collideMessagePlatform, null, this);
         this.physics.add.collider(this.player, groundLayer);
 
         // Place the player above the tile layers.
@@ -107,6 +107,16 @@ export default class ChatJumpLevel extends Phaser.Scene {
         if (platform.boost > 0 && platform.body.touching.up) {
             player.platformBoost(platform);
         }
+        else if (platform.body.touching.up) {
+            player.jumpCount = 0;
+
+            this.time.delayedCall(300, function(plat) {
+                plat.body.setAllowGravity(true);
+                plat.messageDisplayName.body.setAllowGravity(true);
+            }, [platform], this);
+            
+        }
+        
     }
 
     collideFinishZone(player, zone) {

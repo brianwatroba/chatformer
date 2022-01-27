@@ -56,7 +56,7 @@ export default class MessagePlatform extends Phaser.GameObjects.Text {
         this.setOrigin(0);
 
         // Attach display names to scene but don't add in physics group
-        const messageDisplayName = new MessageTag(this.scene, this.message.displayName, this)
+        this.messageDisplayName = new MessageTag(this.scene, this.message.displayName, this)
     }
 
     getXPosition(playerX) {
