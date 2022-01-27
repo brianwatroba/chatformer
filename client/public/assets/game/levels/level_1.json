@@ -224,7 +224,19 @@
          "objects":[
                 {
                  "height":97.056,
-                 "id":1,
+                 "id":3,
+                 "name":"Start",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":95.9776,
+                 "x":333.201,
+                 "y":2914.79
+                }, 
+                {
+                 "gid":259,
+                 "height":64,
+                 "id":43,
                  "name":"Finish",
                  "properties":[
                         {
@@ -235,20 +247,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":95.9776,
-                 "x":674.527,
-                 "y":190.784
-                }, 
-                {
-                 "height":97.056,
-                 "id":3,
-                 "name":"Start",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":95.9776,
-                 "x":333.201,
-                 "y":2914.79
+                 "width":64,
+                 "x":713.854924944021,
+                 "y":320.452295069348
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -429,7 +430,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":43,
+ "nextobjectid":44,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
@@ -2671,6 +2672,19 @@
         {
          "firstgid":247,
          "source":"..\/..\/..\/..\/..\/tiled\/sky.tsx"
+        }, 
+        {
+         "columns":10,
+         "firstgid":259,
+         "image":"..\/sprites\/environment\/Flag_Idle.png",
+         "imageheight":64,
+         "imagewidth":640,
+         "margin":0,
+         "name":"Flag_Idle",
+         "spacing":0,
+         "tilecount":10,
+         "tileheight":64,
+         "tilewidth":64
         }],
  "tilewidth":16,
  "type":"map",

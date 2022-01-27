@@ -67,6 +67,11 @@ export default class Preloader extends Phaser.Scene {
             frameHeight: 100,
         });
 
+        this.load.spritesheet("flag_idle", "assets/game/sprites/environment/Flag_Idle.png", {
+            frameWidth: 64,
+            frameHeight: 64,
+        });
+
         // Load Tileset
         this.load.image("terrain", "assets/game/sprites/Environment/Terrain (16x16).png");
         this.load.tilemapTiledJSON("Level1", "assets/game/levels/level_1.json");

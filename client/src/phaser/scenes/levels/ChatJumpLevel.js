@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { createEnemyAnims } from "../../anims/EnemyAnims";
 import { createPlayerAnims } from "../../anims/playerAnims";
+import { createItemAnims } from "../../anims/ItemAnims";
 import { debugDraw } from "../../utils/debug";
 import EnemiesController from "../../enemies/EnemiesController";
 import { MessageController } from "../../platforms/MessageController";
@@ -24,6 +25,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         //Create Animations
         createPlayerAnims(this.anims);
         createEnemyAnims(this.anims);
+        createItemAnims(this.anims);
 
         //Create Sound Effects
         this.sound.add("jump", { loop: false });
@@ -55,20 +57,21 @@ export default class ChatJumpLevel extends Phaser.Scene {
         });
         spawnLayer.objects.forEach((object) => {
             if (object.name === "Finish") {
-                let zone = this.add.rectangle(
-                    object.x + object.width / 2,
-                    object.y + object.height / 2,
-                    object.width,
-                    object.height
-                );
-                this.physics.world.enable(zone, 1);
+                var checkpoint = this.physics.add.sprite(object.x + object.width / 2,
+                    object.y - object.height / 2, "flag_idle")
+                checkpoint.body.width = checkpoint.body.width/2;    
+                checkpoint.body.setOffset(15,0)
+                checkpoint.body.setAllowGravity(false);
+                checkpoint.anims.play("flag_idle")
+
                 this.physics.add.collider(
                     this.player,
-                    zone,
+                    checkpoint,
                     this.collideFinishZone,
                     null,
                     this
                 );
+                
             }
         });
         
