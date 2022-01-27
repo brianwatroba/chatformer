@@ -9,6 +9,7 @@ import {
     Home,
     Navbar,
     About,
+    Leaderboard,
     Auth,
     ScreenShell,
     Placeholder,
@@ -39,15 +40,7 @@ function App() {
                             }
                         />
                         <Route path="/about" element={<About />} />
-                        <Route
-                            path="/leaderboards"
-                            element={
-                                <Placeholder
-                                    title="coming soon"
-                                    subtitle="check back for new features"
-                                />
-                            }
-                        />
+                        <Route path="/leaderboards" element={<Leaderboard />} />
                         <Route path="/auth" element={<Auth />} />
                         <Route
                             path="*"

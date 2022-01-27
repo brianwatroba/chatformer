@@ -4,6 +4,7 @@ export { default as Auth } from "./Auth";
 export { default as Game } from "./Game";
 export { default as Home } from "./Home";
 export { default as Placeholder } from "./Placeholder";
+export { default as Leaderboard } from "./Leaderboard";
 
 // Page sections
 export { default as InputStream } from "./game/InputStream";
