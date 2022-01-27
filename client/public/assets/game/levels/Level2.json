@@ -9,7 +9,7 @@
          "objects":[
                 {
                  "gid":244,
-                 "height":453.242263056093,
+                 "height":453.242,
                  "id":35,
                  "name":"",
                  "properties":[
@@ -26,13 +26,13 @@
                  "rotation":0,
                  "type":"skybg1background",
                  "visible":true,
-                 "width":805.764023210832,
-                 "x":-30.5415860735009,
-                 "y":758.308268858801
+                 "width":805.764,
+                 "x":-30.5416,
+                 "y":758.308
                 }, 
                 {
                  "gid":243,
-                 "height":385.997340425532,
+                 "height":385.997,
                  "id":36,
                  "name":"",
                  "properties":[
@@ -44,9 +44,9 @@
                  "rotation":0,
                  "type":"clouds2",
                  "visible":true,
-                 "width":686.217494089835,
-                 "x":-30.5415860735009,
-                 "y":345.318665377176
+                 "width":686.217,
+                 "x":-30.5416,
+                 "y":345.319
                 }],
          "opacity":1,
          "parallaxx":0.9,
@@ -63,7 +63,7 @@
          "objects":[
                 {
                  "gid":245,
-                 "height":453.24280886372,
+                 "height":453.243,
                  "id":46,
                  "name":"",
                  "properties":[
@@ -80,9 +80,9 @@
                  "rotation":0,
                  "type":"clouds1",
                  "visible":true,
-                 "width":805.764417794971,
-                 "x":-70.1936208897485,
-                 "y":492.85397098646
+                 "width":805.764,
+                 "x":-70.1936,
+                 "y":492.854
                 }],
          "opacity":1,
          "parallaxx":0.8,
@@ -99,7 +99,7 @@
          "objects":[
                 {
                  "gid":254,
-                 "height":449.313054158607,
+                 "height":449.313,
                  "id":47,
                  "name":"",
                  "properties":[
@@ -116,9 +116,9 @@
                  "rotation":0,
                  "type":"clouds3",
                  "visible":true,
-                 "width":798.779947855304,
-                 "x":-294.535486460348,
-                 "y":744.39569729207
+                 "width":798.78,
+                 "x":-294.535,
+                 "y":744.396
                 }],
          "opacity":1,
          "parallaxx":0.07,
@@ -155,12 +155,13 @@
                  "type":"",
                  "visible":true,
                  "width":95.9776,
-                 "x":111.148777002053,
-                 "y":510.157831622177
+                 "x":111.149,
+                 "y":510.158
                 }, 
                 {
-                 "height":97.056,
-                 "id":15,
+                 "gid":375,
+                 "height":64,
+                 "id":48,
                  "name":"Finish",
                  "properties":[
                         {
@@ -171,9 +172,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":95.9776,
-                 "x":2980.75863326489,
-                 "y":520.424772073922
+                 "width":64,
+                 "x":3014.1521709013,
+                 "y":640.721730144432
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -182,7 +183,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":48,
+ "nextobjectid":49,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
@@ -2396,6 +2397,19 @@
          "tilecount":120,
          "tileheight":16,
          "tilewidth":16
+        }, 
+        {
+         "columns":10,
+         "firstgid":375,
+         "image":"..\/sprites\/environment\/Flag_Idle.png",
+         "imageheight":64,
+         "imagewidth":640,
+         "margin":0,
+         "name":"Flag_Idle",
+         "spacing":0,
+         "tilecount":10,
+         "tileheight":64,
+         "tilewidth":64
         }],
  "tilewidth":16,
  "type":"map",
