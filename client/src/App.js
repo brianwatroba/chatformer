@@ -40,7 +40,7 @@ function App() {
                             }
                         />
                         <Route path="/about" element={<About />} />
-                        <Route path="/leaderboards" element={<Leaderboard />} />
+                        <Route path="/leaderboard" element={<Leaderboard />} />
                         <Route path="/auth" element={<Auth />} />
                         <Route
                             path="*"
