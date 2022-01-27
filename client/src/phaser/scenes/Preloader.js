@@ -69,8 +69,17 @@ export default class Preloader extends Phaser.Scene {
 
         // Load Tileset
         this.load.image("terrain", "assets/game/sprites/Environment/Terrain (16x16).png");
-        this.load.tilemapTiledJSON("Level1", "assets/game/levels/Level1.json");
+        this.load.tilemapTiledJSON("Level1", "assets/game/levels/level_1.json");
         this.load.tilemapTiledJSON("Level2", "assets/game/levels/Level2.json");
+
+
+        //Load Background Images
+        this.load.image("clouds1", "assets/game/sprites/environment/sky47/47_PixelSky_layer03.png")
+        this.load.image("clouds2", "assets/game/sprites/environment/sky47/47_PixelSky_layer02.png")
+        this.load.image("clouds3", "assets/game/sprites/environment/sky47/45_PixelSky_layer03.png")
+
+        this.load.image("skybg1background", "assets/game/sprites/environment/sky47/47_PixelSky_layer01.png")
+        this.load.image("skybg1parallax", "assets/game/sprites/environment/sky14/14_PixelSky_layer02BIG.png")
 
         // Load Sound Effects
         this.load.audio("jump", ["assets/game/sounds/jump.wav"]);

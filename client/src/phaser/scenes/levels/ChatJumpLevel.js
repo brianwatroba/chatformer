@@ -4,6 +4,7 @@ import { createPlayerAnims } from "../../anims/playerAnims";
 import { debugDraw } from "../../utils/debug";
 import EnemiesController from "../../enemies/EnemiesController";
 import { MessageController } from "../../platforms/MessageController";
+import BackgroundController from "../../background/BackgroundController";
 
 export default class ChatJumpLevel extends Phaser.Scene {
     constructor(levelId, debug = false) {
@@ -16,6 +17,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         this.client = data.client;
         this.messageController = new MessageController(this, data.client, this.levelId === "Level2" ? [-1] : [-1, 1]);
         this.enemiesController = new EnemiesController(this);
+        this.backgroundController = new BackgroundController(this);
     }
 
     create() {
@@ -69,6 +71,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
                 );
             }
         });
+        
         //set world bounds according to map
         this.physics.world.setBounds(0,0, map.widthInPixels, map.heightInPixels);
 
@@ -79,6 +82,12 @@ export default class ChatJumpLevel extends Phaser.Scene {
             this.enemiesController.init(enemyLayer, groundLayer, this.player);
         }
 
+        // Process Background object layers
+        const parallaxLayer = map.getObjectLayer("ParallaxBackground");
+        const parallaxLayer2 = map.getObjectLayer("ParallaxBackground2");
+        const backgroundLayer = map.getObjectLayer("Background");
+        this.backgroundController.init(backgroundLayer, parallaxLayer, parallaxLayer2);
+
         // Add common game configurations.
         this.physics.add.collider(this.player, this.messageController.group, this.collideMessagePlatform);
         this.physics.add.collider(this.player, groundLayer);
@@ -87,6 +96,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         this.player.setDepth(10);
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0,0, map.widthInPixels, map.heightInPixels);
+        this.cameras.main.setZoom(1);
 
         if (this.debug) {
             debugDraw(groundLayer, this);
