@@ -1267,9 +1267,12 @@
    <image width="240" height="135" source="../client/public/assets/game/sprites/environment/sky47/45_PixelSky_layer03.png"/>
   </tile>
  </tileset>
+<<<<<<< HEAD
  <tileset firstgid="269" name="spikes" tilewidth="16" tileheight="16" tilecount="1" columns="1">
   <image source="../client/public/assets/game/sprites/environment/spikes.png" width="16" height="16"/>
  </tileset>
+=======
+>>>>>>> develop
  <objectgroup id="9" name="Background" parallaxx="0.6" parallaxy="0.6">
   <object id="42" type="skybg1background" gid="244" x="-203.038" y="2069.39" width="905.228" height="509.191">
    <properties>
@@ -1316,7 +1319,11 @@
   </data>
  </layer>
  <objectgroup id="2" name="Spawn">
+<<<<<<< HEAD
   <object id="3" name="Start" x="309.774" y="2933.82" width="95.9776" height="97.056"/>
+=======
+  <object id="3" name="Start" x="336" y="16" width="95.9776" height="97.056"/>
+>>>>>>> develop
   <object id="43" name="Finish" gid="247" x="713.855" y="320.452" width="64" height="64">
    <properties>
     <property name="collides" type="bool" value="true"/>
