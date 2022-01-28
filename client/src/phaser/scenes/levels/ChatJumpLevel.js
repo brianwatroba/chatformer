@@ -6,6 +6,7 @@ import { debugDraw } from "../../utils/debug";
 import EnemiesController from "../../enemies/EnemiesController";
 import { MessageController } from "../../platforms/MessageController";
 import BackgroundController from "../../background/BackgroundController";
+import GameClock from "../../plugins/GameClock"
 
 export default class ChatJumpLevel extends Phaser.Scene {
     constructor(levelId, debug = false) {
@@ -19,6 +20,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         this.messageController = new MessageController(this, data.client, this.levelId === "Level2" ? [-1] : [-1, 1]);
         this.enemiesController = new EnemiesController(this);
         this.backgroundController = new BackgroundController(this);
+        this.previousRunningTime = data.runningTimeSeconds ? data.runningTimeSeconds : 0;
     }
 
     create() {
@@ -108,6 +110,14 @@ export default class ChatJumpLevel extends Phaser.Scene {
         if (this.debug) {
             debugDraw(groundLayer, this);
         }
+
+        // Add clock
+        this.timerEvent = this.time.addEvent({ delay: 99999 });
+        this.gameClock = this.add.gameclock({
+            scene: this,
+            timerEvent: this.timerEvent,
+            runningTimeSeconds: this.previousRunningTime
+        });
     }
 
     collideMessagePlatform(player, platform) {
@@ -117,13 +127,12 @@ export default class ChatJumpLevel extends Phaser.Scene {
         else if (platform.body.touching.up) {
             player.jumpCount = 0;
 
+            //pause for a bit before letting the platforms fall
             this.time.delayedCall(300, function (plat) {
                 plat.body.setAllowGravity(true);
                 plat.messageDisplayName.body.setAllowGravity(true);
             }, [platform], this);
-
         }
-
     }
 
     collideFinishZone(player, zone) {
@@ -132,7 +141,10 @@ export default class ChatJumpLevel extends Phaser.Scene {
     }
 
     startLevel(nextLevelId) {
-        this.scene.start(nextLevelId, { client: this.client });
+        this.scene.start(nextLevelId, {
+            client: this.client,
+            runningTimeSeconds: this.timerEvent.getElapsedSeconds() + this.previousRunningTime
+        });
     }
 
     onFinishLevel() {
@@ -142,5 +154,6 @@ export default class ChatJumpLevel extends Phaser.Scene {
     update(time, delta) {
         this.player.update();
         this.messageController.update();
+        this.gameClock.update();
     }
 }
