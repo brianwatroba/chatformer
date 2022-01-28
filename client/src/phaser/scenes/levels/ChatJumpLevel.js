@@ -44,6 +44,10 @@ export default class ChatJumpLevel extends Phaser.Scene {
         const groundLayer = map.createLayer("Platforms", tileset, 0, 0);
         groundLayer.setCollisionByProperty({ collides: true });
 
+        const spikesTileset = map.addTilesetImage("spikes", "spikes");
+        const spikesLayer = map.createLayer("Spikes", spikesTileset, 0, 0);
+        spikesLayer.setCollisionByProperty({ collides: true });
+
         // Two separate loops because Start must run first to initialize the player.
         const spawnLayer = map.getObjectLayer("Spawn");
         spawnLayer.objects.forEach((object) => {
@@ -100,6 +104,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         // Add common game configurations.
         this.physics.add.collider(this.player, this.messageController.group, this.collideMessagePlatform, null, this);
         this.physics.add.collider(this.player, groundLayer);
+        this.physics.add.collider(this.player, spikesLayer, this.collideSpikes);
 
         // Place the player above the tile layers.
         this.player.setDepth(10);
@@ -133,6 +138,10 @@ export default class ChatJumpLevel extends Phaser.Scene {
                 plat.messageDisplayName.body.setAllowGravity(true);
             }, [platform], this);
         }
+    }
+    
+    collideSpikes(player, spike) {
+
     }
 
     collideFinishZone(player, zone) {
