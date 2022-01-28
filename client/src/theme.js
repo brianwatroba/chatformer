@@ -13,7 +13,7 @@ let theme = createTheme({
         text: { primary: "#333333", contrastText: "#fff" },
     },
     typography: {
-        fontFamily: "'Source Code Pro', sans-serif",
+        fontFamily: "'Cabin', sans-serif",
     },
 });
 
