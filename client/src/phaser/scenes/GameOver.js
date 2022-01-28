@@ -12,6 +12,7 @@ export default class GameOver extends Phaser.Scene {
     }
 
     create() {
+        console.log('game over scene')
     }
 
     update() { }

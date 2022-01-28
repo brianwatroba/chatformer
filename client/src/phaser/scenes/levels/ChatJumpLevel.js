@@ -6,6 +6,7 @@ import { debugDraw } from "../../utils/debug";
 import EnemiesController from "../../enemies/EnemiesController";
 import { MessageController } from "../../platforms/MessageController";
 import BackgroundController from "../../background/BackgroundController";
+import { sceneEvents } from '../../events/EventsCenter'
 
 export default class ChatJumpLevel extends Phaser.Scene {
     constructor(levelId, debug = false) {
@@ -27,8 +28,6 @@ export default class ChatJumpLevel extends Phaser.Scene {
         createEnemyAnims(this.anims);
         createItemAnims(this.anims);
 
-        // this.sys.game.physics.arcade.TILE_BIAS = 32;
-        console.log(this.physics.world.TILE_BIAS)
         this.physics.world.TILE_BIAS = 32;
 
         //Create Sound Effects
@@ -108,6 +107,8 @@ export default class ChatJumpLevel extends Phaser.Scene {
         if (this.debug) {
             debugDraw(groundLayer, this);
         }
+
+        sceneEvents.on('player-death', this.handlePlayerDeath, this)
     }
 
     collideMessagePlatform(player, platform) {
@@ -123,7 +124,6 @@ export default class ChatJumpLevel extends Phaser.Scene {
             }, [platform], this);
 
         }
-
     }
 
     collideFinishZone(player, zone) {
@@ -133,6 +133,10 @@ export default class ChatJumpLevel extends Phaser.Scene {
 
     startLevel(nextLevelId) {
         this.scene.start(nextLevelId, { client: this.client });
+    }
+
+    handlePlayerDeath() {
+        this.scene.start('GameOver');
     }
 
     onFinishLevel() {

@@ -6,6 +6,7 @@ export class Player extends Phaser.GameObjects.Sprite {
     HORIZONTAL_MOVE_VELOCITY = 270;
     STUN_MILLISECONDS = 1500;
     stunned = false
+    health = 100
 
     constructor({ scene, x, y, image }) {
         super(scene, x, y, image);
@@ -44,6 +45,7 @@ export class Player extends Phaser.GameObjects.Sprite {
         // on player stun
         // set state to stun
         sceneEvents.on('player-hit-bird', this.handlePlayerHitBird, this)
+        sceneEvents.on('player-hit', this.handlePlayerHit, this)
     }
 
     handlePlayerHitBird() {
@@ -55,6 +57,16 @@ export class Player extends Phaser.GameObjects.Sprite {
             },
         })
         this.anims.play("hit", true);
+        sceneEvents.emit('player-hit', 99)
+    }
+
+    handlePlayerHit(damage) {
+        console.log('player hit with damage: ' + damage)
+        if (damage <= 0) return
+        this.health = Math.max(this.health - damage, 0)
+        if (this.health == 0) {
+            sceneEvents.emit('player-death')
+        }
     }
 
     //boost the player when they hit a platform with boost enabled
