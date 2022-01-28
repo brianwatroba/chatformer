@@ -74,6 +74,7 @@ export default class Preloader extends Phaser.Scene {
 
         // Load Tileset
         this.load.image("terrain", "assets/game/sprites/Environment/Terrain (16x16).png");
+        this.load.image("spikes", "assets/game/sprites/Environment/spikes.png");
         this.load.tilemapTiledJSON("Level1", "assets/game/levels/level_1.json");
         this.load.tilemapTiledJSON("Level2", "assets/game/levels/Level2.json");
 
@@ -108,6 +109,6 @@ export default class Preloader extends Phaser.Scene {
 
         // Connect to chat, pass client object to first level
         this.client = await connectToChat(this.streamer);
-        this.scene.start("Level1", { client: this.client });
+        this.scene.start("Level2", { client: this.client });
     }
 }
