@@ -32,6 +32,10 @@ export default class GameClock extends Phaser.GameObjects.Text {
 
         return minutesText + ":" + secondsText;
     }
+
+    getTotalTime() {
+        return this.prevRunningTimeSeconds + this.timerEvent.getElapsedSeconds();
+    }
 }
 
 export class GameClockPlugin extends Phaser.Plugins.BasePlugin {
