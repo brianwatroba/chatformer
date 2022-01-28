@@ -4,6 +4,7 @@ import Preloader from "./scenes/Preloader.js";
 import { PlayerPlugin } from "./plugins/Player.js";
 import {GameClockPlugin } from "./plugins/GameClock.js";
 import { Level1, Level2 } from "./scenes/levels";
+import GameOver from "./scenes/GameOver.js";
 
 const gameConfig = {
     type: Phaser.AUTO,
@@ -22,7 +23,7 @@ const gameConfig = {
             { key: "GameClockPlugin", plugin: GameClockPlugin, start: true }],
         
     },
-    scene: [Preloader, Game, Level1, Level2],
+    scene: [Preloader, Game, Level1, Level2, GameOver],
     physics: {
         default: "arcade",
         arcade: {
