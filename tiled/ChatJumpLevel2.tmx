@@ -1218,7 +1218,7 @@
  </tileset>
  <tileset firstgid="243" source="sky.tsx"/>
  <tileset firstgid="255" name="32_PixelSky_layer02" tilewidth="16" tileheight="16" tilecount="120" columns="15">
-  <image source="../../../Downloads/Pixel Skies Background pack by Digital Moons 1.1/Parallax Pixel Skies 240x135px/32 Parallax Pixel Sky/32_PixelSky_layer02.png" width="240" height="135"/>
+  <image source="../client/public/assets/game/sprites/environment/sky32/32_PixelSky_layer02.png" width="240" height="135"/>
  </tileset>
  <tileset firstgid="375" name="Flag_Idle" tilewidth="64" tileheight="64" tilecount="10" columns="10">
   <image source="../client/public/assets/game/sprites/environment/Flag_Idle.png" width="640" height="64"/>
