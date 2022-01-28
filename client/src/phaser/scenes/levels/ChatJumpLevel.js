@@ -140,9 +140,9 @@ export default class ChatJumpLevel extends Phaser.Scene {
             }, [platform], this);
         }
     }
-    
-    collideSpikes(player, spike) {
 
+    collideSpikes(player, spike) {
+        sceneEvents.emit('player-hit', 100)
     }
 
     collideFinishZone(player, zone) {
