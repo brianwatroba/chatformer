@@ -158,43 +158,7 @@
          "draworder":"topdown",
          "id":8,
          "name":"ParallaxBackground2",
-         "objects":[
-                {
-                 "gid":258,
-                 "height":287.258,
-                 "id":36,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"yoyoY",
-                         "type":"int",
-                         "value":-5
-                        }],
-                 "rotation":0,
-                 "type":"clouds3",
-                 "visible":true,
-                 "width":510.681,
-                 "x":91.5715,
-                 "y":1678.89
-                }, 
-                {
-                 "gid":258,
-                 "height":460.548,
-                 "id":37,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"yoyoY",
-                         "type":"int",
-                         "value":-5
-                        }],
-                 "rotation":0,
-                 "type":"clouds3",
-                 "visible":true,
-                 "width":818.753,
-                 "x":-92.8318,
-                 "y":2171.71
-                }],
+         "objects":[],
          "opacity":1,
          "parallaxx":0.8,
          "parallaxy":0.8,
@@ -230,11 +194,11 @@
                  "type":"",
                  "visible":true,
                  "width":95.9776,
-                 "x":333.201,
-                 "y":2914.79
+                 "x":336,
+                 "y":16
                 }, 
                 {
-                 "gid":259,
+                 "gid":247,
                  "height":64,
                  "id":43,
                  "name":"Finish",
@@ -248,8 +212,8 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":713.854924944021,
-                 "y":320.452295069348
+                 "x":713.855,
+                 "y":320.452
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -282,8 +246,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":177.671,
-                 "y":2400.96
+                 "x":527.412,
+                 "y":2396.64
                 }, 
                 {
                  "height":0,
@@ -305,8 +269,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":619.448,
-                 "y":1779.11
+                 "x":191.987,
+                 "y":1770.47
                 }, 
                 {
                  "height":0,
@@ -420,8 +384,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":172.878,
-                 "y":2815.45
+                 "x":384.45,
+                 "y":2824.09
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2645,37 +2609,33 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/..\/..\/..\/..\/..\/..\/Downloads\/Pixel Skies Background pack by Digital Moons 1.1\/Parallax Pixel Skies 240x135px\/47 Parallax Pixel Sky\/47_PixelSky_layer02.png",
+                 "image":"..\/sprites\/environment\/sky47\/47_PixelSky_layer02.png",
                  "imageheight":135,
                  "imagewidth":240
                 }, 
                 {
                  "id":1,
-                 "image":"..\/..\/..\/..\/..\/..\/..\/Downloads\/Pixel Skies Background pack by Digital Moons 1.1\/Parallax Pixel Skies 240x135px\/47 Parallax Pixel Sky\/47_PixelSky_layer01.png",
+                 "image":"..\/sprites\/environment\/sky47\/47_PixelSky_layer01.png",
                  "imageheight":135,
                  "imagewidth":240
                 }, 
                 {
                  "id":2,
-                 "image":"..\/..\/..\/..\/..\/..\/..\/Downloads\/Pixel Skies Background pack by Digital Moons 1.1\/Parallax Pixel Skies 240x135px\/47 Parallax Pixel Sky\/47_PixelSky_layer03.png",
+                 "image":"..\/sprites\/environment\/sky47\/47_PixelSky_layer03.png",
                  "imageheight":135,
                  "imagewidth":240
                 }, 
                 {
                  "id":3,
-                 "image":"..\/..\/..\/..\/..\/..\/..\/Downloads\/Pixel Skies Background pack by Digital Moons 1.1\/Parallax Pixel Skies 240x135px\/33 Parallax Pixel Sky\/33_PixelSky_layer04.png",
+                 "image":"..\/sprites\/environment\/sky33\/33_PixelSky_layer04.png",
                  "imageheight":135,
                  "imagewidth":240
                 }],
          "tilewidth":240
         }, 
         {
-         "firstgid":247,
-         "source":"..\/..\/..\/..\/..\/tiled\/sky.tsx"
-        }, 
-        {
          "columns":10,
-         "firstgid":259,
+         "firstgid":247,
          "image":"..\/sprites\/environment\/Flag_Idle.png",
          "imageheight":64,
          "imagewidth":640,
@@ -2685,6 +2645,83 @@
          "tilecount":10,
          "tileheight":64,
          "tilewidth":64
+        }, 
+        {
+         "columns":0,
+         "firstgid":257,
+         "grid":
+            {
+             "height":1,
+             "orientation":"orthogonal",
+             "width":1
+            },
+         "margin":0,
+         "name":"sky",
+         "spacing":0,
+         "tilecount":10,
+         "tileheight":540,
+         "tiles":[
+                {
+                 "id":0,
+                 "image":"..\/sprites\/environment\/sky47\/47_PixelSky_layer02.png",
+                 "imageheight":135,
+                 "imagewidth":240
+                }, 
+                {
+                 "id":1,
+                 "image":"..\/sprites\/environment\/sky47\/47_PixelSky_layer01.png",
+                 "imageheight":135,
+                 "imagewidth":240
+                }, 
+                {
+                 "id":2,
+                 "image":"..\/sprites\/environment\/sky47\/47_PixelSky_layer03.png",
+                 "imageheight":135,
+                 "imagewidth":240
+                }, 
+                {
+                 "id":5,
+                 "image":"..\/sprites\/environment\/sky14\/14_PixelSky_layer02BIG.png",
+                 "imageheight":540,
+                 "imagewidth":960
+                }, 
+                {
+                 "id":6,
+                 "image":"..\/sprites\/environment\/sky14\/14_PixelSky_layer01BIG.png",
+                 "imageheight":540,
+                 "imagewidth":960
+                }, 
+                {
+                 "id":7,
+                 "image":"..\/sprites\/environment\/sky32\/32_PixelSky_layer02.png",
+                 "imageheight":135,
+                 "imagewidth":240
+                }, 
+                {
+                 "id":8,
+                 "image":"..\/sprites\/environment\/sky33\/33_PixelSky_layer04.png",
+                 "imageheight":135,
+                 "imagewidth":240
+                }, 
+                {
+                 "id":9,
+                 "image":"..\/sprites\/environment\/sky34\/34_PixelSky_layer01.png",
+                 "imageheight":135,
+                 "imagewidth":240
+                }, 
+                {
+                 "id":10,
+                 "image":"..\/sprites\/environment\/sky16\/16_PixelSky_layer02.png",
+                 "imageheight":135,
+                 "imagewidth":240
+                }, 
+                {
+                 "id":11,
+                 "image":"..\/sprites\/environment\/sky47\/45_PixelSky_layer03.png",
+                 "imageheight":135,
+                 "imagewidth":240
+                }],
+         "tilewidth":960
         }],
  "tilewidth":16,
  "type":"map",

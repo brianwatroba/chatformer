@@ -27,6 +27,10 @@ export default class ChatJumpLevel extends Phaser.Scene {
         createEnemyAnims(this.anims);
         createItemAnims(this.anims);
 
+        // this.sys.game.physics.arcade.TILE_BIAS = 32;
+        console.log(this.physics.world.TILE_BIAS)
+        this.physics.world.TILE_BIAS = 32;
+
         //Create Sound Effects
         this.sound.add("jump", { loop: false });
 
@@ -59,8 +63,8 @@ export default class ChatJumpLevel extends Phaser.Scene {
             if (object.name === "Finish") {
                 var checkpoint = this.physics.add.sprite(object.x + object.width / 2,
                     object.y - object.height / 2, "flag_idle")
-                checkpoint.body.width = checkpoint.body.width/2;    
-                checkpoint.body.setOffset(15,0)
+                checkpoint.body.width = checkpoint.body.width / 2;
+                checkpoint.body.setOffset(15, 0)
                 checkpoint.body.setAllowGravity(false);
                 checkpoint.anims.play("flag_idle")
 
@@ -71,12 +75,12 @@ export default class ChatJumpLevel extends Phaser.Scene {
                     null,
                     this
                 );
-                
+
             }
         });
-        
+
         //set world bounds according to map
-        this.physics.world.setBounds(0,0, map.widthInPixels, map.heightInPixels);
+        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
 
         // Process object layers.
@@ -98,7 +102,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         // Place the player above the tile layers.
         this.player.setDepth(10);
         this.cameras.main.startFollow(this.player);
-        this.cameras.main.setBounds(0,0, map.widthInPixels, map.heightInPixels);
+        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.setZoom(1);
 
         if (this.debug) {
@@ -113,13 +117,13 @@ export default class ChatJumpLevel extends Phaser.Scene {
         else if (platform.body.touching.up) {
             player.jumpCount = 0;
 
-            this.time.delayedCall(300, function(plat) {
+            this.time.delayedCall(300, function (plat) {
                 plat.body.setAllowGravity(true);
                 plat.messageDisplayName.body.setAllowGravity(true);
             }, [platform], this);
-            
+
         }
-        
+
     }
 
     collideFinishZone(player, zone) {
