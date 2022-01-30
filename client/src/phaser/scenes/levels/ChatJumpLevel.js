@@ -170,4 +170,12 @@ export default class ChatJumpLevel extends Phaser.Scene {
         this.messageController.update();
         this.gameClock.update();
     }
+
+    getCameraRightSide() {
+        return this.cameras.main.scrollX + this.sys.game.canvas.width;
+    }
+    
+    getCameraLeftSide() {
+        return this.cameras.main.scrollX;
+    }
 }

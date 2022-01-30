@@ -10,7 +10,7 @@ export default class MessagePlatform extends Phaser.GameObjects.Text {
     BOOST_WIDTH_CUTOFF = 200; //words smaller than 200 will be blue and boosty
     direction = 1; //1 is right, -1 is left
     initialized = false;
-    
+    Y_SPAWN_BIAS = -100; // how much above the bottom of the screen to spawn words
 
     constructor(scene, x, y, message, playerX, playerY, possibleXDirections) {
         var style = {
@@ -29,6 +29,23 @@ export default class MessagePlatform extends Phaser.GameObjects.Text {
         console.log('messageplatform update()')
     }
 
+    deleteIfDone() {
+        if (this.body.velocity.x == 0) {
+            this.destroy();
+            return true;
+        }
+        else if (this.xDirection === -1 && this.body.position.x + this.body.width < this.scene.getCameraLeftSide()) {
+            this.destroy();
+            return true;
+        }
+        else if (this.xDirection === 1 && this.body.position.x > this.scene.getCameraRightSide()) {
+            this.destroy();
+            return true;
+        }
+        return false;
+        
+    }
+
     setUp() {
         this.xDirection = this.possibleXDirections[Math.floor(Math.random() * this.possibleXDirections.length)]
         
@@ -41,8 +58,8 @@ export default class MessagePlatform extends Phaser.GameObjects.Text {
             );    
         }
 
-        this.setX(this.getXPosition(this.playerX));
-        this.setY(this.playerY + 200 - 800 * Math.random())
+        this.setX(this.getXStartPosition());
+        this.setY(this.Y_SPAWN_BIAS + this.scene.cameras.main.scrollY + Math.random() * this.scene.sys.canvas.height )
 
         this.body.setVelocityX(
             this.xDirection *
@@ -59,12 +76,12 @@ export default class MessagePlatform extends Phaser.GameObjects.Text {
         this.messageDisplayName = new MessageTag(this.scene, this.message.displayName, this)
     }
 
-    getXPosition(playerX) {
+    getXStartPosition() {
         if (this.xDirection === -1) {
-            return playerX + this.scene.sys.game.canvas.width * .8;
+            return this.scene.getCameraRightSide();
         }
         else if (this.xDirection === 1) {
-            return playerX - this.scene.sys.game.canvas.width * .8 - this.body.width
+            return this.scene.getCameraLeftSide() - this.body.width;
         }
     }
 }
