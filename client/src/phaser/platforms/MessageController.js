@@ -1,6 +1,8 @@
 import MessagePlatform from './MessagePlatform';
 
 export class MessageController {
+    GARBAGE_COLLECT_TIMER = 300; //timer in update cycles to run garbage collect
+
     constructor(scene, client, xDirections) {
         this.scene = scene
         this.messages = []
@@ -10,8 +12,10 @@ export class MessageController {
                 obj.setUp()
             }
         });
+        this.group.maxSize = 100;
         this.initClient(client)
         this.possibleXDirections = xDirections;
+        this.garbageCollectTimer = 0;
     }
 
     // TODO: client is currently initialized in Start scene and passed via SceneManager.
@@ -34,7 +38,22 @@ export class MessageController {
         if (this.messages.length > 0) {
             this._ingestMessage(this.messages.shift(), player);
         }
+        if (this.garbageCollectTimer++ > this.GARBAGE_COLLECT_TIMER) {
+            this.garbageCollectTimer = 0;
+            this.garbageCollect();   
+        }
     }
+
+    garbageCollect() {
+        var children = this.group.getChildren();
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            var deleted = child.deleteIfDone()
+            if (deleted) {
+                i--;
+            }
+        }
+    } 
 
     _ingestMessage(message, player) {
         const messagePlatform = new MessagePlatform(this.scene, 0, 0, message, player.x, player.y, this.possibleXDirections)
