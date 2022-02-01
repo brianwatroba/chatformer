@@ -91,7 +91,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         // Process object layers.
         const enemyLayer = map.getObjectLayer("Enemies");
         if (enemyLayer && enemyLayer.objects) {
-            this.enemiesController.init(enemyLayer, groundLayer, this.player);
+            this.enemiesController.init(enemyLayer, groundLayer);
         }
 
         // Process Background object layers

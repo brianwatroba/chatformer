@@ -46,7 +46,7 @@ export default class EnemiesController {
         sceneEvents.emit('player-hit-bird', bird)
     }
 
-    addFireWall(x, y, width, height) {
+    addFireWall(x, y, width, height, player) {
         this.firewalls = this.scene.physics.add.group({
             classType: FireBall,
         });
@@ -62,5 +62,16 @@ export default class EnemiesController {
 
             }    
         }
+
+        this.scene.physics.add.collider(
+            player,
+            this.firewalls,
+            this.handleFirewallCollision,
+            undefined, this
+        )
+    }
+
+    handleFirewallCollision(player, fireball) {
+        sceneEvents.emit('player-hit', 100);
     }
 }
