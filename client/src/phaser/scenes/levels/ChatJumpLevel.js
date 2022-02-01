@@ -21,7 +21,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         this.messageController = new MessageController(this, data.client, this.levelId === "Level2" ? [-1] : [-1, 1]);
         this.enemiesController = new EnemiesController(this);
         this.backgroundController = new BackgroundController(this);
-        this.previousRunningTime = data.runningTimeSeconds ? data.runningTimeSeconds : 0;
+        this.previousRunningTimeMS = data.runningTimeMS ? data.runningTimeMS : 0;
     }
 
     create() {
@@ -91,7 +91,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         // Process object layers.
         const enemyLayer = map.getObjectLayer("Enemies");
         if (enemyLayer && enemyLayer.objects) {
-            this.enemiesController.init(enemyLayer, groundLayer);
+            this.enemiesController.init(enemyLayer, groundLayer, this.player);
         }
 
         // Process Background object layers
@@ -122,7 +122,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
         this.gameClock = this.add.gameclock({
             scene: this,
             timerEvent: this.timerEvent,
-            runningTimeSeconds: this.previousRunningTime
+            runningTimeMS: this.previousRunningTimeMS
         });
     }
 
@@ -153,7 +153,7 @@ export default class ChatJumpLevel extends Phaser.Scene {
     startLevel(nextLevelId) {
         this.scene.start(nextLevelId, {
             client: this.client,
-            runningTimeSeconds: this.timerEvent.getElapsedSeconds() + this.previousRunningTime
+            runningTimeMS: this.timerEvent.getElapsed() + this.previousRunningTimeMS
         });
     }
 

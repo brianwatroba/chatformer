@@ -110,6 +110,6 @@ export default class Preloader extends Phaser.Scene {
 
         // Connect to chat, pass client object to first level
         this.client = await connectToChat(this.streamer);
-        this.scene.start("Level4", { client: this.client });
+        this.scene.start("Level1", { client: this.client });
     }
 }
