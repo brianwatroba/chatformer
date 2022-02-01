@@ -30,7 +30,7 @@ export default class MessagePlatform extends Phaser.GameObjects.Text {
     }
 
     deleteIfDone() {
-        if (this.body.velocity.x == 0) {
+        if (this.body.velocity.x === 0) {
             this.destroy();
             return true;
         }

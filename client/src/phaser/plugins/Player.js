@@ -64,7 +64,7 @@ export class Player extends Phaser.GameObjects.Sprite {
         console.log('player hit with damage: ' + damage)
         if (damage <= 0) return
         this.health = Math.max(this.health - damage, 0)
-        if (this.health == 0) {
+        if (this.health === 0) {
             sceneEvents.emit('player-death')
         }
     }
