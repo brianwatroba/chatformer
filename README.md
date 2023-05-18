@@ -50,19 +50,21 @@ Chat Jump is our first prototype in a suite of new games to bring streamers and 
 
 ## Use cases and examples
 
-Day9, a famous Twitch streamer and gaming industry personality has played Chat Jump on his stream to engage with his viewers.
+**Day9:** Sean Plott, a famous Twitch streamer and gaming industry personality, has played Chat Jump on his stream to engage with his viewers.
 
-Other gaming creators like to use Chat Jump as a relaxed way to "just chat" with their viewers, whether in between competitive games or as an alternative to just talking to the camera.
+**Other gaming creators:** many creators use Chat Jump as a relaxed way to "just chat" with their viewers, whether in between competitive games or as an alternative to just talking to the camera.
 
-![](./client/public/assets/day9video.mp4)
+<video autoplay muted loop>
+  <source src="client/public/assets/day9video.mp4" type="video/mp4">
+</video>
 
 ## How it works
 
-1.  Streamer navigates to Chat Jump web app
-2.  Streamer logs in via Twitch (OAuth), connects to their own stream, and starts to play
-3.  Viewers chat via Twitch as normal
-4.  Viewer chat messages show up dynamically in the Chat Jump game, and the streamer can jump on chat messages (as platforms) to get as high as possible, scoring points
-5.  Streamer and viewers collaborate to get the highest score, competiting with other streamers and their communities
+1. **Open app:** streamer navigates to Chat Jump web app
+2. **Start game:** streamer logs in via Twitch (OAuth), connects to their own stream, and starts to play
+3. **Viewers chat:** viewers chat via Twitch as normal
+4. **Chat becomes game platforms:** viewer chat messages show up dynamically in the Chat Jump game, and the streamer can jump on chat messages (as platforms) to get as high as possible, scoring points
+5. **Play and compete**: streamer and viewers collaborate to get the highest score, competiting with other streamers and their communities
 
 ## Local setup
 
