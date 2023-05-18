@@ -51,11 +51,9 @@ Chat Jump is our first prototype in a suite of new games to bring streamers and 
 
 **Day9:** Sean Plott, a famous Twitch streamer and gaming industry personality, has played Chat Jump on his stream to engage with his viewers.
 
-**Other gaming creators:** many creators use Chat Jump as a relaxed way to "just chat" with their viewers, whether in between competitive games or as an alternative to just talking to the camera.
+<img src="./client/public/assets/day9gif.gif"/>
 
-<video autoplay muted loop>
-  <source src="https://chatjump.herokuapp.com/assets/day9video.mp4" type="video/mp4">
-</video>
+**Other gaming creators:** many creators use Chat Jump as a relaxed way to "just chat" with their viewers, whether in between competitive games or as an alternative to just talking to the camera.
 
 ## How it works
 
